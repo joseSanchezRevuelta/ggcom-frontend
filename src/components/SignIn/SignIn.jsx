@@ -58,6 +58,7 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
                 <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <form class="max-w-md mx-auto my-10 font-bold-600">
                 {/* <p class="text-red-500 text-sm text-center">Incorrect data</p> */}
+                {/* <p>prueba</p> */}
                   <div class="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label class="block text-white text-sm font-bold mb-2" for="email">
                       Email
