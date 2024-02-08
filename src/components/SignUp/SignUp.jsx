@@ -8,6 +8,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
 
   const cancelButtonRef = useRef(null)
 
+  //OPen modals
   const handleButtonSignIn = () => {
     setOpenSignIn(true);
     setOpenSignUp(false);
