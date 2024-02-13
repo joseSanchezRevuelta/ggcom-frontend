@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-// import Home from './Home';
+import Home from './pages/Home/Home.jsx';
 import Explore from './pages/Explore/Explore.jsx';
 import MyCommunities from './pages/MyCommunities/MyCommunities.jsx';
 import Games from './pages/Games/Games.jsx';
 import AboutUs from './pages/AboutUs/AboutUs.jsx';
 import Community from './pages/Community/Community.jsx';
+import Profile from './pages/Profile/Profile.jsx';
 
 function Router() {
   return (
@@ -13,7 +14,7 @@ function Router() {
       <Route
         path="/"
         element={
-          <h3 className="mt-20">Home</h3>
+          <Home />
         } />
 
       <Route
@@ -50,6 +51,12 @@ function Router() {
         path="community/:id"
         element={
           <Community />
+        } />
+
+      <Route  //Esta ruta hay que protegerla
+        path="/profile"
+        element={
+          <Profile />
         } />
 
     </Routes>

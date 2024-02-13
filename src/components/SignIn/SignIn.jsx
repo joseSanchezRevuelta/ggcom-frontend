@@ -60,7 +60,7 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
                   {/* <p className="text-red-500 text-sm text-center">Incorrect data</p> */}
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
-                      Email
+                      Email or Username
                     </label>
                     <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="email" type="text" placeholder="Email" />
                   </div>

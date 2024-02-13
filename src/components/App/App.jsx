@@ -9,8 +9,8 @@ function App() {
   return (
     <>
       <Nav openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} />
-      {/* <script type="text/javascript" src="../node"></script>
-      <script type="text/javascript" src="../../../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> */}
+      <script type="text/javascript" src="../node"></script>
+      <script type="text/javascript" src="../../../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script>
     </>
   )
 }

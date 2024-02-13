@@ -3,7 +3,7 @@ import Communityfull from '../../components/CommunityFull/CommunityFull.jsx'
 function Community() {
     return (
         <>
-            <div className='bg-neutral-950'>
+            <div className='bg-neutral-950 min-h-screen'>
                 <Communityfull />
             </div>
         </>
