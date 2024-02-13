@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'main': '#349988'
+        'main': '#349988',
+        'main2': '#42BFAA'
       },
       backgroundColor: {
         'main': '#349988',
@@ -20,6 +21,9 @@ export default {
         'main': '#349988'
       },
       borderColor: {
+        'main': '#349988'
+      },
+      ringColor: {
         'main': '#349988'
       }
     },

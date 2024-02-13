@@ -1,0 +1,13 @@
+.communitySimple {
+    /* align-content: space-between; */
+    min-height: 420px;
+    max-height: 420px;
+}
+
+.name_community {
+    height: 100px;
+}
+
+/* .community_data {
+    min-height: 200px;
+} */

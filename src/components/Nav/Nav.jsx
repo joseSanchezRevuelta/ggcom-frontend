@@ -1,19 +1,48 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from "react-router-dom";
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import './Nav.css';
 import SignIn from '../SignIn/SignIn.jsx';
 import SignUp from '../SignUp/SignUp.jsx';
 
-const navigation = [
-    { name: 'Home', href: '/', current: true }, { name: 'Explore', href: '/explore', current: false }, { name: 'My Communities', href: '/mycommunities', current: false }, { name: 'Games', href: '/games', current: false }, { name: 'Shop', href: '/shop', current: false }, { name: 'About Us', href: '/aboutus', current: false }
-]
+// const navigation = [
+//     { name: 'Home', href: '/', current: true }, { name: 'Explore', href: '/explore', current: false }, { name: 'My Communities', href: '/mycommunities', current: false }, { name: 'Games', href: '/games', current: false }, { name: 'Shop', href: '/shop', current: false }, { name: 'About Us', href: '/aboutus', current: false }
+// ]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
+
+    const location = useLocation();
+
+    const [navigation, setNavigation] = useState([
+        { name: 'Home', href: '/', current: true },
+        { name: 'Explore', href: '/explore', current: false },
+        { name: 'My Communities', href: '/mycommunities', current: false },
+        { name: 'Games', href: '/games', current: false },
+        // { name: 'Shop', href: '/shop', current: false },
+        { name: 'About Us', href: '/aboutus', current: false }
+    ]);
+
+    //   const handleNavLinkClick = (name) => {
+    //     const updatedNavigation = navigation.map((item) => ({
+    //       ...item,
+    //       current: item.name === name
+    //     }));
+    //     setNavigation(updatedNavigation);
+    //   };
+
+    useEffect(() => {
+        const updatedNavigation = navigation.map((item) => ({
+            ...item,
+            current: item.href === location.pathname
+        }));
+        setNavigation(updatedNavigation);
+    }, [location.pathname, navigation]);
 
     return (
         <>
@@ -39,11 +68,11 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                 </div>
                                 {/* Menu nav full screen*/}
                                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                                    <div className="flex flex-shrink-0 items-center">
+                                    <div className="">
                                         <Link to="/">
                                             <img
-                                                className="h-8 w-auto hover:colorviolet-300"
-                                                src="https://tailwindui.com/img/logos/mark.svg?color=violet&shade=500"
+                                                className="h-8 w-auto hover:border border-transparent"
+                                                src="/img/logo.png"
                                                 alt="Your Company"
                                             />
                                         </Link>
@@ -54,11 +83,11 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                                 <Link
                                                     key={item.name}
                                                     to={item.href}
+                                                    activeClassName="active"
                                                     className={classNames(
-                                                        item.current ? 'text-main hover:bg-main hover:text-white' : 'text-white hover:bg-main hover:text-white',
+                                                        item.current ? 'text-main2 hover:bg-main hover:text-white' : 'text-white hover:bg-main hover:text-white',
                                                         'rounded-md px-3 py-2 text-sm font-medium'
                                                     )}
-                                                    // aria-current={item.current ? 'page' : undefined}
                                                 >
                                                     {item.name}
                                                 </Link>
@@ -83,11 +112,12 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                         key={item.name}
                                         // as="a"
                                         to={item.href}
+                                        activeClassName="active"
                                         className={classNames(
-                                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                            item.current ? 'text-main2 hover:bg-neutral-800 hover:text-main2' : 'text-white hover:bg-main hover:text-white',
                                             'block rounded-md px-3 py-2 text-base font-medium'
                                         )}
-                                        // aria-current={item.current ? 'page' : undefined}
+                                    // aria-current={item.current ? 'page' : undefined}
                                     >
                                         {item.name}
                                     </Link>
