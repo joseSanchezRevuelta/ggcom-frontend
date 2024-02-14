@@ -1,33 +1,55 @@
 /* eslint-disable react/prop-types */
 import './SignIn.css';
-import { Fragment } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
 
-  // const cancelButtonRef = useRef(null)
+  const emailRef = useRef(null);
 
-  //Open modals
-  const handleButtonSignUp = () => {
-    setOpenSignUp(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    setEmail('')
+    setPassword('')
+    setError('')
+    const timeoutId = setTimeout(() => {
+      if (emailRef.current) {
+        emailRef.current.focus();
+      }
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [openSignIn]);
+
+
+  const handleCloseSignIn = () => {
     setOpenSignIn(false);
+    setError("");
+  }
+
+  const handleButtonSignUp = () => {
+    setOpenSignIn(false);
+    setOpenSignUp(true);
+    setError("");
   };
 
-  // const [formData, setFormData] = useState({
-  //   name: '',
-  //   email: '',
-  // });
-
-  const handleChange = () => {
-    // setFormData({
-    //   ...formData,
-    //   [e.target.name]: e.target.value,
-    // });
+  const handleClick = (event) => {
+    if (email === "" || password === "") {
+      setError("Username and password required");
+      emailRef.current.focus()
+      event.preventDefault();
+    } else {
+      setError("");
+      event.preventDefault();
+    }
   };
 
   return (
     <Transition.Root show={openSignIn} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={setOpenSignIn}>
+      <Dialog as="div" className="relative z-50" onClose={handleCloseSignIn}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -57,21 +79,21 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
                 </div>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <form className="max-w-md mx-auto my-10 font-bold-600">
-                  {/* <p className="text-red-500 text-sm text-center">Incorrect data</p> */}
+                  <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
                       Email or Username
                     </label>
-                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="email" type="text" placeholder="Email" />
+                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="email" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} ref={emailRef} />
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                       Password
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="password" type="password" placeholder="Password" />
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </div>
                   <div className="text-center mt-7">
-                    <button type="submit" className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => handleChange()}>Login</button>
+                    <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleClick}>Login</button>
                   </div>
                   <div className="flex items-center justify-center my-6">
                     <a className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems logging in?</a>
