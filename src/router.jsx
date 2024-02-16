@@ -6,6 +6,7 @@ import Games from './pages/Games/Games.jsx';
 import AboutUs from './pages/AboutUs/AboutUs.jsx';
 import Community from './pages/Community/Community.jsx';
 import Profile from './pages/Profile/Profile.jsx';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 
 function Router() {
   return (
@@ -57,6 +58,12 @@ function Router() {
         path="/profile"
         element={
           <Profile />
+        } />
+
+      <Route  //Esta ruta hay que protegerla
+        path="*"
+        element={
+          <NotFoundPage />
         } />
 
     </Routes>

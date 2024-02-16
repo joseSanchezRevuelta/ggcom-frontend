@@ -1,32 +1,293 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import './SignUp.css';
-import { Fragment, useEffect, useRef } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
-  //ref a input email para focus
+
   const usernameRef = useRef(null);
 
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('')
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [errors, setErrors] = useState({
+    usernameError: false,
+    usernameErrorText: '',
+    emailError: false,
+    emailErrorText: '',
+    emailConfirmError: false,
+    emailConfirmErrorText: '',
+    passwordError: false,
+    passwordErrorText: '',
+    passwordConfirmError: false,
+    passwordConfirmErrorText: '',
+  });
+
+  //focus en username (hay que esperar 0.3 segundoos para que renderice el componente y después poder hacer foco)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (usernameRef.current) {
         usernameRef.current.focus();
       }
     }, 300);
-  
+
     return () => clearTimeout(timeoutId);
   }, [openSignUp]);
-  
 
+  //Cuando cerramos el modal
   const handleCloseSignUp = () => {
     setOpenSignUp(false);
-    // setError("");
+    setUsername('')
+    setEmail('')
+    setConfirmEmail('')
+    setPassword('')
+    setConfirmPassword('')
+    setErrors({
+      usernameError: false,
+      usernameErrorText: '',
+      emailError: false,
+      emailErrorText: '',
+      emailConfirmError: false,
+      emailConfirmErrorText: '',
+      passwordError: false,
+      passwordErrorText: '',
+      passwordConfirmError: false,
+      passwordConfirmErrorText: '',
+    });
   }
 
-  //OPen modals
+  //Cuando pulsamos a signin
   const handleButtonSignIn = () => {
-    setOpenSignIn(true);
-    setOpenSignUp(false);
+    handleCloseSignUp()
+    setOpenSignIn(true)
+  };
+
+  useEffect(() => {
+    checkUsername();
+    checkEmail();
+    checkPassword();
+  }, [username, email, confirmEmail, password, confirmPassword]);
+
+  //Check Username
+  const checkUsername = () => {
+    if (username === '') {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: false,
+        usernameErrorText: '',
+      }));
+    } else if (username.length < 5) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: true,
+        usernameErrorText: 'Username is too sort (min 5)',
+      }));
+    } else if (username.length > 20) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: true,
+        usernameErrorText: 'Username is too long (max 20)',
+      }));
+    } else {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: false,
+        usernameErrorText: '',
+      }));
+    }
+  }
+
+  //Check Email
+  const checkEmail = () => {
+    let expReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (email == '') {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: false,
+        emailConfirmError: false,
+        emailErrorText: '',
+        emailConfirmErrorText: '',
+      }));
+    } else if (expReg.test(email) === false) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: true,
+        emailConfirmError: false,
+        emailErrorText: 'Email must be valid',
+        emailConfirmErrorText: '',
+      }));
+    } else if (confirmEmail != email) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: false,
+        emailConfirmError: true,
+        emailErrorText: '',
+        emailConfirmErrorText: 'Email must match',
+      }));
+    } else if (confirmEmail == email) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: false,
+        emailConfirmError: false,
+        emailErrorText: '',
+        emailConfirmErrorText: '',
+      }));
+    }
+  }
+
+  //Check Password
+  const checkPassword = () => {
+    if (password === '') {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: false,
+        passwordConfirmError: false,
+        passwordErrorText: '',
+        passwordConfirmErrorText: '',
+      }));
+    } else if (confirmPassword != password) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: false,
+        passwordConfirmError: true,
+        passwordErrorText: '',
+        passwordConfirmErrorText: 'Password must match',
+      }));
+    } else {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: false,
+        passwordConfirmError: false,
+        passwordErrorText: '',
+        passwordConfirmErrorText: '',
+      }));
+    }
+  }
+
+  //Validamos el formulario y enviamos
+  const handleSubmit = (event) => {
+    let errorUsername = 0
+    let errorEmail = 0
+    let errorPassword = 0
+    //Username
+    if (username === "") {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: true,
+        usernameErrorText: 'Username required',
+      }));
+      errorUsername++
+    } else if (username.length > 20) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: true,
+        usernameErrorText: 'Username is too long (max 20)',
+      }));
+      errorUsername++
+    } else {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: false,
+        usernameErrorText: '',
+      }));
+      errorUsername = 0
+    }
+    //Email
+    let expRegEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (email === "") {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: true,
+        emailErrorText: 'Email required',
+      }));
+      errorEmail++
+    } else if (expRegEmail.test(email) === false) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: true,
+        emailErrorText: 'Email must be valid',
+      }));
+      errorEmail++
+    } else if (confirmEmail != email) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: false,
+        emailConfirmError: true,
+        emailErrorText: '',
+        emailConfirmErrorText: 'Email must match',
+      }));
+      errorEmail++
+    } else {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        emailError: false,
+        emailConfirmError: false,
+        emailErrorText: '',
+        emailConfirmErrorText: '',
+      }));
+      errorEmail = 0
+    }
+    //Password
+    let expRegPass = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,30}$/
+    if (password === "") {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: true,
+        passwordErrorText: 'Password required',
+      }));
+      errorPassword++
+    } else if (password.length < 5) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: true,
+        passwordErrorText: 'Password is too sort (min 5)',
+      }));
+      errorPassword++
+    } else if (password.length > 20) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: true,
+        passwordErrorText: 'Password is too long (max 20)',
+      }));
+      errorPassword++
+    } else if (expRegPass.test(password) === false) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: true,
+        passwordErrorText: 'Required: 1 uppercase, 1 lowercase, 1 number, 1 special character (@, $, !, %, *, ?, &, .)',
+      }));
+    } else if (confirmPassword != password) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: false,
+        passwordConfirmError: true,
+        passwordErrorText: '',
+        passwordConfirmErrorText: 'Password must match',
+      }));
+      errorPassword++
+    } else {
+      errorPassword = 0
+    }
+    if (errorUsername === 0 && errorEmail === 0 && errorPassword === 0) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        usernameError: false,
+        usernameErrorText: '',
+        emailError: false,
+        emailErrorText: '',
+        emailConfirmError: false,
+        emailConfirmErrorText: '',
+        passwordError: false,
+        passwordErrorText: '',
+        passwordConfirmError: false,
+        passwordConfirmErrorText: ''
+      }));
+      event.preventDefault();
+    }
+    event.preventDefault();
   };
 
   return (
@@ -55,7 +316,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('../../public/img/signup.jpg')] bg-cover bg-no-repeat bg-center bg-neutral-600 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signup.jpg')] bg-cover bg-no-repeat bg-center bg-neutral-600 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
                 <div className="p-4 flex items-center justify-center">
                   <span className="text-white font-bold">Sign up to GGCOM</span>
                 </div>
@@ -65,42 +326,47 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                       Username:
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="username" type="text" placeholder="Username" ref={usernameRef} />
+                    <input className={`shadow appearance-none ${errors.usernameError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="username" type="text" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value); checkUsername(e.target.value); }} ref={usernameRef} />
+                    <small className="text-red-400">{errors.usernameErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
                       Email:
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="email" type="text" placeholder="Email" />
+                    <input className={`shadow appearance-none ${errors.emailError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="email" type="text" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); checkEmail(e.target.value); }} />
+                    <small className="text-red-400">{errors.emailErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="confirmEmail">
                       Confirm Email
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="confirmEmail" type="text" placeholder="Confirm Email" />
+                    <input className={`shadow appearance-none ${errors.emailConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="confirmEmail" type="text" placeholder="Confirm Email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
+                    <small className="text-red-400">{errors.emailConfirmErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                       Password
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="password" type="text" placeholder="Password" />
+                    <input type='password' className={`shadow appearance-none ${errors.passwordError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); checkPassword(e.target.value); }} />
+                    <small className="text-red-400">{errors.passwordErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="confirmPassword">
                       Confirm Password
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="confirmPassword" type="text" placeholder="Confirm Password" />
+                    <input type='password' className={`shadow appearance-none ${errors.passwordConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main`} id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <small className="text-red-400">{errors.passwordConfirmErrorText}</small>
                   </div>
                   <div className="text-center">
-                    <span className="display: block text-xs p-4 font-bold text-white">By clicking register, you indicate that you have read and accept the<br></br><a href='#' className="text-main hover:text-purple-600">Terms and Conditions </a>and the <a href='#' className="text-main hover:text-purple-600">Privacy Policy</a></span>
+                    <span className="display: block text-xs p-4 font-bold text-white">By clicking register, you indicate that you have read and accept the<br></br><a href='#' className="text-main2 hover:text-purple-600">Terms and Conditions </a>and the <a href='#' className="text-main2 hover:text-purple-600">Privacy Policy</a></span>
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="text-white bg-blue-700 font-bold hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenSignUp(false)}>Sign up</button>
+                    <button type="submit" className="text-white bg-blue-700 font-bold hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Sign up</button>
                   </div>
                 </form>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div className="p-4 flex items-center justify-center">
-                  <span className="font-bold text-sm text-white">You have an account? <a href="#" className="text-main hover:text-purple-600 text-base ml-1" onClick={() => handleButtonSignIn()}>Login</a></span>
+                  <span className="font-bold text-sm text-white">You have an account? <a href="#" className="text-main2 hover:text-purple-600 text-base ml-1" onClick={() => handleButtonSignIn()}>Login</a></span>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

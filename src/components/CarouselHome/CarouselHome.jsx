@@ -21,7 +21,6 @@ function CarouselHome() {
 
   return (
     <>
-
       <div
         id="carouselExampleCaptions"
         className="relative flex justify-center pt-36 w-9/12 mx-auto bg-yellow-500"
