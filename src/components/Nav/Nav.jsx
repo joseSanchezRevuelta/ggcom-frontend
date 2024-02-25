@@ -6,6 +6,8 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import './Nav.css';
 import SignIn from '../SignIn/SignIn.jsx';
 import SignUp from '../SignUp/SignUp.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUserData } from '../../features/users/usersSlice.js';
 
 // const navigation = [
 //     { name: 'Home', href: '/', current: true }, { name: 'Explore', href: '/explore', current: false }, { name: 'My Communities', href: '/mycommunities', current: false }, { name: 'Games', href: '/games', current: false }, { name: 'Shop', href: '/shop', current: false }, { name: 'About Us', href: '/aboutus', current: false }
@@ -16,6 +18,15 @@ function classNames(...classes) {
 }
 
 function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
+    const userState = useSelector(state => state.user)
+    console.log(userState)
+
+    const dispatch = useDispatch();
+
+    const handleLogOut = () => {
+        localStorage.removeItem("token_ggcom");
+        dispatch(clearUserData());
+      };
 
     const location = useLocation();
 
@@ -23,26 +34,10 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
         { name: 'Home', href: '/', current: true },
         { name: 'Explore', href: '/explore', current: false },
         { name: 'My Communities', href: '/mycommunities', current: false },
-        { name: 'Games', href: '/games', current: false },
+        // { name: 'Games', href: '/games', current: false },
         // { name: 'Shop', href: '/shop', current: false },
         { name: 'About Us', href: '/aboutus', current: false }
     ]);
-
-    //   const handleNavLinkClick = (name) => {
-    //     const updatedNavigation = navigation.map((item) => ({
-    //       ...item,
-    //       current: item.name === name
-    //     }));
-    //     setNavigation(updatedNavigation);
-    //   };
-
-    // useEffect(() => {
-    //     const updatedNavigation = navigation.map((item) => ({
-    //         ...item,
-    //         current: item.href === location.pathname
-    //     }));
-    //     setNavigation(updatedNavigation);
-    // }, [location.pathname, navigation]);
 
     useEffect(() => {
         const updatedNavigation = navigation.map((item) => ({
@@ -50,9 +45,17 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
             current: item.href === location.pathname
         }));
         setNavigation(updatedNavigation);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
-    
+
+    const handleCreateCommunity = (event) => {
+        let isLogin = true
+        if (!isLogin) {
+            event.preventDefault();
+            setOpenSignIn(true)
+        }
+    }
+
 
     return (
         <>
@@ -106,9 +109,25 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                     </div>
                                 </div>
                                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenSignIn(true)}>
-                                        Login
-                                    </button>
+                                    <Link key='logout'className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={handleLogOut}>
+                                        Log out
+                                    </Link>
+                                </div>
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                                    <Link key='createcommunity' to='createcommunity' activeclassname="active" className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={handleCreateCommunity}>
+                                        Create Community
+                                    </Link>
+                                </div>
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                                    {Object.keys(userState.userData).length ? (
+                                        <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2">
+                                            Profile
+                                        </button>
+                                    ) : (
+                                        <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenSignIn(true)}>
+                                            Login
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>

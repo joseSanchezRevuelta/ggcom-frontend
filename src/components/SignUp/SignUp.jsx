@@ -140,12 +140,37 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
 
   //Check Password
   const checkPassword = () => {
+    let expRegPass = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,30}$/
     if (password === '') {
       setErrors(prevErrors => ({
         ...prevErrors,
         passwordError: false,
         passwordConfirmError: false,
         passwordErrorText: '',
+        passwordConfirmErrorText: '',
+      }));
+    } else if (password.length < 5) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: true,
+        passwordErrorText: 'Password is too sort (min 5)',
+        passwordConfirmError: false,
+        passwordConfirmErrorText: '',
+      }));
+    } else if (password.length > 20) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: true,
+        passwordErrorText: 'Password is too long (max 20)',
+        passwordConfirmError: false,
+        passwordConfirmErrorText: '',
+      }));
+    } else if (expRegPass.test(password) === false) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        passwordError: true,
+        passwordErrorText: 'Required: 1 uppercase, 1 lowercase, 1 number, 1 special character (@, $, !, %, *, ?, &, .)',
+        passwordConfirmError: false,
         passwordConfirmErrorText: '',
       }));
     } else if (confirmPassword != password) {
@@ -237,6 +262,8 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
         ...prevErrors,
         passwordError: true,
         passwordErrorText: 'Password required',
+        passwordConfirmError: false,
+        passwordConfirmErrorText: '',
       }));
       errorPassword++
     } else if (password.length < 5) {
@@ -244,6 +271,8 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
         ...prevErrors,
         passwordError: true,
         passwordErrorText: 'Password is too sort (min 5)',
+        passwordConfirmError: false,
+        passwordConfirmErrorText: '',
       }));
       errorPassword++
     } else if (password.length > 20) {
@@ -251,6 +280,8 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
         ...prevErrors,
         passwordError: true,
         passwordErrorText: 'Password is too long (max 20)',
+        passwordConfirmError: false,
+        passwordConfirmErrorText: '',
       }));
       errorPassword++
     } else if (expRegPass.test(password) === false) {
@@ -258,6 +289,8 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
         ...prevErrors,
         passwordError: true,
         passwordErrorText: 'Required: 1 uppercase, 1 lowercase, 1 number, 1 special character (@, $, !, %, *, ?, &, .)',
+        passwordConfirmError: false,
+        passwordConfirmErrorText: '',
       }));
     } else if (confirmPassword != password) {
       setErrors(prevErrors => ({

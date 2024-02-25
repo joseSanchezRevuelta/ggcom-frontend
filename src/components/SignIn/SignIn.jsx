@@ -1,10 +1,17 @@
-/* eslint-disable react/prop-types */
 import './SignIn.css';
-import { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRepository } from '../../features/users/usersRepository';
+import { userdAuth } from '../../features/users/usersSlice';
 
 const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
+  const deviceName = import.meta.env.VITE_DEVICE_BAME;
 
+  // dispatch
+  const dispatch = useDispatch();
+  const  loginState  = useSelector(state => state.user)  
+  
   const emailRef = useRef(null);
 
   const [email, setEmail] = useState('');
@@ -15,6 +22,7 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
     setEmail('')
     setPassword('')
     setError('')
+    // espero 0.3 seg para el renderizado
     const timeoutId = setTimeout(() => {
       if (emailRef.current) {
         emailRef.current.focus();
@@ -23,7 +31,6 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
 
     return () => clearTimeout(timeoutId);
   }, [openSignIn]);
-
 
   const handleCloseSignIn = () => {
     setOpenSignIn(false);
@@ -44,6 +51,92 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
     } else {
       setError("");
       event.preventDefault();
+
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+          // 'Authorization': 'Bearer token'
+        },
+        body: JSON.stringify(
+            {
+              "data": {
+                  "attributes": {
+                      "email": email,
+                      "password": password,
+                      "device_name": deviceName
+                  }
+              }
+          }
+        )
+      };
+      
+      // eslint-disable-next-line no-inner-declarations
+      async function fetchData() {
+        try {
+          const data = await dispatch(userdAuth(requestOptions));
+            if (data) {
+                if (data.payload.success === true) {
+                  localStorage.setItem("token_ggcom", data.payload.token)
+                  handleCloseSignIn();
+                  // window.location.reload();
+                } else {
+                  setError("Incorrect user or password")
+                }
+            } else {
+              //ERROR
+              setError("Incorrect user or password")
+            }
+        } catch (error) {
+          //ERROR
+            console.error('Hubo un error en la solicitud:', error);
+            setError("Incorrect user or password")
+        }
+    }
+    
+    fetchData();
+    
+      
+
+      // const res = dispatch(userdAuth(requestOptions));
+      // console.log(res)
+      // console.log(res.data)
+
+      // if (res.success === false) {
+      //   setError("Incorrect user or password")
+      // } else {
+      //   // window.location.reload();
+      // }
+
+      // fetch(apiUrl+'/api/login', requestOptions)
+      // .then(response => {
+      //     if (response.status === 200) {
+      //         return response.json();
+      //     } else {
+      //         console.log('Response status:', response.status);
+      //         setError("Incorrect user or password")
+      //         return null;
+      //     }
+      // })
+      // .then(data => {
+      //     if (data) {
+      //         console.log(data);
+      //         if (data.success === true) {
+      //           window.location.reload();
+      //         } else {
+      //           setError("Incorrect user or password")
+      //         }
+      //     } else {
+      //         console.error('Unexpected response status');
+      //     }
+      // })
+      // .catch(error => {
+      //     console.error('There was a problem with the fetch operation:', error);
+      // });
+      
+      
+
     }
   };
 

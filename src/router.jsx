@@ -5,8 +5,19 @@ import MyCommunities from './pages/MyCommunities/MyCommunities.jsx';
 import Games from './pages/Games/Games.jsx';
 import AboutUs from './pages/AboutUs/AboutUs.jsx';
 import Community from './pages/Community/Community.jsx';
+import CreateCommunity from './pages/CreateCommunity/CreateCommunity.jsx';
 import Profile from './pages/Profile/Profile.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
+import { useSelector } from 'react-redux';
+
+// eslint-disable-next-line react/prop-types
+const ProtectedRoute = ({ children }) => {
+  const { userData } = useSelector(state => state.user)
+  if (Object.keys(userData).length) {
+    return children;
+  }
+  return <NotFoundPage />
+}
 
 function Router() {
   return (
@@ -14,8 +25,11 @@ function Router() {
 
       <Route
         path="/"
-        element={
-          <Home />
+        element=
+        {
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
         } />
 
       <Route
@@ -30,11 +44,11 @@ function Router() {
           <MyCommunities />
         } />
 
-      <Route
+      {/* <Route
         path="/games"
         element={
           <Games />
-        } />
+        } /> */}
 
       {/* <Route
         path="/shop"
@@ -55,12 +69,22 @@ function Router() {
         } />
 
       <Route  //Esta ruta hay que protegerla
-        path="/profile"
+        path="/createcommunity"
         element={
-          <Profile />
+          <ProtectedRoute>
+            <CreateCommunity />
+          </ProtectedRoute>
         } />
 
       <Route  //Esta ruta hay que protegerla
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+
+      <Route
         path="*"
         element={
           <NotFoundPage />
