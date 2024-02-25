@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { loginRepository } from './usersRepository'
 
 const initialState = {
-  userData: localStorage.getItem("token_ggcom") || {},
+  userData: JSON.parse(localStorage.getItem("data_ggcom")) || {},
   loading: false
 }
 

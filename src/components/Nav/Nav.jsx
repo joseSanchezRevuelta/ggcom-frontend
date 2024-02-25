@@ -19,12 +19,11 @@ function classNames(...classes) {
 
 function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
     const userState = useSelector(state => state.user)
-    console.log(userState)
 
     const dispatch = useDispatch();
 
     const handleLogOut = () => {
-        localStorage.removeItem("token_ggcom");
+        localStorage.removeItem("data_ggcom");
         dispatch(clearUserData());
       };
 

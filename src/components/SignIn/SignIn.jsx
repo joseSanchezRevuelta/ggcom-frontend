@@ -78,7 +78,7 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
           const data = await dispatch(userdAuth(requestOptions));
             if (data) {
                 if (data.payload.success === true) {
-                  localStorage.setItem("token_ggcom", data.payload.token)
+                  localStorage.setItem("data_ggcom", JSON.stringify(data.payload))
                   handleCloseSignIn();
                   // window.location.reload();
                 } else {
