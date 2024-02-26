@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function MyCommunities() {
     const userState = useSelector(state => state.user)
-    console.log(userState)
 
     return (
         <>

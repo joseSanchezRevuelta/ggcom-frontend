@@ -3,8 +3,16 @@
 import './SignUp.css';
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { userdAuth } from '../../features/users/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerRepository } from '../../features/users/usersRepository';
 
 const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
+  const deviceName = import.meta.env.VITE_DEVICE_BAME;
+
+  // dispatch
+  const dispatch = useDispatch();
+  const  loginState  = useSelector(state => state.user)  
 
   const usernameRef = useRef(null);
 
@@ -318,7 +326,110 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
         passwordConfirmError: false,
         passwordConfirmErrorText: ''
       }));
-      event.preventDefault();
+      // event.preventDefault();
+      // requestOptions
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+          // 'Authorization': 'Bearer token'
+        },
+        body: JSON.stringify(
+          {
+            "data": {
+              "attributes": {
+                "email": email,
+                "username": username,
+                "password": password,
+                "password_confirmation": confirmPassword,
+                "device_name": deviceName
+              }
+            }
+          }
+        )
+      };
+      // fetch
+      // eslint-disable-next-line no-inner-declarations
+      async function fetchData() {
+        try {
+          const response = await registerRepository(requestOptions);
+          if (response) {
+            if (response.errors && response.errors['data.attributes.email']) {
+              setErrors(prevErrors => ({
+                ...prevErrors,
+                emailError: true,
+                emailErrorText: 'Email already used',
+              }));
+              
+            }
+            if (response.errors && response.errors['data.attributes.username']) {
+              setErrors(prevErrors => ({
+                ...prevErrors,
+                usernameErrorError: true,
+                usernameErrorText: 'Username already used',
+              }));
+            }
+            if (response.errors && response.errors['data.attributes.password']) {
+              setErrors(prevErrors => ({
+                ...prevErrors,
+                // passwordError: true,
+                // passwordErrorText: 'Password must be valid',
+                passwordConfirmError: true,
+                passwordConfirmErrorText: 'Password must be valid',
+              }));
+              
+            }
+            if (response.success === true) {
+              const requestOptionsLogin = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                  // 'Authorization': 'Bearer token'
+                },
+                body: JSON.stringify(
+                    {
+                      "data": {
+                          "attributes": {
+                              "email": email,
+                              "password": password,
+                              "device_name": deviceName
+                          }
+                      }
+                  }
+                )
+              };
+              const data = await dispatch(userdAuth(requestOptionsLogin));
+              if (data) {
+                if (data.payload.success === true) {
+                  localStorage.setItem("data_ggcom", JSON.stringify(data.payload))
+                  handleCloseSignUp()
+                  // window.location.reload();
+                } else {
+                  setErrors(prevErrors => ({
+                    ...prevErrors,
+                    emailError: true,
+                    emailErrorText: 'There was a problem, try again',
+                  }));
+                }
+            } else {
+              setErrors(prevErrors => ({
+                ...prevErrors,
+                emailError: true,
+                emailErrorText: 'There was a problem, try again later',
+              }));
+            }
+            }
+          } else {
+            console.log("Ha ocurrido un error")
+          }
+        } catch (error) {
+          console.error('Hubo un error en la solicitud:', error);
+        }
+      }
+
+      fetchData();
     }
     event.preventDefault();
   };

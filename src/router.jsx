@@ -15,6 +15,10 @@ const ProtectedRoute = ({ children }) => {
   const { userData } = useSelector(state => state.user)
   if (Object.keys(userData).length) {
     return children;
+  } else if (location.pathname === '/profile') {
+    // Si el usuario no tiene datos de usuario y está en la ruta /profile,
+    // redirigirlo a la página de inicio
+    return <Home />;
   }
   return <NotFoundPage />
 }
@@ -27,9 +31,7 @@ function Router() {
         path="/"
         element=
         {
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
+          <Home />
         } />
 
       <Route
@@ -71,9 +73,7 @@ function Router() {
       <Route  //Esta ruta hay que protegerla
         path="/createcommunity"
         element={
-          <ProtectedRoute>
-            <CreateCommunity />
-          </ProtectedRoute>
+          <CreateCommunity />
         } />
 
       <Route  //Esta ruta hay que protegerla

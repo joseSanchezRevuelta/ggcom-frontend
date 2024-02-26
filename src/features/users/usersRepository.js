@@ -17,6 +17,23 @@ export async function loginRepository(requestOptions) {
     }
 }
 
+export async function registerRepository(requestOptions) {
+    try {
+        const response = await fetch(apiUrl+'/api/register', requestOptions);
+        if (response.status === 200) {
+            const data = await response.json();
+            return data;
+        } else {
+            console.error('Response status:', response.status);
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return error;
+    }
+}
+
 // export async function loginRepository(requestOptions) {
     
 //     fetch(apiUrl+'/api/login', requestOptions)
