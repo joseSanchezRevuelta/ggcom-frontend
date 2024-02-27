@@ -1,8 +1,13 @@
 import { useSelector } from 'react-redux';
 import CreateCommunityForm from '../../components/CreateCommunityForm/CreateCommunityForm.jsx'
 import Title from '../../components/Title/Title.jsx';
+import { useEffect } from 'react';
 
 function CreateCommunity() {
+    useEffect(() => {
+        window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
+      }, []);
+
     const userState = useSelector(state => state.user)
 
     return (

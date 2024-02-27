@@ -1,3 +1,11 @@
 .option_country {
     cursor: pointer;
 }
+
+.hr_select {
+    border: none;
+    background-color: #718096; /* Puedes cambiar el color aquí */
+    height: 1px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userdAuth } from '../../features/users/usersSlice';
 
 const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
-  const deviceName = import.meta.env.VITE_DEVICE_BAME;
+  const deviceName = import.meta.env.VITE_DEVICE_NAME;
 
   // dispatch
   const dispatch = useDispatch();

@@ -2,8 +2,13 @@ import Title from '../../components/Title/Title.jsx'
 import Filter from '../../components/Filter/Filter.jsx'
 import Communities from '../../components/Communities/Communities.jsx'
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 function MyCommunities() {
+    useEffect(() => {
+        window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
+      }, []);
+
     const userState = useSelector(state => state.user)
 
     return (

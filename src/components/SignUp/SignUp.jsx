@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerRepository } from '../../features/users/usersRepository';
 
 const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
-  const deviceName = import.meta.env.VITE_DEVICE_BAME;
+  const deviceName = import.meta.env.VITE_DEVICE_NAME;
 
   // dispatch
   const dispatch = useDispatch();

@@ -36,7 +36,7 @@ function CommunitySimple({ image, videogame, community, comments, members, langu
                             {/* <FlagIcon className="h-6 w-6 text-violet-600 inline-block" /><span className='ml-1'> */}
                             {/* {language} */}
                             <img
-                                src="https://flagcdn.com/w20/es.png"
+                                src="/img/world.png"
                                 srcSet="https://flagcdn.com/w40/ua.png 2x"
                                 width="20"
                                 alt="Ucrania" />

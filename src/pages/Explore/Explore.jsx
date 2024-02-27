@@ -1,8 +1,12 @@
 import Title from '../../components/Title/Title.jsx'
 import Filter from '../../components/Filter/Filter.jsx'
 import Communities from '../../components/Communities/Communities.jsx'
+import { useEffect } from 'react';
 
 function Explore() {
+    useEffect(() => {
+        window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
+      }, []);
     return (
         <>
             {/* <div className='bg-neutral-950 bg-cover bg-no-repeat bg-center bg-fixed bg-[url("../../public/img/wallpaper.jpg")]'> */}
