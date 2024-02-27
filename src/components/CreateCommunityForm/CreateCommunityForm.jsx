@@ -10,6 +10,7 @@ function CreateCommunityForm() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [game, setGame] = useState('')
+    const [image, setImage] = useState('')
     const [country, setCountry] = useState('')
     const [language, setLanguage] = useState('')
     const [timezone, setTimezone] = useState('')
@@ -23,6 +24,56 @@ function CreateCommunityForm() {
 
     const titleRef = useRef(null);
 
+    const [gameObject, setGameObject] = useState('')
+    const [gameSearch, setGameSearch] = useState('')
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleGameSelected = (game) => {
+        setIsOpen(false);
+        // Lógica adicional al seleccionar un juego
+    };
+
+    const handleOutsideClick = (event) => {
+        if (!event.target.closest(".autocomplete")) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (isOpen) {
+            document.addEventListener("click", handleOutsideClick);
+        } else {
+            document.removeEventListener("click", handleOutsideClick);
+        }
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, [isOpen]);
+
+    const changeGame = (event) => {
+        setGame(event)
+        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=5`)
+            .then(res => res.json())
+        gameSought.then(data => {
+            // Acceder a los resultados
+            const results = data.results;
+            setGameSearch(results)
+
+            // Iterar sobre los resultados para obtener los nombres
+            // results.forEach(game => {
+            //     console.log(game.name); 
+            // });
+        });
+        console.log(gameSearch)
+    }
+
+    const gameSelected = (event) => {
+        setGame(event.name)
+        setImage(event.background_image)
+        handleGameSelected(false)
+        console.log(game)
+        console.log(image)
+    }
     const [errors, setErrors] = useState({
         titleError: false,
         titleErrorText: '',
@@ -384,13 +435,31 @@ function CreateCommunityForm() {
                         />
                         <small className="text-red-400">{errors.descriptionError}</small>
                     </div>
-                    <div className="relative z-0 w-full my-10 group">
+                    {/* autoComplete */}
+                    <div className="autocomplete relative z-0 my-10 group w-1/2">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                             Game
                         </label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => setGame(e.target.value)} />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)}/>
+                        {
+                            isOpen && gameSearch && (
+                                <div className='bg-white rounded-lg shadow-lg z-50 w-full'>
+                                    <ul key="ul" className='ml-2'>
+                                        {gameSearch.map((game, index) => (
+                                            <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between py-1' key={index} onClick={() => gameSelected(game)}>
+                                                <span className="inline-block">{game.name}</span>
+                                                <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full" />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )
+                        }
+
+
                         <small className="text-red-400">{errors.gameErrorText}</small>
                     </div>
+                    {/* /autoComplete */}
                     <div className="relative z-0 w-full my-10 group">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
                             Country
