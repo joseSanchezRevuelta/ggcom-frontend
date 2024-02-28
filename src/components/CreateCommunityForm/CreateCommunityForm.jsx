@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import './CreateCommunityForm.css';
 import { useSelector } from 'react-redux';
-import { createCommunityRepository } from '../../features/communities/communityRepository';
+import { createCommunity, createCommunityRepository } from '../../features/communities/communityRepository';
 
 function CreateCommunityForm() {
-    const apiUrl = import.meta.env.VITE_URL;
     const userState = useSelector(state => state.user)
 
+    const [idGame, setIdGame] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [game, setGame] = useState('')
+    const [gameConfirmed, setGameConfirmed] = useState('')
     const [image, setImage] = useState('')
     const [country, setCountry] = useState('')
     const [language, setLanguage] = useState('')
@@ -36,8 +37,19 @@ function CreateCommunityForm() {
     const handleOutsideClick = (event) => {
         if (!event.target.closest(".autocomplete")) {
             setIsOpen(false);
+            setGameSearch('');
         }
     };
+    // useEffect(() => {
+    //     fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Extraer solo los nombres de los videojuegos
+    //             const gameNames = data.results.map(game => game.name);
+    //             console.log(gameNames);
+    //         })
+    //         .catch(error => console.error('Error fetching game names:', error));
+    // })
 
     useEffect(() => {
         if (isOpen) {
@@ -52,10 +64,12 @@ function CreateCommunityForm() {
 
     const changeGame = (event) => {
         setGame(event)
-        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=5`)
+        setGameConfirmed('')
+        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=5&ordering=-rating&ordering=-popularity`)
             .then(res => res.json())
         gameSought.then(data => {
             // Acceder a los resultados
+            // const results = data.results.filter(game => game.rating > 5);
             const results = data.results;
             setGameSearch(results)
 
@@ -69,6 +83,8 @@ function CreateCommunityForm() {
 
     const gameSelected = (event) => {
         setGame(event.name)
+        setGameConfirmed(event.name)
+        setIdGame(event.id)
         setImage(event.background_image)
         handleGameSelected(false)
         console.log(game)
@@ -278,6 +294,13 @@ function CreateCommunityForm() {
                 gameErrorText: 'Game is required',
             }));
             errorGame++
+        } else if (gameConfirmed === "") {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                gameError: true,
+                gameErrorText: 'Please select a game from the search',
+            }));
+            errorGame++
         } else {
             setErrors(prevErrors => ({
                 ...prevErrors,
@@ -374,36 +397,16 @@ function CreateCommunityForm() {
                                 "flag": countryFlag,
                                 "language": language,
                                 "timezone": timezone,
-                                "game": game,
-                                "image": "https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg"
+                                "game_id": idGame,
+                                "game_name": game,
+                                "game_image": image
                             }
                         }
                     }
                 )
             };
             //fetch
-            console.log(requestOptions)
-            createCommunityRepository(requestOptions)
-            //eslint-disable-next-line no-inner-declarations
-            // async function fetchData() {
-            //     console.log(requestOptions)
-            //     try {
-            //         const response = await fetch(apiUrl + '/api/createcommunity', requestOptions);
-            //         if (response.status === 201) {
-            //             const data = await response.json();
-            //             return data;
-            //         } else {
-            //             console.error('Response status:', response.status);
-            //             const data = await response.json();
-            //             return data;
-            //         }
-            //     } catch (error) {
-            //         console.error('Error:', error);
-            //         return error;
-            //     }
-            // }
-
-            // fetchData();
+            createCommunity(requestOptions)
         }
         event.preventDefault();
     };
@@ -440,7 +443,7 @@ function CreateCommunityForm() {
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                             Game
                         </label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)}/>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} />
                         {
                             isOpen && gameSearch && (
                                 <div className='bg-white rounded-lg shadow-lg z-50 w-full'>
@@ -448,7 +451,7 @@ function CreateCommunityForm() {
                                         {gameSearch.map((game, index) => (
                                             <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between py-1' key={index} onClick={() => gameSelected(game)}>
                                                 <span className="inline-block">{game.name}</span>
-                                                <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full" />
+                                                <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" />
                                             </li>
                                         ))}
                                     </ul>

@@ -1,3 +1,4 @@
+const frontUrl = import.meta.env.VITE_URL_FRONT;
 const apiUrl = import.meta.env.VITE_URL;
 
 export async function createCommunityRepository(requestOptions) {
@@ -16,4 +17,9 @@ export async function createCommunityRepository(requestOptions) {
         console.error('Error:', error);
         return error;
     }
+}
+
+export async function createCommunity(requestOptions) {
+    const community_created = await createCommunityRepository(requestOptions)
+    window.location.href = `${frontUrl}/community/${community_created.id}`;
 }

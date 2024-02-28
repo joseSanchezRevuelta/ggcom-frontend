@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import './CommunityFull.css';
 
-function CommunityFull() {
-
-    const { id } = useParams();
+function CommunityFull(community_id) {
+    const apiUrl = import.meta.env.VITE_URL;
 
     const [communityData, setCommunityData] = useState(null);
     const [styleBackground, setStyleBackground] = useState(null)
@@ -13,11 +11,17 @@ function CommunityFull() {
         // Realizar la consulta a la API utilizando el 'id'
         const fetchData = async () => {
             try {
-                // const response = await fetch(`https://api.rawg.io/api/games?search=&key=93fea5c3b3a8428f887fdc7ff376251a`);
-                const response = await fetch(`https://api.rawg.io/api/games/${id}?key=93fea5c3b3a8428f887fdc7ff376251a`);
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                    const response = await fetch(`${apiUrl}/community?community_id=${community_id.id}`, requestOptions);
                 const data = await response.json();
+                console.log(data)
                 setCommunityData(data);
-                setStyleBackground({ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 1), transparent), url("${data.background_image}")` });
+                setStyleBackground({ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 1), transparent), url("${data.game_image}")` });
                 // const gameNames = data.results.map(result => result.name)
                 // setCommunityData(gameNames);
             } catch (error) {
@@ -27,7 +31,7 @@ function CommunityFull() {
 
         // Llamar a la función de consulta
         fetchData();
-    }, [id]); // Asegúrate de incluir 'id' como dependencia para que la consulta se realice cuando 'id' cambie
+    }, [community_id.id]); // Asegúrate de incluir 'id' como dependencia para que la consulta se realice cuando 'id' cambie
 
 
     return (
@@ -42,18 +46,26 @@ function CommunityFull() {
                     </div>
                     <div className='title text-white h-60'>
                         <h1>NAME OF COMMUNITY</h1>
-                        <p>{id}</p>
-                        <h2>{communityData.background_image}</h2>
+                        <p>{communityData.title}</p>
+                        <h1>Description:</h1>
+                        <p>{communityData.dscription}</p>
+                        <h1>Imagen:</h1>
+                        <h2>{communityData.game_image}</h2>
                         <h2>Videogame:</h2>
+                        <p>{communityData.game_name}</p>
+                        <h2>Pais:</h2>
+                        <p>{communityData.country}</p>
+                        <h2>Lengüaje:</h2>
+                        <p>{communityData.language}</p>
+                        <h2>Timezone</h2>
+                        <p>{communityData.timezone}</p>
                         <h2>Numero de comentarios:</h2>
-                        <h2>Pais Lengüaje:</h2>
+                        <p>{communityData.num_comments}</p>
                         <h2>Número de personas:</h2>
+                        <p>{communityData.num_persons}</p>
                         <button className="bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded">
                             Join to Community
                         </button>
-                    </div>
-                    <div className='title text-white rounded-b-xl h-60'>
-                        <h1>AQUí los comentarios y el input textarea para comentar</h1>
                     </div>
 
                 </div>
