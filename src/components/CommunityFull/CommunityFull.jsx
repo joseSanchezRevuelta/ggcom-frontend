@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 import './CommunityFull.css';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline'
+import CommunityDrop from '../CommunityDrop/CommunityDrop';
+import { useSelector } from 'react-redux';
+import Delete from '../Delete/Delete';
 
 function CommunityFull(community_id) {
     const apiUrl = import.meta.env.VITE_URL;
+    const frontUrl = import.meta.env.VITE_URL_FRONT;
+    const userState = useSelector(state => state.user)
+    console.log(userState)
 
     const [communityData, setCommunityData] = useState(null);
-    const [styleBackground, setStyleBackground] = useState(null)
+    const [styleBackground, setStyleBackground] = useState(null);
+
 
     useEffect(() => {
         // Realizar la consulta a la API utilizando el 'id'
@@ -17,7 +25,7 @@ function CommunityFull(community_id) {
                         'Content-Type': 'application/json'
                     }
                 };
-                    const response = await fetch(`${apiUrl}/community?community_id=${community_id.id}`, requestOptions);
+                const response = await fetch(`${apiUrl}/community?community_id=${community_id.id}`, requestOptions);
                 const data = await response.json();
                 console.log(data)
                 setCommunityData(data);
@@ -25,6 +33,7 @@ function CommunityFull(community_id) {
                 // const gameNames = data.results.map(result => result.name)
                 // setCommunityData(gameNames);
             } catch (error) {
+                window.location.href = `${frontUrl}/notfound`;
                 console.error('Error al obtener datos de la API', error);
             }
         };
@@ -36,14 +45,21 @@ function CommunityFull(community_id) {
 
     return (
         <>
+            {/* <Delete openDelete={openDelete} setOpenDelete={setOpenDelete} /> */}
+
             {communityData ? (
                 <div className='text-center w-4/6 mx-auto rounded-xl pt-28 pb-16'>
                     <div className={`img_title w-full rounded-t-xl overflow-hidden bg-cover bg-no-repeat bg-center`} style={styleBackground}>
                         {/* Contenido de tu componente */}
                     </div>
-                    <div>
+                    {
+                        userState && userState.userData.id === communityData.user_id && (
+                            <div>
+                                <CommunityDrop community_id={community_id.id} />
+                            </div>
+                        )
+                    }
 
-                    </div>
                     <div className='title text-white h-60'>
                         <h1>NAME OF COMMUNITY</h1>
                         <p>{communityData.title}</p>

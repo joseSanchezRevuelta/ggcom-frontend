@@ -34,36 +34,42 @@ export async function registerRepository(requestOptions) {
     }
 }
 
-// export async function loginRepository(requestOptions) {
-    
-//     fetch(apiUrl+'/api/login', requestOptions)
-//     .then(response => {
-//         if (response.status === 200) {
-//             return response.json();
-//         } else {
-//             // console.log('Response status:', response.status);
-//             // setError("Incorrect user or password")
-//             return null;
-//         }
-//     })
-//     .then(data => {
-//         if (data) {
-//             console.log(data);
-//             if (data.success === true) {
-//                 // console.log(data);
-//             //   window.location.reload();
-//             } else {
-//                 // console.log(data);
-//             //   setError("Incorrect user or password")
-//             }
-//         } else {
-//             console.error('Unexpected response status');
-//             return null;
-//         }
-//     })
-//     .catch(error => {
-//         console.error('There was a problem with the fetch operation:', error);
-//         return null;
-//     });
+export async function deleteUserRepository(token, user_id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+            {
+                "data": {
+                    "attributes": {
+                        "id": user_id
+                    }
+                }
+            }
+        )
+    };
+    try {
+        const response = await fetch(apiUrl + '/api/deleteuser', requestOptions);
+        if (response.status === 201) {
+            const data = await response.json();
+            console.log("comunidad borrada")
+            return data;
+        } else {
+            console.error('Response status:', response.status);
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return error;
+    }
+}
 
-// }
+export async function deleteUser(token, user_id) {
+    await deleteCommunityRepository(token, community_id)
+    window.location.href = `${frontUrl}/explore`;
+}
