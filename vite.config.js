@@ -14,4 +14,11 @@ export default defineConfig({
   host: true,
   origin: "http://0.0.0.0:5173",
  },
+//  proxy: {
+//     '/api': {
+//       target: 'https://media.rawg.io',
+//       changeOrigin: true,
+//       rewrite: (path) => path.replace(/^\/api/, ''),
+//     },
+//   },
 });

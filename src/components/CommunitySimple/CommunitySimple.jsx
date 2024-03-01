@@ -1,14 +1,23 @@
 /* eslint-disable react/prop-types */
 import { ChatBubbleOvalLeftEllipsisIcon, UserGroupIcon, FlagIcon } from '@heroicons/react/24/outline'
 import './CommunitySimple.css';
+import CommunityImage from '../CommunityImage/CommunityImage';
 
 function CommunitySimple({ community }) {
-    console.log("assdasd")
+    const imageUrl = community.game_image; // Reemplaza con la URL de tu imagen
+    const maxWidth = 1280; // Cambia esto al ancho deseado en píxeles
     return (
         <>
             <a href={`/community/${community.id}`}>
                 <div className="communitySimple rounded-lg overflow-hidden shadow-lg bg-neutral-900 mb-2 text-white cursor-pointer hover:scale-105 font-medium md:text-sm">
-                    <img className="w-full h-56" src={`${community.game_image}`} alt="Sunset in the mountains" />
+                    {/* <img className="w-full h-56" src={`${community.game_image}`} alt="Sunset in the mountains" /> */}
+                    <CommunityImage
+                                    imageUrl={imageUrl}
+                                    maxWidth={maxWidth}
+                                    alt="game_image"
+                                    ke={community.id}
+                                    className="w-full h-56"
+                                />
                     {/* <div className='px-6 pt-4'>
                     <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Videojuego</span>
                 </div> */}
