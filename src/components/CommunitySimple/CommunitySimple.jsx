@@ -18,9 +18,13 @@ function CommunitySimple({ community }) {
                         <div className='px-6 pb-4 pt-4'>
                             <a href='#' className='flex items-center hover:text-lg hover:scale-105'>
                                 <img
+                                    key={community.id}
                                     className="h-8 w-8 rounded-full object-cover object-center"
                                     src={`${community.game_image}`}
                                     alt="game_image"
+                                    // onError={(e) => { // Maneja el evento de error para intentar recargar la imagen
+                                    //     e.target.src = `${community.game_image}?${new Date().getTime()}`; // Agrega una marca de tiempo para evitar la caché
+                                    // }}
                                 />
                                 <span className='ml-1'>{community.game_name}</span>
                                 {/* <span className='ml-1 hover:w-44'>{community.game_name}</span> */}

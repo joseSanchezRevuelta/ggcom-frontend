@@ -1,15 +1,21 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../features/users/usersRepository";
+import { clearUserData } from "../../features/users/usersSlice";
 
 // eslint-disable-next-line react/prop-types
 function DeleteUser({openDeleteUser, setOpenDeleteUser }) {
+    const frontUrl = import.meta.env.VITE_URL_FRONT;
 
     const userState = useSelector(state => state.user)
 
+    const dispatch = useDispatch();
+
     function handleDelete(token, user_id) {
         deleteUser(token, user_id)
+        localStorage.removeItem("data_ggcom");
+        dispatch(clearUserData());
     }
 
     return (

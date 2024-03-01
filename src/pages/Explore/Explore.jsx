@@ -29,7 +29,7 @@ function Explore() {
     return (
         <>
             {/* <div className='bg-neutral-950 bg-cover bg-no-repeat bg-center bg-fixed bg-[url("../../public/img/wallpaper.jpg")]'> */}
-            <div className='bg-neutral-950'>
+            <div className='bg-neutral-950 min-h-screen'>
                 <Title title={'Explore Communities'} subtitle='Explore the videogame communities' />
                 <Filter />
                 {communities && <Communities communities={communities} />}
