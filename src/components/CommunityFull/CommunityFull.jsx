@@ -1,66 +1,109 @@
 import { useEffect, useState } from 'react';
-import './CommunityFull.css';
-import { EllipsisVerticalIcon } from '@heroicons/react/24/outline'
-import CommunityDrop from '../CommunityDrop/CommunityDrop';
 import { useSelector } from 'react-redux';
-import Delete from '../Delete/Delete';
+import { getCommunity } from '../../features/communities/communityRepository';
+import { createJoinCommunity, getJoinCommunity, leaveCommunity } from '../../features/joinCommunitiesRepository/joinCommunityRepository';
+import CommunityDrop from '../CommunityDrop/CommunityDrop';
+import CreateCommentForm from '../CreateCommentForm/CreateCommentForm';
+import './CommunityFull.css';
+import Comments from '../Comments/Comments';
 
 function CommunityFull(community_id) {
-    const apiUrl = import.meta.env.VITE_URL;
-    const frontUrl = import.meta.env.VITE_URL_FRONT;
     const userState = useSelector(state => state.user)
-    console.log(userState)
-
     const [communityData, setCommunityData] = useState(null);
     const [styleBackground, setStyleBackground] = useState(null);
+    const [joinCommunityData, setJoinCommunityData] = useState('')
+    const [loadingJoinCommunity, setLoadingJoinCommunity] = useState(false);
+    const [loadingLeaveCommunity, setLoadingLeaveCommunity] = useState(false);
+    const [renderData, setRenderData] = useState(false)
+    const [renderComments, setRenderComments] = useState(false)
 
-
+    // fetch a comunidad
     useEffect(() => {
-        // Realizar la consulta a la API utilizando el 'id'
-        const fetchData = async () => {
-            try {
-                const requestOptions = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                };
-                const response = await fetch(`${apiUrl}/community?community_id=${community_id.id}`, requestOptions);
-                const data = await response.json();
-                console.log(data)
+        getCommunity(community_id.id)
+            .then(data => {
                 setCommunityData(data);
                 setStyleBackground({ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 1), transparent), url("${data.game_image}")` });
-                // const gameNames = data.results.map(result => result.name)
-                // setCommunityData(gameNames);
-            } catch (error) {
-                window.location.href = `${frontUrl}/notfound`;
-                console.error('Error al obtener datos de la API', error);
-            }
-        };
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+    }, [community_id.id, renderData]);
 
-        // Llamar a la función de consulta
-        fetchData();
-    }, [community_id.id]); // Asegúrate de incluir 'id' como dependencia para que la consulta se realice cuando 'id' cambie
+    // fetch a joincommunity
+    useEffect(() => {
+        getJoinCommunity(userState.userData.token, community_id.id)
+            .then(data => {
+                setJoinCommunityData(data);
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            })
+            .finally(() => {
+                setLoadingJoinCommunity(false);
+                setLoadingLeaveCommunity(false);
+            });
+    }, [userState.userData.token, community_id.id, renderData])
 
+    // Join community
+    function handleJoinCommunity() {
+        setLoadingJoinCommunity(true);
+        createJoinCommunity(userState.userData.token, userState.userData.id, community_id.id)
+            .then(() => {
+                setRenderData(prevState => !prevState);
+            })
+            .catch(error => {
+                console.error('Error al unirse a la comunidad:', error);
+            })
+    }
+
+    //Leave community
+    function handleLeaveCommunity() {
+        setLoadingLeaveCommunity(true);
+        leaveCommunity(userState.userData.token, userState.userData.id, community_id.id)
+            .then(() => {
+                setRenderData(prevState => !prevState);
+            })
+            .catch(error => {
+                console.error('Error al abandonar la comunidad:', error);
+            })
+    }
 
     return (
         <>
-            {/* <Delete openDelete={openDelete} setOpenDelete={setOpenDelete} /> */}
-
             {communityData ? (
                 <div className='text-center w-4/6 mx-auto rounded-xl pt-28 pb-16'>
-                    <div className={`img_title w-full rounded-t-xl overflow-hidden bg-cover bg-no-repeat bg-center`} style={styleBackground}>
-                        {/* Contenido de tu componente */}
-                    </div>
+                    {/* IMG */}
+                    <div className={`img_title w-full rounded-t-xl overflow-hidden bg-cover bg-no-repeat bg-center`} style={styleBackground}></div>
                     {
-                        userState && userState.userData.id === communityData.user_id && (
+                        !userState || (userState.userData.id !== communityData.user_id) ? (
+                            <>
+                                {
+                                    joinCommunityData.length ? (
+                                        <button
+                                            className="bg-red-500 hover:bg-main2 text-white font-bold py-2 px-4 rounded"
+                                            onClick={handleLeaveCommunity}
+                                            disabled={loadingLeaveCommunity}
+                                        >
+                                            {loadingLeaveCommunity ? 'Loading...' : 'Leave community'}
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded"
+                                            onClick={handleJoinCommunity}
+                                            disabled={loadingJoinCommunity}
+                                        >
+                                            {loadingJoinCommunity ? 'Loading...' : 'Join Community'}
+                                        </button>
+                                    )
+                                }
+                            </>
+                        ) : (
                             <div>
                                 <CommunityDrop community_id={community_id.id} />
                             </div>
                         )
                     }
-
-                    <div className='title text-white h-60'>
+                    <div className="title text-white justify-center items-center space-y-4">
                         <h1>NAME OF COMMUNITY</h1>
                         <p>{communityData.title}</p>
                         <h1>Description:</h1>
@@ -79,11 +122,13 @@ function CommunityFull(community_id) {
                         <p>{communityData.num_comments}</p>
                         <h2>Número de personas:</h2>
                         <p>{communityData.num_persons}</p>
-                        <button className="bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded">
-                            Join to Community
-                        </button>
                     </div>
-
+                    {/* Formulario para commentario */}
+                    <div className=''>
+                        <CreateCommentForm community_id={community_id.id} setRenderComments={setRenderComments} />
+                    </div>
+                    {/* Comentarios */}
+                    <Comments community_id={community_id.id} renderComments={renderComments}/>
                 </div>
             ) : (
                 <h1 className='mt-40 text-white'>Cargando datos...</h1>
