@@ -125,10 +125,10 @@ function CommunityFull(community_id) {
                     </div>
                     {/* Formulario para commentario */}
                     <div className=''>
-                        <CreateCommentForm community_id={community_id.id} setRenderComments={setRenderComments} />
+                        <CreateCommentForm community_id={community_id.id} joinCommunityData={joinCommunityData} setRenderComments={setRenderComments} />
                     </div>
                     {/* Comentarios */}
-                    <Comments community_id={community_id.id} renderComments={renderComments}/>
+                    <Comments community_id={community_id.id} user_id={userState.userData.id} renderComments={renderComments} setRenderComments={setRenderComments}/>
                 </div>
             ) : (
                 <h1 className='mt-40 text-white'>Cargando datos...</h1>

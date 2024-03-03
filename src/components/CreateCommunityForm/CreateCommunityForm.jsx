@@ -462,7 +462,7 @@ function CreateCommunityForm() {
 
                         <small className="text-red-400">{errors.gameErrorText}</small>
                     </div>
-                    {/* /autoComplete */}
+                    {/* /Country */}
                     <div className="relative z-0 w-full my-10 group">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
                             Country

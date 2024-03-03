@@ -2,12 +2,12 @@ import { UserCircleIcon } from "@heroicons/react/20/solid"
 import { useEffect } from "react";
 import { getComments } from "../../features/Comments/commentRepository";
 import { useState } from "react";
+import CommentDrop from '../CommentDrop/CommentDrop';
 
 
 // eslint-disable-next-line react/prop-types
-function Comments({ community_id, renderComments }) {
+function Comments({ community_id, user_id, renderComments, setRenderComments }) {
     const [comments, setComments] = useState('')
-
     // fetch a getComments
     useEffect(() => {
         getComments(community_id)
@@ -36,8 +36,16 @@ function Comments({ community_id, renderComments }) {
                                         <UserCircleIcon className="block h-8 w-8 text-main" aria-hidden="true" />
                                         <span>{comment.username}</span>
                                     </div>
-                                    <div>
+                                    <div className="flex flex-row items-center">
                                         <span className="">{comment.created_at}</span>
+                                        {
+                                            comment.user_id === user_id && (
+                                                <div>
+                                                    <CommentDrop comment_id={comment.id} comment_user_id={comment.user_id} user_id={user_id} setRenderComments={setRenderComments} />
+                                                </div>
+                                            )
+                                        }
+
                                     </div>
                                 </div>
                                 <span className="block text-left">

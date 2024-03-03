@@ -1,0 +1,8 @@
+@font-face {
+    font-family: mantinia;
+    src: url('../../../public//fonts//MantiniaRegular.otf');
+}
+
+.mantinia {
+    font-family: mantinia;
+}

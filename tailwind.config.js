@@ -17,6 +17,7 @@ export default {
       },
       fontFamily: {
         'main': ['georgia'],
+        // body: ['MantinaRegular']
       },
       textColor: {
         'main': '#349988'

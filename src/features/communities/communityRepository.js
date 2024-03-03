@@ -25,6 +25,58 @@ export async function getCommunity(community_id) {
     return await getCommunityRepository(community_id)
 }
 
+//get myjoincomnunities
+export async function getMyJoinCommunitiesRepository(token) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        const response = await fetch(`${apiUrl}/myjoincommunities`, requestOptions);
+        const data = await response.json();
+        return data;
+        // const gameNames = data.results.map(result => result.name)
+        // setCommunityData(gameNames);
+    } catch (error) {
+        // window.location.href = `${frontUrl}/notfound`;
+        console.error('Error al obtener datos de la API', error);
+    }
+}
+
+export async function geMyJointCommunities(token) {
+    return await getMyJoinCommunitiesRepository(token)
+}
+
+//get mycreatedcomnunities
+export async function getMyCreatedCommunitiesRepository(token) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        const response = await fetch(`${apiUrl}/mycreatedcommunities`, requestOptions);
+        const data = await response.json();
+        return data;
+        // const gameNames = data.results.map(result => result.name)
+        // setCommunityData(gameNames);
+    } catch (error) {
+        // window.location.href = `${frontUrl}/notfound`;
+        console.error('Error al obtener datos de la API', error);
+    }
+}
+
+export async function geMyCreatedCommunities(token) {
+    return await getMyCreatedCommunitiesRepository(token)
+}
+
 // create comnunity
 export async function createCommunityRepository(requestOptions) {
     try {

@@ -3,24 +3,41 @@ import { createComent } from "../../features/Comments/commentRepository"
 import { useSelector } from "react-redux"
 
 // eslint-disable-next-line react/prop-types
-function CreateComment({ community_id, setRenderComments }) {
+function CreateComment({ community_id, joinCommunityData, setRenderComments }) {
     const userState = useSelector(state => state.user)
     const [comment, setComment] = useState('')
+    const [errorComent, setErrorComment] = useState('')
     const [loadingCreateComment, setLoadingCreateComment] = useState(false);
-
+    
     function handleComment() {
-        setLoadingCreateComment(true)
-        createComent(userState.userData.token, userState.userData.id, community_id, userState.userData.username, comment)
-            .then(() => {
-                setRenderComments(prevState => !prevState);
-            })
-            .catch(error => {
-                console.error('Error al abandonar la comunidad:', error);
-            })
-            .finally(() => {
-                setComment('')
-                setLoadingCreateComment(false)
-            });
+        let errorComment = 0
+        let errorJoin = 0
+        // eslint-disable-next-line react/prop-types
+        if (joinCommunityData.length === 0) {
+            setErrorComment('Debes unirte a la comunidad para poder comentar')
+            errorJoin++
+        } else if (comment === '') {
+            errorComment++
+            setErrorComment('El comentario no puede estar vacio')
+        } else {
+            errorComment = 0
+            errorJoin = 0
+            setErrorComment('')
+        }
+        if (errorComment === 0 && errorJoin === 0) {
+            setLoadingCreateComment(true)
+            createComent(userState.userData.token, userState.userData.id, community_id, userState.userData.username, comment)
+                .then(() => {
+                    setRenderComments(prevState => !prevState);
+                })
+                .catch(error => {
+                    console.error('Error al abandonar la comunidad:', error);
+                })
+                .finally(() => {
+                    setComment('')
+                    setLoadingCreateComment(false)
+                });
+        }
     }
 
     return (
@@ -42,7 +59,7 @@ function CreateComment({ community_id, setRenderComments }) {
                         // value={description}
                         // onChange={(e) => setDescription(e.target.value)}
                         />
-                        {/* <small className="text-red-400">{errors.descriptionError}</small> */}
+                        <small className="text-red-400">{errorComent}</small>
                     </div>
                     <div className="text-center mt-12">
                         <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900"

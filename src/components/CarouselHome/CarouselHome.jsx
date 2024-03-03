@@ -1,23 +1,26 @@
-// import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
-// import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-// import { Carousel } from 'react-responsive-carousel';
-// Initialization for ES Users
+import { useEffect, useState } from 'react';
 import './CarouselHome.css';
-
 import {
   Carousel,
   initTE,
 } from "tw-elements";
 
-initTE({ Carousel });
-
 function CarouselHome() {
+
+  const [renderState, setRenderState] = useState(false)
+
+  useEffect(() => {
+    setRenderState(true)
+  }, [renderState])
+
+  useEffect(() => {
+    initTE({ Carousel });
+  }, [renderState]);
 
   const uniqueKey = (min, max) => {
     return Math.floor(Math.random()
-        * (max - min + 1)) + min;
-};
+      * (max - min + 1)) + min;
+  };
 
   return (
     <>
