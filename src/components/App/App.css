@@ -1,8 +1,34 @@
 @font-face {
     font-family: mantinia;
-    src: url('../../../public//fonts//MantiniaRegular.otf');
+    src: url('//fonts//Mantinia Regular.otf');
 }
+
+/* global.css */
+body {
+    background-color: #0a0a0a; /* Cambia el color de fondo a tu preferencia */
+}
+
 
 .mantinia {
     font-family: mantinia;
+}
+
+/* Anchura del scrollbar */
+::-webkit-scrollbar {
+    /* width: 10px; */
+}
+
+/* Estilo del scrollbar */
+::-webkit-scrollbar-track {
+    background: #171717;
+}
+
+/* Estilo del thumb (la barra que se mueve) */
+::-webkit-scrollbar-thumb {
+    background: #a53a3a !important;
+}
+
+/* Hover style */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

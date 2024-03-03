@@ -5,7 +5,7 @@ import CommunityImage from '../CommunityImage/CommunityImage';
 
 function CommunitySimple({ community }) {
     const imageUrl = community.game_image; // Reemplaza con la URL de tu imagen
-    const maxWidth = 1280; // Cambia esto al ancho deseado en píxeles
+    const maxWidth = 960; // Cambia esto al ancho deseado en píxeles
     return (
         <>
             <a href={`/community/${community.id}`}>

@@ -25,6 +25,29 @@ export async function getCommunity(community_id) {
     return await getCommunityRepository(community_id)
 }
 
+//get comnunities filter
+export async function getCommunitiesFilterRepository(search, game_id, country, language, timezone, order) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        const response = await fetch(`${apiUrl}/searchcommunities?search=${search}&game_id=${game_id}&country=${country}&language=${language}&timezone=${timezone}&order=${order}`, requestOptions);
+        const data = await response.json();
+        // console.log(data)
+        return data;
+    } catch (error) {
+        window.location.href = `${frontUrl}/notfound`;
+        console.error('Error al obtener datos de la API', error);
+    }
+}
+
+export async function getCommunitiesFilter(search, game_id, country, language, timezone, order) {
+    return await getCommunitiesFilterRepository(search, game_id, country, language, timezone, order)
+}
+
 //get myjoincomnunities
 export async function getMyJoinCommunitiesRepository(token) {
     try {

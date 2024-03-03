@@ -29,9 +29,9 @@ function CreateCommunityForm() {
     const [gameSearch, setGameSearch] = useState('')
     const [isOpen, setIsOpen] = useState(false);
 
+    //Games
     const handleGameSelected = (game) => {
         setIsOpen(false);
-        // Lógica adicional al seleccionar un juego
     };
 
     const handleOutsideClick = (event) => {
@@ -458,8 +458,6 @@ function CreateCommunityForm() {
                                 </div>
                             )
                         }
-
-
                         <small className="text-red-400">{errors.gameErrorText}</small>
                     </div>
                     {/* /Country */}

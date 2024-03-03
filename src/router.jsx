@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
 import Explore from './pages/Explore/Explore.jsx';
+import Explore1 from './pages/Explore/Explore1.jsx';
 import MyCommunities from './pages/MyCommunities/MyCommunities.jsx';
 import Games from './pages/Games/Games.jsx';
 import AboutUs from './pages/AboutUs/AboutUs.jsx';
@@ -37,7 +38,7 @@ function Router() {
       <Route
         path="/explore"
         element={
-          <Explore />
+          <Explore1 />
         } />
 
       <Route

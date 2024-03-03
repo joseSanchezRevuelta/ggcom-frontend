@@ -37,7 +37,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
         { name: 'My Communities', href: '/mycommunities', current: false },
         // { name: 'Games', href: '/games', current: false },
         // { name: 'Shop', href: '/shop', current: false },
-        { name: 'About Us', href: '/aboutus', current: false }
+        // { name: 'About Us', href: '/aboutus', current: false }
     ]);
 
     useEffect(() => {
@@ -99,7 +99,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                                     to={item.href}
                                                     activeclassname="active"
                                                     className={classNames(
-                                                        item.current ? 'text-main2 hover:bg-main hover:text-white' : 'text-white hover:bg-main hover:text-white',
+                                                        item.current ? 'text-main hover:bg-main hover:text-white' : 'text-white hover:bg-main hover:text-white',
                                                         'rounded-md px-3 py-2 text-sm font-medium'
                                                     )}
                                                 >

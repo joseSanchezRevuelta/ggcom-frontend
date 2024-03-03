@@ -10,17 +10,20 @@ export default {
     extend: {
       colors: {
         'main': '#349988',
-        'main2': '#42BFAA'
+        'main2': '#42BFAA',
+        'main3': '#f8df96',
       },
       backgroundColor: {
         'main': '#349988',
+        'main2': '#b99a54'
       },
       fontFamily: {
         'main': ['georgia'],
         // body: ['MantinaRegular']
       },
       textColor: {
-        'main': '#349988'
+        'main': '#349988',
+        'main2': '#b99a54',
       },
       borderColor: {
         'main': '#349988'
