@@ -14,22 +14,6 @@ function Communities(communities) {
                 ))}
                 {/* <CommunitySimple community={communities} /> */}
                 {/* <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} /> */}
-                {/* <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'532'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema '} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'732'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} />
-                <CommunitySimple image={'https://media.rawg.io/media/games/910/910d547965a5c4928ca19112778a1b4f.jpg'} videogame={'Tarisland'} community={'Dilema donde se encuentra el cofre perdido'} comments={'481'} members={'32'} language={'English'} /> */}
             </div>
         </>
     )
