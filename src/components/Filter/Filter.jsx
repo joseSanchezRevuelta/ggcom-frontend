@@ -389,7 +389,7 @@ function Filter({ setCommunities }) {
                                             onChange={(e) => setCountry(e.target.value)}
                                         >
                                             {/* <option disabled hidden value="">Country</option> */}
-                                            <option key="international" value="all" className='cursor-pointer'>
+                                            <option key="allCountry" value="all" className='cursor-pointer'>
                                                 All
                                             </option>
                                             <option key="international" value={JSON.stringify({ "country": "international", "flag": "/img/world.png" })} className='cursor-pointer'>

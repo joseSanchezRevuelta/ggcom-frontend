@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
@@ -57,6 +57,14 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
         }
     }
 
+    const disclosureButtonRef = useRef(null);
+
+    const handleDisclosureButtonClick = () => {
+        if (disclosureButtonRef.current) {
+            disclosureButtonRef.current.click();
+        }
+    };
+
 
     return (
         <>
@@ -70,7 +78,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                             <div className="relative flex h-16 items-center justify-between">
                                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                                     {/* Mobile menu button*/}
-                                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" ref={disclosureButtonRef}>
                                         <span className="absolute -inset-0.5" />
                                         <span className="sr-only">Open main menu</span>
                                         {open ? (
@@ -118,6 +126,9 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                     <Link key='createcommunity' to='createcommunity' activeclassname="active" className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={handleCreateCommunity}>
                                         Create Community
                                     </Link>
+                                    {/* <a key='createcommunity' href='createcommunity' className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2">
+                                        Create Community
+                                    </a> */}
                                 </div>
                                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                     {Object.keys(userState.userData).length ? (
@@ -202,9 +213,15 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                             item.current ? 'text-main2 hover:bg-neutral-800 hover:text-main2' : 'text-white hover:bg-main hover:text-white',
                                             'block rounded-md px-3 py-2 text-base font-medium'
                                         )}
+                                        // onClick={close()}
+                                        // onClick={async () => {
+                                        //     close()
+                                        //   }}
                                     // aria-current={item.current ? 'page' : undefined}
+                                    onClick={handleDisclosureButtonClick}
                                     >
                                         {item.name}
+                                        <span className="sr-only hidden">Open main menu</span>
                                     </Link>
                                     // )
                                 ))}
