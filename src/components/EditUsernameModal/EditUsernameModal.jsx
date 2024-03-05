@@ -3,9 +3,10 @@ import { Fragment, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { updateUsername } from "../../features/users/usersRepository";
 import { updateUsernameState } from "../../features/users/usersSlice";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, userNameState }) {
+function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, userNameState, user_id, email, setUserNameState }) {
     const frontUrl = import.meta.env.VITE_URL_FRONT;
 
     const userState = useSelector(state => state.user)
@@ -14,11 +15,18 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
 
     const dispatch = useDispatch();
 
+    const navigateTo = useNavigate();
+
     function handleUpdateUsername(token, user_id, user_name) {
         updateUsername(token, user_id, user_name)
-        dispatch(updateUsernameState(user_name))
         setOpenEditUsernameModal(false)
-        window.location.href = `${frontUrl}/profile`;
+        setUserNameState(userName)
+        if (userState.userData.role != "admin") {
+            dispatch(updateUsernameState(user_name))
+            // window.location.href = `${frontUrl}/profile`;
+        } else if (userState.userData.role === "admin") {
+            navigateTo(`/edituser/${user_id}/${userName}/${email}`)
+        }
     }
 
     return (
@@ -55,7 +63,7 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                                     <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenEditUsernameModal(false)}>
                                         Cancel
                                     </button>
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateUsername(userState.userData.token, userState.userData.id, userName)}>
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateUsername(userState.userData.token, user_id, userName)}>
                                         Edit
                                     </button>
                                 </div>

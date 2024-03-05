@@ -3,9 +3,10 @@ import { Fragment, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { updateEmail } from "../../features/users/usersRepository";
 import { updateEmailState } from "../../features/users/usersSlice";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailState }) {
+function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailState, user_id, username, setUserEmailState }) {
     const frontUrl = import.meta.env.VITE_URL_FRONT;
 
     const userState = useSelector(state => state.user)
@@ -14,11 +15,18 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
 
     const dispatch = useDispatch();
 
+    const navigateTo = useNavigate();
+
     function handleUpdateEmail(token, user_id, user_email) {
         updateEmail(token, user_id, user_email)
-        dispatch(updateEmailState(user_email))
         setOpenEditEmailModal(false)
-        window.location.href = `${frontUrl}/profile`;
+        setUserEmailState(userEmail)
+        if (userState.userData.role != "admin") {
+            dispatch(updateEmailState(user_email))
+            // window.location.href = `${frontUrl}/profile`;
+        } else if (userState.userData.role === "admin") {
+            navigateTo(`/edituser/${user_id}/${username}/${userEmail}`)
+        }
     }
 
     return (
@@ -55,7 +63,7 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
                                     <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenEditEmailModal(false)}>
                                         Cancel
                                     </button>
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateEmail(userState.userData.token, userState.userData.id, userEmail)}>
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateEmail(userState.userData.token, user_id, userEmail)}>
                                         Edit
                                     </button>
                                 </div>

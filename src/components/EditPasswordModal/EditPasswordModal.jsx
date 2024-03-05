@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { updatePassword } from "../../features/users/usersRepository";
 
 // eslint-disable-next-line react/prop-types
-function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal }) {
+function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, user_id }) {
     const userState = useSelector(state => state.user)
 
-    const [userPasswoord, setUserPassword] = useState('')
+    const [userPasword, setUserPassword] = useState('')
     const [userPasswoordConfirm, setUserPasswordConfirm] = useState('')
     const [successPassword, setSuccessPassword] = useState("")
     const [errorPassword, setErrorPassword] = useState("")
@@ -16,14 +16,14 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal })
     function handleUpdatePassword(token) {
         let errorP = 0
         let errorPC = 0
-        if (userPasswoord === "") {
+        if (userPasword === "") {
             setErrorPassword('Password is required')
             errorP++;
         } else {
             setErrorPassword('')
             errorP = 0
         }
-        if (userPasswoord !== userPasswoordConfirm) {
+        if (userPasword !== userPasswoordConfirm) {
             setErrorPasswordConfirm('Password must')
             errorPC++
         } else {
@@ -31,7 +31,7 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal })
             errorPC = 0
         }
         if (errorP === 0 && errorPC === 0) {
-            updatePassword(token, userPasswoord, userPasswoordConfirm)
+            updatePassword(token, user_id, userPasword, userPasswoordConfirm)
             setSuccessPassword('Password success')
             setOpenEditPasswordModal(false)
         }
@@ -66,7 +66,7 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal })
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg text-center">
                                 <p className="text-white">Change password</p>
                                 <small className="text-green-700">{successPassword}</small>
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-2 mx-auto" id="title" type="text" placeholder="New password" value={userPasswoord} onChange={(e) => setUserPassword(e.target.value)} />
+                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-2 mx-auto" id="title" type="text" placeholder="New password" value={userPasword} onChange={(e) => setUserPassword(e.target.value)} />
                                 <small className="text-red-400">{errorPassword}</small>
                                 <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-2 mx-auto" id="title" type="text" placeholder="Confirm new password" value={userPasswoordConfirm} onChange={(e) => setUserPasswordConfirm(e.target.value)} />
                                 <small className="text-red-400">{errorPasswordConfirm}</small>
@@ -74,7 +74,7 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal })
                                     <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenEditPasswordModal(false)}>
                                         Cancel
                                     </button>
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdatePassword(userState.userData.token, userState.userData.id, userPasswoord)}>
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdatePassword(userState.userData.token, user_id, userPasword)}>
                                         Change password
                                     </button>
                                 </div>

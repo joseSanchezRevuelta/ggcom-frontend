@@ -1,15 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { checkUser } from './features/users/usersRepository.js';
 import Home from './pages/Home/Home.jsx';
 import Explore from './pages/Explore/Explore.jsx';
-import Explore1 from './pages/Explore/Explore1.jsx';
 import MyCommunities from './pages/MyCommunities/MyCommunities.jsx';
-import Games from './pages/Games/Games.jsx';
 import AboutUs from './pages/AboutUs/AboutUs.jsx';
 import Community from './pages/Community/Community.jsx';
 import CreateCommunity from './pages/CreateCommunity/CreateCommunity.jsx';
 import Profile from './pages/Profile/Profile.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
-import { useSelector } from 'react-redux';
+import UserList from './pages/Admin/UserList/UserList.jsx';
+import EditUser from './pages/Admin/EditUser/EditUser.jsx';
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
@@ -17,17 +19,50 @@ const ProtectedRoute = ({ children }) => {
   if (Object.keys(userData).length) {
     return children;
   } else if (location.pathname === '/profile') {
-    // Si el usuario no tiene datos de usuario y está en la ruta /profile,
-    // redirigirlo a la página de inicio
     return <Home />;
   }
   return <NotFoundPage />
 }
 
+// eslint-disable-next-line react/prop-types
+const ProtectedRouteAdmin = ({ children }) => {
+  const { userData } = useSelector(state => state.user);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isCheck, setIsCheck] = useState(false);
+
+  useEffect(() => {
+    if (userData && userData.role === 'admin') {
+      checkUser(userData.token) //comprobamos el rol en el back
+        .then(response => {
+          if (response === true) {
+            setIsAdmin(true);
+            setIsCheck(true)
+          } else {
+            setIsAdmin(false);
+            setIsCheck(true)
+          }
+        })
+        .catch(error => {
+          console.error('Error al verificar el usuario:', error);
+          setIsAdmin(false);
+          setIsCheck(true)
+        });
+    } else {
+      setIsAdmin(false);
+      setIsCheck(true)
+    }
+  }, [userData]);
+
+  if (isCheck) {
+    return isAdmin ? children : <NotFoundPage />;
+  }
+};
+
 function Router() {
   return (
     <Routes>
 
+      {/* USER */}
       <Route
         path="/"
         element=
@@ -38,7 +73,7 @@ function Router() {
       <Route
         path="/explore"
         element={
-          <Explore1 />
+          <Explore />
         } />
 
       <Route
@@ -46,18 +81,6 @@ function Router() {
         element={
           <MyCommunities />
         } />
-
-      {/* <Route
-        path="/games"
-        element={
-          <Games />
-        } /> */}
-
-      {/* <Route
-        path="/shop"
-        element={
-          <h3 className="mt-20">Shop</h3>
-        } /> */}
 
       <Route
         path="/aboutus"
@@ -71,13 +94,13 @@ function Router() {
           <Community />
         } />
 
-      <Route  //Esta ruta hay que protegerla
+      <Route
         path="/createcommunity"
         element={
           <CreateCommunity />
         } />
 
-      <Route  //Esta ruta hay que protegerla
+      <Route
         path="/profile"
         element={
           <ProtectedRoute>
@@ -85,6 +108,28 @@ function Router() {
           </ProtectedRoute>
         } />
 
+      {/* ADMIN */}
+      <Route
+        path="/userlist"
+        element={
+          <ProtectedRoute>
+            <ProtectedRouteAdmin>
+              <UserList />
+            </ProtectedRouteAdmin>
+          </ProtectedRoute>
+        } />
+
+      <Route
+        path="/edituser/:id/:username/:email"
+        element={
+          <ProtectedRoute>
+            <ProtectedRouteAdmin>
+              <EditUser />
+            </ProtectedRouteAdmin>
+          </ProtectedRoute>
+        } />
+
+      {/* NOT FOUND */}
       <Route
         path="*"
         element={

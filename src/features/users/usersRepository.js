@@ -59,6 +59,10 @@ export async function deleteUserRepository(token, user_id) {
             const data = await response.json();
             console.log("user borrado")
             return data;
+        } if (response.status === 200) {
+            const data = await response.json();
+            console.log(data)
+            return data;
         } else {
             console.error('Response status:', response.status);
             const data = await response.json();
@@ -165,7 +169,7 @@ export async function updateEmail(token, user_id, user_email) {
 }
 
 //updatePassword
-export async function updatePasswordRepository(token, new_password, new_password_confirm) {
+export async function updatePasswordRepository(token, user_id, new_password, new_password_confirm) {
     const requestOptions = {
         method: 'PATCH',
         headers: {
@@ -178,6 +182,7 @@ export async function updatePasswordRepository(token, new_password, new_password
                 "data": {
                     "attributes": {
                         // "oldpassword": "123123123",
+                        "id": user_id,
                         "newpassword": new_password,
                         "newpassword_confirmation": new_password_confirm
                     }
@@ -204,8 +209,76 @@ export async function updatePasswordRepository(token, new_password, new_password
     
 }
 
-export async function updatePassword(token, new_password, new_password_confirm) {
-    await updatePasswordRepository(token, new_password, new_password_confirm)
+export async function updatePassword(token, user_id, new_password, new_password_confirm) {
+    await updatePasswordRepository(token, user_id, new_password, new_password_confirm)
+    // window.location.href = `${frontUrl}/profile`;
+}
+
+//checkUser
+export async function checkUserRepository(token) {
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    try {
+        const response = await fetch(apiUrl + '/checkuser', requestOptions);
+        if (response.ok) {
+            const data = await response.json();
+            // console.log(data); // Aquí imprimes la respuesta recibida
+            return data;
+        } else {
+            console.error('Error en la respuesta. Estado:', response.status);
+            const errorData = await response.json();
+            console.error('Detalles del error:', errorData);
+            return errorData;
+        }
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+        return error;
+    }
+    
+}
+
+export async function checkUser(token) {
+    return await checkUserRepository(token)
+    // window.location.href = `${frontUrl}/profile`;
+}
+
+//updatePassword
+export async function getUsersRepository(token, id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    try {
+        const response = await fetch(apiUrl + '/getusers', requestOptions);
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data); // Aquí imprimes la respuesta recibida
+            return data;
+        } else {
+            console.error('Error en la respuesta. Estado:', response.status);
+            const errorData = await response.json();
+            console.error('Detalles del error:', errorData);
+            return errorData;
+        }
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+        return error;
+    }
+    
+}
+
+export async function getUsers(token, id) {
+    return await getUsersRepository(token, id)
     // window.location.href = `${frontUrl}/profile`;
 }
 

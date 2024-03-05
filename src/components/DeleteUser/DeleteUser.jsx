@@ -3,19 +3,28 @@ import { Fragment } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../features/users/usersRepository";
 import { clearUserData } from "../../features/users/usersSlice";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function DeleteUser({openDeleteUser, setOpenDeleteUser }) {
+function DeleteUser({openDeleteUser, setOpenDeleteUser, user_id }) {
     const frontUrl = import.meta.env.VITE_URL_FRONT;
 
     const userState = useSelector(state => state.user)
 
     const dispatch = useDispatch();
 
+    const navigateTo = useNavigate();
+
     function handleDelete(token, user_id) {
         deleteUser(token, user_id)
-        localStorage.removeItem("data_ggcom");
-        dispatch(clearUserData());
+        if (userState.userData.role != "admin") {
+            localStorage.removeItem("data_ggcom");
+            dispatch(clearUserData());
+            navigateTo(`/home`)
+        } else if (userState.userData.role === "admin") {
+            navigateTo(`/userlist`)
+        }
+
     }
 
     return (
@@ -49,7 +58,7 @@ function DeleteUser({openDeleteUser, setOpenDeleteUser }) {
                                     <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDeleteUser(false)}>
                                         Cancel
                                     </button>
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, userState.userData.id)}>
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, user_id)}>
                                         Delete
                                     </button>
                                 </div>

@@ -7,7 +7,7 @@ function Communities(communities) {
     }
     return (
         <>
-            <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 xs:grid-cols-1 gap-4 lg:w-4/5 md:w-4/5 xs:w-full mx-auto">
+            <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 xs:grid-cols-1 gap-4 lg:w-4/5 md:w-4/5 xs:w-full mx-auto overflow-hidden">
                 {/* <div className="flex-row xl:columns-4 lg:columns-3 md:columns-3 xs:colums-1 lg:w-4/5 md:w-4/5 xs:w-full mx-auto"> */}
                 {communities.communities.map(community => ( // Utiliza () para devolver explícitamente
                     <CommunitySimple key={uniqueKey(1, 10000)} community={community} /> // Asegúrate de agregar un key único
