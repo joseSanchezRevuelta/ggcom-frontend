@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import './CreateCommunityForm.css';
 import { useSelector } from 'react-redux';
-import { createCommunity, createCommunityRepository } from '../../features/communities/communityRepository';
+import { getCommunity, updateCommunity } from '../../features/communities/communityRepository';
 
-function CreateCommunityForm() {
+function EditCommunityForm({ community_id }) {
     const userState = useSelector(state => state.user)
 
+    const [idUser, setIdUser] = useState('')
+    const [idCommunity, setIdCommunity] = useState('')
     const [idGame, setIdGame] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -22,12 +23,48 @@ function CreateCommunityForm() {
     const [flag, setFlag] = useState([]);
     const [languages, setLanguages] = useState([]);
     const [timezones, setTimezones] = useState([]);
+    const [renderData, setRenderData] = useState(false)
 
     const titleRef = useRef(null);
 
     const [gameObject, setGameObject] = useState('')
     const [gameSearch, setGameSearch] = useState('')
     const [isOpen, setIsOpen] = useState(false);
+
+    const [communityData, setCommunityData] = useState([]);
+    // fetch a comunidad
+    useEffect(() => {
+        getCommunity(community_id)
+            .then(data => {
+                setCommunityData(data);
+                // setStyleBackground({ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 1), transparent), url("${data.game_image}")` });
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+    }, [community_id]);
+
+    useEffect(() => {
+        setIdUser(communityData.user_id)
+        setIdCommunity(communityData.id)
+        setTitle(communityData.title);
+        setDescription(communityData.description);
+        const countryObject = {
+            country: communityData.country,
+            flag: communityData.flag
+        };
+        const countryJSON = JSON.stringify(countryObject);
+        setCountry(countryJSON);
+        setLanguage(communityData.language);
+        setTimezone(communityData.timezone);
+        //GAME
+        setGame(communityData.game_name)
+        setGameConfirmed(communityData.game_name)
+        setIdGame(communityData.game_id)
+        setImage(communityData.game_image)
+        handleGameSelected(false)
+    }, [communityData]);
+
 
     //Games
     const handleGameSelected = (game) => {
@@ -40,16 +77,6 @@ function CreateCommunityForm() {
             setGameSearch('');
         }
     };
-    // useEffect(() => {
-    //     fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // Extraer solo los nombres de los videojuegos
-    //             const gameNames = data.results.map(game => game.name);
-    //             console.log(gameNames);
-    //         })
-    //         .catch(error => console.error('Error fetching game names:', error));
-    // })
 
     useEffect(() => {
         if (isOpen) {
@@ -378,7 +405,7 @@ function CreateCommunityForm() {
             const countryFlag = countryObject.flag;
             // requestOptions
             const requestOptions = {
-                method: 'POST',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
@@ -388,7 +415,8 @@ function CreateCommunityForm() {
                     {
                         "data": {
                             "attributes": {
-                                "user_id": `${userState.userData.id}`,
+                                "user_id": idUser,
+                                "community_id": idCommunity,
                                 "title": title,
                                 "description": description,
                                 "country": countryName,
@@ -404,7 +432,7 @@ function CreateCommunityForm() {
                 )
             };
             //fetch
-            createCommunity(requestOptions)
+            updateCommunity(requestOptions)
         }
         event.preventDefault();
     };
@@ -472,7 +500,10 @@ function CreateCommunityForm() {
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         >
-                            <option disabled hidden value="">Select Country</option>
+                            <option key="countryDefault" value={country}>
+
+                            {country && JSON.parse(country).country}
+                            </option>
                             <option key="international" value={JSON.stringify({ "country": "international", "flag": "/img/world.png" })} className='cursor-pointer'>
                                 International
                             </option>
@@ -525,15 +556,15 @@ function CreateCommunityForm() {
                         <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small>
                     </div>
                     <div className="text-center mt-12">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Create Community</button>
+                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Save Changes</button>
                     </div>
-                    <div className="flex items-center justify-center mt-10">
+                    {/* <div className="flex items-center justify-center mt-10">
                         <a className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems create community?</a>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </>
     )
 }
 
-export default CreateCommunityForm;
+export default EditCommunityForm;

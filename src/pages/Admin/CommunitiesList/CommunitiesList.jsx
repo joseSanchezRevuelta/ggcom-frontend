@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import Title from '../../../components/Title/Title.jsx'
-import ListUsers from '../../../componentsAdmin/ListUsers.jsx/ListUsers.jsx';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import ListCommunities from '../../../componentsAdmin/ListCommunities/ListCommunities.jsx';
 import Filter from '../../../components/Filter/Filter.jsx';
 
-function UserList() {
+function CommunitiesList() {
 
-    const userState = useSelector(state => state.user)
+    const { id, username, email } = useParams();
 
     useEffect(() => {
         window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
@@ -15,13 +15,14 @@ function UserList() {
     return (
         <>
             <div className='bg-neutral-950 min-h-screen items-center overflow-auto'>
-                <Title title={'User list'} />
+                <Title title={'Communities list'} />
+                <Filter />
                 {/* <div className='text-center lg:w-4/5 mx-auto pt-16 bg-red-400'> */}
-                <ListUsers token={userState.userData.token} />
+                <ListCommunities id={id} />
                 {/* </div> */}
             </div>
         </>
     );
 }
 
-export default UserList;
+export default CommunitiesList;

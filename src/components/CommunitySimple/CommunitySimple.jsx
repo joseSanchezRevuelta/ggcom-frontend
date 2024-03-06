@@ -2,13 +2,14 @@
 import { ChatBubbleOvalLeftEllipsisIcon, UserGroupIcon, FlagIcon } from '@heroicons/react/24/outline'
 import './CommunitySimple.css';
 import CommunityImage from '../CommunityImage/CommunityImage';
+import { Link } from 'react-router-dom';
 
 function CommunitySimple({ community }) {
     const imageUrl = community.game_image; // Reemplaza con la URL de tu imagen
     const maxWidth = 960; // Cambia esto al ancho deseado en píxeles
     return (
         <>
-            <a href={`/community/${community.id}`}>
+            <Link to={`/community/${community.id}`}>
                 <div className="communitySimple rounded-lg overflow-hidden shadow-lg bg-neutral-900 mb-2 text-white cursor-pointer hover:scale-105 font-medium md:text-sm">
                     {/* <img className="w-full h-56" src={`${community.game_image}`} alt="Sunset in the mountains" /> */}
                     <CommunityImage
@@ -82,7 +83,7 @@ function CommunitySimple({ community }) {
 
             </div> */}
                 {/* </div> */}
-            </a>
+            </Link>
         </>
     )
 }

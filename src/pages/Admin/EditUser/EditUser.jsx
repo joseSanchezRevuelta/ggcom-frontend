@@ -2,12 +2,13 @@ import { useEffect, useState } from "react"
 import EditUsernameModal from "../../../components/EditUsernameModal/EditUsernameModal.jsx"
 import EditEmailModal from "../../../components/EdirEmailModal/EditEmailModal.jsx"
 import EditPasswordlModal from "../../../components/EditPasswordModal/EditPasswordModal.jsx"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import DeleteUser from "../../../components/DeleteUser/DeleteUser.jsx"
 import Title from "../../../components/Title/Title.jsx"
 
 // eslint-disable-next-line react/prop-types
 export default function EditUser() {
+
     const { id, username, email } = useParams();
     const [userId, setUserId] = useState(id)
     const [userNameState, setUserNameState] = useState(username)
@@ -20,14 +21,14 @@ export default function EditUser() {
     // const [openEditPasswordModal, setOpenEditPasswordModal] = useState(false);
     const [openDeleteUser, setOpenDeleteUser] = useState(false);
 
-    function handleViewCommunities(userId) {
+    function handleViewCommunities(token, id) {
 
     }
 
     return (
         <>
-            <EditUsernameModal openEditUsernameModal={openEditUsernameModal} setOpenEditUsernameModal={setOpenEditUsernameModal} userNameState={userNameState} user_id={id}  email={email} setUserNameState={setUserNameState}/>
-            <EditEmailModal openEditEmailModal={openEditEmailModal} setOpenEditEmailModal={setOpenEditEmailModal} userEmailState={userEmailState} user_id={id} username={username} setUserEmailState={setUserEmailState}/>
+            <EditUsernameModal openEditUsernameModal={openEditUsernameModal} setOpenEditUsernameModal={setOpenEditUsernameModal} userNameState={userNameState} user_id={id} email={email} setUserNameState={setUserNameState} />
+            <EditEmailModal openEditEmailModal={openEditEmailModal} setOpenEditEmailModal={setOpenEditEmailModal} userEmailState={userEmailState} user_id={id} username={username} setUserEmailState={setUserEmailState} />
             <EditPasswordlModal openEditPasswordModal={openEditPasswordModal} setOpenEditPasswordModal={setOpenEditPasswordModal} passwordState={passwordState} user_id={id} />
             <DeleteUser openDeleteUser={openDeleteUser} setOpenDeleteUser={setOpenDeleteUser} user_id={id} />
 
@@ -61,7 +62,12 @@ export default function EditUser() {
                     </div>
                     <hr></hr>
                     <div className="text-center mt-12">
-                        <button className="text-white bg-yellow-400 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => handleViewCommunities(true)}>View communities user</button>
+                        <Link to={`/communitieslist/${id}/${username}/${email}`} className="text-white bg-yellow-400 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900">
+                            View communities user
+                        </Link>
+                    </div>
+                    <div className="text-center mt-12">
+                        <button href={`/communitieslist/${id}/${username}/${email}`} className="text-white bg-yellow-400 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900">View comments user</button>
                     </div>
                     <div className="text-center mt-12">
                         <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditPasswordModal(true)}>Change password</button>
