@@ -10,7 +10,7 @@ function Explore() {
         fetchData()
     }, []);
 
-    const [communities, setCommunities] = useState([]);
+    const [communities, setCommunities] = useState('');
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const limit = 12;
@@ -45,22 +45,29 @@ function Explore() {
                     dataLength={communities.length}
                     next={fetchData}
                     hasMore={hasMore}
-                    loader={
-                        <div className="overflow-hidden">
-                            <div className="w-full text-center mx-auto text-main">
-                                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                    <span className="hidden">Loading...</span>
-                                </div>
-                            </div>
-                        </div>
-                    }
+                // loader={
+                //     <div className="overflow-hidden">
+                //         <div className="w-full text-center mx-auto text-main">
+                //             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                //                 <span className="hidden">Loading...</span>
+                //             </div>
+                //         </div>
+                //     </div>
+                // }
                 // endMessage={<p>No hay más comunidades para cargar.</p>}
                 >
+                    {/* {communities && (
+                        <Communities communities={communities} />
+                    )} */}
                     {!communities ? (
-                        <div className="w-full text-center mx-auto text-main">
+                        <div className="w-full text-center mx-auto text-main overflow-hidden">
                             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                <span className="hidden">Loading...</span>
+                                {/* <span className="text-white">{communities.communities}</span> */}
                             </div>
+                        </div>
+                    ) : communities.length === 0 ? (
+                        <div className='flex items-center justify-center'>
+                            <h1 className='text-white'>No communities found</h1>
                         </div>
                     ) : (
                         <Communities communities={communities} />

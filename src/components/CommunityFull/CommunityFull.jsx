@@ -16,6 +16,12 @@ function CommunityFull(community_id) {
     const [loadingLeaveCommunity, setLoadingLeaveCommunity] = useState(false);
     const [renderData, setRenderData] = useState(false)
     const [renderComments, setRenderComments] = useState(false)
+    const [page, setPage] = useState(0);
+
+    useEffect(() => {
+        console.log('El estado de renderComments ha cambiado:', renderComments);
+    }, [renderComments]);
+    
 
     // fetch a comunidad
     useEffect(() => {
@@ -125,10 +131,10 @@ function CommunityFull(community_id) {
                     </div>
                     {/* Formulario para commentario */}
                     <div className=''>
-                        <CreateCommentForm community_id={community_id.id} joinCommunityData={joinCommunityData} setRenderComments={setRenderComments} />
+                        <CreateCommentForm community_id={community_id.id} joinCommunityData={joinCommunityData} setRenderComments={setRenderComments} setPage={setPage}/>
                     </div>
                     {/* Comentarios */}
-                    <Comments community_id={community_id.id} user_id={userState.userData.id} renderComments={renderComments} setRenderComments={setRenderComments}/>
+                    <Comments token={userState.userData.token} community_id={community_id.id} user_id={userState.userData.id} renderComments={renderComments} setRenderComments={setRenderComments} page={page} setPage={setPage}/>
                 </div>
             ) : (
                 <h1 className='mt-40 text-white'>Cargando datos...</h1>

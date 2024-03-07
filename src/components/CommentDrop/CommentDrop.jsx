@@ -10,7 +10,7 @@ function classNames(...classes) {
 }
 
 // eslint-disable-next-line react/prop-types
-export default function CommentDrop({comment_id, comment_user_id, user_id, renderComments, setRenderComments}) {
+export default function CommentDrop({comment_id, comment_user_id, community_id, setRenderComments,setPage}) {
     const [openDeleteComment, setOpenDeleteComment] = useState(false);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function CommentDrop({comment_id, comment_user_id, user_id, rende
 
     return (
         <>
-            <DeleteComment community_id={comment_id} comment_user_id={comment_user_id} user_id={user_id} openDeleteComment={openDeleteComment} setOpenDeleteComment={setOpenDeleteComment} setRenderComments={setRenderComments}/>
+            <DeleteComment comment_id={comment_id} comment_user_id={comment_user_id} community_id={community_id} openDeleteComment={openDeleteComment} setOpenDeleteComment={setOpenDeleteComment} setRenderComments={setRenderComments} setPage={setPage}/>
 
             <Menu as="div" className="relative inline-block text-left">
                 <div>

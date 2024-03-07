@@ -64,18 +64,22 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg text-center">
-                                <p className="text-white">Change password</p>
+                                <div className="pt-4 pb-2 flex items-center justify-center">
+                                    <span className="text-white font-bold">Change password</span>
+                                </div>
                                 <small className="text-green-700">{successPassword}</small>
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-2 mx-auto" id="title" type="text" placeholder="New password" value={userPasword} onChange={(e) => setUserPassword(e.target.value)} />
+                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="Current password" />
+                                <small className="text-green-700">{successPassword}</small>
+                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="New password" value={userPasword} onChange={(e) => setUserPassword(e.target.value)} />
                                 <small className="text-red-400">{errorPassword}</small>
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-2 mx-auto" id="title" type="text" placeholder="Confirm new password" value={userPasswoordConfirm} onChange={(e) => setUserPasswordConfirm(e.target.value)} />
+                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="Confirm new password" value={userPasswoordConfirm} onChange={(e) => setUserPasswordConfirm(e.target.value)} />
                                 <small className="text-red-400">{errorPasswordConfirm}</small>
-                                <div className="text-center py-8">
-                                    <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenEditPasswordModal(false)}>
-                                        Cancel
-                                    </button>
+                                <div className="text-center mt-4 pb-11">
                                     <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdatePassword(userState.userData.token, user_id, userPasword)}>
                                         Change password
+                                    </button>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenEditPasswordModal(false)}>
+                                        Cancel
                                     </button>
                                 </div>
                             </Dialog.Panel>

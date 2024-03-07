@@ -249,7 +249,7 @@ export async function checkUser(token) {
 }
 
 //updatePassword
-export async function getUsersRepository(token, id) {
+export async function getUsersRepository(token, page, limit) {
     const requestOptions = {
         method: 'GET',
         headers: {
@@ -259,11 +259,10 @@ export async function getUsersRepository(token, id) {
         }
     };
     try {
-        const response = await fetch(apiUrl + '/getusers', requestOptions);
+        const response = await fetch(apiUrl + `/getusers?page=${page}&limit=${limit}`, requestOptions);
         if (response.ok) {
-            const data = await response.json();
-            console.log(data); // Aquí imprimes la respuesta recibida
-            return data;
+            const data = await response.json(); // Aquí imprimes la respuesta recibida
+            return data.data;
         } else {
             console.error('Error en la respuesta. Estado:', response.status);
             const errorData = await response.json();
@@ -277,8 +276,8 @@ export async function getUsersRepository(token, id) {
     
 }
 
-export async function getUsers(token, id) {
-    return await getUsersRepository(token, id)
+export async function getUsers(token, page, limit) {
+    return await getUsersRepository(token, page, limit)
     // window.location.href = `${frontUrl}/profile`;
 }
 

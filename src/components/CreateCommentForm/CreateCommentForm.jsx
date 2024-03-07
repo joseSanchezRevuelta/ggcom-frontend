@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { createComent } from "../../features/Comments/commentRepository"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
-function CreateComment({ community_id, joinCommunityData, setRenderComments }) {
+function CreateComment({ community_id, joinCommunityData, setRenderComments, setPage }) {
     const userState = useSelector(state => state.user)
     const [comment, setComment] = useState('')
     const [errorComent, setErrorComment] = useState('')
@@ -28,6 +29,7 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments }) {
             setLoadingCreateComment(true)
             createComent(userState.userData.token, userState.userData.id, community_id, userState.userData.username, comment)
                 .then(() => {
+                    // setPage(0)
                     setRenderComments(prevState => !prevState);
                 })
                 .catch(error => {

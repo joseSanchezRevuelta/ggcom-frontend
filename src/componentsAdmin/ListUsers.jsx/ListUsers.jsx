@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import User from '../User/User';
 import { getUsers } from "../../features/users/usersRepository";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // eslint-disable-next-line react/prop-types
 function ListUsers({ token }) {
 
     const [users, setUsers] = useState([]);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+    const limit = 24;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -14,9 +18,19 @@ function ListUsers({ token }) {
 
     const fetchData = async () => {
         try {
-            getUsers(token)
+            getUsers(token, page, limit)
                 .then(response => {
-                    setUsers(response)
+                    if (response.length > 0) {
+                        if (page == 0) {
+                            setUsers(response)
+                            setPage(prevPage => prevPage + 1);
+                        } else {
+                            setUsers(prevCommunities => [...prevCommunities, ...response]);
+                            setPage(prevPage => prevPage + 1);
+                        }
+                    } else {
+                        setHasMore(false);
+                    }
                 })
                 .catch(error => {
                     console.log(error)
@@ -72,17 +86,33 @@ function ListUsers({ token }) {
                         <div className='flex-1 text-center'><span>Role</span></div>
                         <div className='flex-1 text-center'><span>Created</span></div>
                     </a>
-                    {!users ? (
-                        <div className="w-full text-center mx-auto text-main">
-                            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                <span className="sr-only">Loading...</span>
+                    <InfiniteScroll
+                        dataLength={users.length}
+                        next={fetchData}
+                        hasMore={hasMore}
+                        loader={
+                            <div className="overflow-hidden">
+                                <div className="w-full text-center mx-auto text-main">
+                                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                        <span className="hidden">Loading...</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ) : (
-                        users.map(user => (
-                            <User key={user.id} user={user} />
-                        ))
-                    )}
+                        }
+                    // endMessage={<p>No hay más comunidades para cargar.</p>}
+                    >
+                        {!users ? (
+                            <div className="w-full text-center mx-auto text-main">
+                                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        ) : (
+                            users.map(user => (
+                                <User key={user.id} user={user} />
+                            ))
+                        )}
+                    </InfiniteScroll>
                 </div>
             </div >
         </>

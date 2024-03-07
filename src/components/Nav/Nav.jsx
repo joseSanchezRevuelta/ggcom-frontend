@@ -122,8 +122,9 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                         Log out
                                     </Link>
                                 </div> */}
-                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                    <Link key='createcommunity' to='createcommunity' activeclassname="active" className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={handleCreateCommunity}>
+                                {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"> */}
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden lg:block md:block">
+                                    <Link key='createcommunity' to='createcommunity' activeclassname="active" className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2.5 px-4 rounded mx-2" onClick={handleCreateCommunity}>
                                         Create Community
                                     </Link>
                                     {/* <a key='createcommunity' href='createcommunity' className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2">
@@ -160,9 +161,9 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                                         {({ active }) => (
                                                             <Link
                                                                 to="/profile"
-                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-main')}
+                                                                className={classNames(active ? 'bg-neutral-900' : '', 'block px-4 py-2 text-sm text-white hover:text-main')}
                                                             >
-                                                                Your Profile
+                                                                My Profile
                                                             </Link>
                                                         )}
                                                     </Menu.Item>
@@ -180,7 +181,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
                                                         {({ active }) => (
                                                             <a
                                                                 href="#"
-                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-main')}
+                                                                className={classNames(active ? 'bg-neutral-900' : '', 'block px-4 py-2 text-sm text-white hover:text-main')}
                                                                 onClick={handleLogOut}
                                                             >
                                                                 Sign out

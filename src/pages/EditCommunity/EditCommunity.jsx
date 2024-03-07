@@ -25,7 +25,7 @@ function EditCommunity() {
         try {
             getEditCommunity(userState.userData.token, id)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     setCommunity(response)
                 })
                 .catch(error => {

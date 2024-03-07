@@ -1,18 +1,19 @@
 const apiUrl = import.meta.env.VITE_URL;
 
-export async function getCommentsRepository(community_id) {
+export async function getCommentsRepository(token, community_id, userid, page, limit) {
     try {
         const requestOptions = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         };
-        const response = await fetch(`${apiUrl}/comments?community_id=${community_id}`, requestOptions);
+        const response = await fetch(`${apiUrl}/comments?community_id=${community_id}&user_id=${userid}&page=${page}&limit=${limit}`, requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            return data;
+            return data.data;
         } else {
             console.error('Response status:', response.status);
             const data = await response.json();
@@ -24,8 +25,8 @@ export async function getCommentsRepository(community_id) {
     }
 }
 
-export async function getComments(community_id) {
-    return await getCommentsRepository(community_id)
+export async function getComments(token, community_id, userid, page, limit) {
+    return await getCommentsRepository(token, community_id,userid, page, limit)
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
@@ -75,7 +76,7 @@ export async function createComent(token, user_id, community_id, username, comme
 }
 
 //delete comment
-export async function deleteCommentRepository(token, user_id, comment_user_id, comment_id) {
+export async function deleteCommentRepository(token, user_id, community_id, comment_id) {
     try {
         const requestOptions = {
             method: 'DELETE',
@@ -90,7 +91,7 @@ export async function deleteCommentRepository(token, user_id, comment_user_id, c
                         "attributes": {
                             "id": comment_id,
                             "user_id": user_id,
-                            "comment_user_id": comment_user_id
+                            "community_id": community_id
                         }
                     }
                 }
@@ -99,7 +100,7 @@ export async function deleteCommentRepository(token, user_id, comment_user_id, c
         const response = await fetch(apiUrl + '/api/deletecomment', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            console.log("comment creado")
+            console.log("comment borrado")
             console.log(data)
             return data;
         } else {
@@ -113,7 +114,7 @@ export async function deleteCommentRepository(token, user_id, comment_user_id, c
     }
 }
 
-export async function deleteComent(token, user_id, comment_user_id, comment_id) {
-    const community_created = await deleteCommentRepository(token, user_id, comment_user_id, comment_id)
+export async function deleteComent(token, user_id, community_id, comment_id) {
+    const community_created = await deleteCommentRepository(token, user_id, community_id, comment_id)
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }

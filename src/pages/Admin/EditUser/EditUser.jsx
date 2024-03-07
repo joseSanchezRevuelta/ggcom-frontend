@@ -67,7 +67,7 @@ export default function EditUser() {
                         </Link>
                     </div>
                     <div className="text-center mt-12">
-                        <button href={`/communitieslist/${id}/${username}/${email}`} className="text-white bg-yellow-400 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900">View comments user</button>
+                        <Link to={`/communitieslist/${id}/${username}/${email}`} className="text-white bg-yellow-400 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900">View comments user</Link>
                     </div>
                     <div className="text-center mt-12">
                         <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditPasswordModal(true)}>Change password</button>

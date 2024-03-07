@@ -6,16 +6,13 @@ import { clearUserData } from "../../features/users/usersSlice";
 import { deleteCommentRepository } from "../../features/Comments/commentRepository";
 
 // eslint-disable-next-line react/prop-types
-function DeleteComment({community_id, comment_user_id, user_id, openDeleteComment, setOpenDeleteComment, setRenderComments }) {
+function DeleteComment({comment_id, comment_user_id, community_id, openDeleteComment, setOpenDeleteComment, setRenderComments, setPage }) {
     const userState = useSelector(state => state.user)
 
-    function handleDelete(token, user_id, comment_user_id, comment_id) {
-        console.log(token)
-        console.log(user_id)
-        console.log(comment_user_id)
-        console.log(comment_id)
-        deleteCommentRepository(token, user_id, comment_user_id, comment_id)
+    function handleDelete(token, comment_user_id, community_id, comment_id) {
+        deleteCommentRepository(token, comment_user_id, community_id, comment_id)
         .then(() => {
+            // setPage(0)
             setOpenDeleteComment(false)
             setRenderComments(prevState => !prevState);
         })
@@ -58,7 +55,7 @@ function DeleteComment({community_id, comment_user_id, user_id, openDeleteCommen
                                     <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDeleteComment(false)}>
                                         Cancel
                                     </button>
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, user_id, comment_user_id, community_id)}>
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)}>
                                         Delete
                                     </button>
                                 </div>

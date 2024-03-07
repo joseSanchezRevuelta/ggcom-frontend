@@ -4,14 +4,15 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux';
 // import { loginRepository } from '../../features/users/usersRepository';
 import { userdAuth } from '../../features/users/usersSlice';
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
   const deviceName = import.meta.env.VITE_DEVICE_NAME;
 
   // dispatch
   const dispatch = useDispatch();
-  const  loginState  = useSelector(state => state.user)  
-  
+  const loginState = useSelector(state => state.user)
+
   const emailRef = useRef(null);
 
   const [email, setEmail] = useState('');
@@ -60,44 +61,44 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
           // 'Authorization': 'Bearer token'
         },
         body: JSON.stringify(
-            {
-              "data": {
-                  "attributes": {
-                      "email": email,
-                      "password": password,
-                      "device_name": deviceName
-                  }
+          {
+            "data": {
+              "attributes": {
+                "email": email,
+                "password": password,
+                "device_name": deviceName
               }
+            }
           }
         )
       };
-      
+
       // eslint-disable-next-line no-inner-declarations
       async function fetchData() {
         try {
           const data = await dispatch(userdAuth(requestOptions));
-            if (data) {
-                if (data.payload.success === true) {
-                  localStorage.setItem("data_ggcom", JSON.stringify(data.payload))
-                  handleCloseSignIn();
-                  // window.location.reload();
-                } else {
-                  setError("Incorrect user or password")
-                }
+          if (data) {
+            if (data.payload.success === true) {
+              localStorage.setItem("data_ggcom", JSON.stringify(data.payload))
+              handleCloseSignIn();
+              // window.location.reload();
             } else {
-              //ERROR
               setError("Incorrect user or password")
             }
+          } else {
+            //ERROR
+            setError("Incorrect user or password")
+          }
         } catch (error) {
           //ERROR
-            console.error('Hubo un error en la solicitud:', error);
-            setError("Incorrect user or password")
+          console.error('Hubo un error en la solicitud:', error);
+          setError("Incorrect user or password")
         }
-    }
-    
-    fetchData();
-    
-      
+      }
+
+      fetchData();
+
+
 
       // const res = dispatch(userdAuth(requestOptions));
       // console.log(res)
@@ -134,8 +135,8 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
       // .catch(error => {
       //     console.error('There was a problem with the fetch operation:', error);
       // });
-      
-      
+
+
 
     }
   };
@@ -167,9 +168,16 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
-                <div className="p-4 flex items-center justify-center">
+                {/* <div className="p-4 flex items-center justify-center">
                   <span className="text-white font-bold">Login to GGCOM</span>
+                </div> */}
+                <div className="p-4 flex items-center justify-center relative">
+                  <span className="text-white font-bold text-center">Login to GGCOM</span>
+                  <button onClick={handleCloseSignIn} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded">
+                    <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
+                  </button>
                 </div>
+
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <form className="max-w-md mx-auto my-10 font-bold-600">
                   <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p>

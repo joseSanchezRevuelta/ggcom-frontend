@@ -218,7 +218,7 @@ function Filter({ setCommunities }) {
         if (errorGame === 0) {
             setGameErrorText('')
             setCommunities('')
-            getCommunitiesFilter(search, idGame, country, language, timezone, order)
+            // getCommunitiesFilter(search, idGame, country, language, timezone, order)
             // console.log(search)
             // console.log(idGame)
             // console.log(game)

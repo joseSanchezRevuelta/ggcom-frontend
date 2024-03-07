@@ -146,8 +146,8 @@ export async function createCommunityRepository(requestOptions) {
 }
 
 export async function createCommunity(requestOptions) {
-    const community_created = await createCommunityRepository(requestOptions)
-    window.location.href = `${frontUrl}/community/${community_created.id}`;
+    return await createCommunityRepository(requestOptions)
+    // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
 // update comnunity

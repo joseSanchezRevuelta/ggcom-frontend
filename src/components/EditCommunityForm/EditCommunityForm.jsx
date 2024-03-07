@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getCommunity, updateCommunity } from '../../features/communities/communityRepository';
+import { Link } from 'react-router-dom';
 
 function EditCommunityForm({ community_id }) {
     const userState = useSelector(state => state.user)
@@ -105,7 +106,7 @@ function EditCommunityForm({ community_id }) {
             //     console.log(game.name); 
             // });
         });
-        console.log(gameSearch)
+        // console.log(gameSearch)
     }
 
     const gameSelected = (event) => {
@@ -502,7 +503,7 @@ function EditCommunityForm({ community_id }) {
                         >
                             <option key="countryDefault" value={country}>
 
-                            {country && JSON.parse(country).country}
+                                {country && JSON.parse(country).country}
                             </option>
                             <option key="international" value={JSON.stringify({ "country": "international", "flag": "/img/world.png" })} className='cursor-pointer'>
                                 International
@@ -555,6 +556,13 @@ function EditCommunityForm({ community_id }) {
                         </select>
                         <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small>
                     </div>
+                    {userState.userData.role === 'admin' && (
+                        <div className="text-center mt-12">
+                            <Link to={`/commentslist/${idCommunity}/${idUser}`} className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900">
+                                View Comments
+                            </Link>
+                        </div>
+                    )}
                     <div className="text-center mt-12">
                         <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Save Changes</button>
                     </div>

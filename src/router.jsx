@@ -14,6 +14,7 @@ import UserList from './pages/Admin/UserList/UserList.jsx';
 import EditUser from './pages/Admin/EditUser/EditUser.jsx';
 import CommunitiesList from './pages/Admin/CommunitiesList/CommunitiesList.jsx';
 import EditCommunity from './pages/EditCommunity/EditCommunity.jsx';
+import CommentsList from './pages/Admin/CommentsList/CommentsList.jsx';
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
@@ -142,6 +143,16 @@ function Router() {
         } />
 
       <Route
+        path="/communitieslist"
+        element={
+          <ProtectedRoute>
+            <ProtectedRouteAdmin>
+              <CommunitiesList />
+            </ProtectedRouteAdmin>
+          </ProtectedRoute>
+        } />
+
+      <Route
         path="/communitieslist/:id/:username/:email"
         element={
           <ProtectedRoute>
@@ -152,11 +163,11 @@ function Router() {
         } />
 
       <Route
-        path="/communitieslist"
+        path="/commentslist/:communityid/:userid"
         element={
           <ProtectedRoute>
             <ProtectedRouteAdmin>
-              <CommunitiesList />
+              <CommentsList />
             </ProtectedRouteAdmin>
           </ProtectedRoute>
         } />

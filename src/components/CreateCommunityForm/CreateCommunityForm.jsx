@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import './CreateCommunityForm.css';
 import { useSelector } from 'react-redux';
 import { createCommunity, createCommunityRepository } from '../../features/communities/communityRepository';
+import { useNavigate } from 'react-router-dom';
 
 function CreateCommunityForm() {
+    const frontUrl = import.meta.env.VITE_URL_FRONT;
     const userState = useSelector(state => state.user)
 
     const [idGame, setIdGame] = useState('')
@@ -28,6 +30,8 @@ function CreateCommunityForm() {
     const [gameObject, setGameObject] = useState('')
     const [gameSearch, setGameSearch] = useState('')
     const [isOpen, setIsOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     //Games
     const handleGameSelected = (game) => {
@@ -403,8 +407,22 @@ function CreateCommunityForm() {
                     }
                 )
             };
+            const redirectToCommunity = (id) => {
+                const url = `/community/${id}`;
+                navigate(url);
+              };
+
             //fetch
             createCommunity(requestOptions)
+            .then(data => {
+            redirectToCommunity(data.id);
+            })
+            .catch(error => {
+              console.error('Error al crear la comunidad:', error);
+            });
+            
+              // Llamada a la función para redireccionar
+            // redirectToCommunity(id);
         }
         event.preventDefault();
     };
