@@ -2,44 +2,99 @@ import { Dialog, Transition } from "@headlessui/react"
 import { Fragment, useState } from "react"
 import { useSelector } from "react-redux";
 import { updatePassword } from "../../features/users/usersRepository";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 // eslint-disable-next-line react/prop-types
 function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, user_id }) {
     const userState = useSelector(state => state.user)
 
-    const [userPasword, setUserPassword] = useState('')
-    const [userPasswoordConfirm, setUserPasswordConfirm] = useState('')
-    const [successPassword, setSuccessPassword] = useState("")
-    const [errorPassword, setErrorPassword] = useState("")
+    //password
+    const [userPassword, setUserPassword] = useState('')
+    const [userNewPassword, setUserNewPassword] = useState('')
+    const [userPasswordConfirm, setUserPasswordConfirm] = useState('')
+    //error
+    const [errorUserPassword, setErrorUserPassword] = useState("")
+    const [errorNewPassword, setErrorNewPassword] = useState("")
     const [errorPasswordConfirm, setErrorPasswordConfirm] = useState("")
 
-    function handleUpdatePassword(token) {
-        let errorP = 0
-        let errorPC = 0
-        if (userPasword === "") {
-            setErrorPassword('Password is required')
-            errorP++;
+    const [success, setSuccess] = useState("")
+
+    function handleUpdatePassword(token, user_id, userPassword, userNewPassword, userPasswordConfirm) {
+        setSuccess('')
+        setErrorUserPassword('')
+        setErrorNewPassword('')
+        setErrorPasswordConfirm('')
+        let errorUserPassword = 0
+        let errorNewPassword = 0
+        let errorPasswordConfirm = 0
+        let expRegPass = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,30}$/
+        if (userPassword === "") {
+            errorUserPassword++;
+            setErrorUserPassword('Current password is required')
         } else {
-            setErrorPassword('')
-            errorP = 0
+            setErrorUserPassword('')
+            errorUserPassword = 0
         }
-        if (userPasword !== userPasswoordConfirm) {
-            setErrorPasswordConfirm('Password must')
-            errorPC++
-        } else {
+        if (userNewPassword == '') {
+            errorNewPassword++;
+            setErrorNewPassword('New password is required')
+        } else if (userNewPassword.length < 5) {
+            errorNewPassword++
+            setErrorNewPassword('Password is too sort (min 5)')
+        } else if (userNewPassword.length > 20) {
+            errorNewPassword++
+            setErrorNewPassword('Password is too long (max 20)')
+        } else if (expRegPass.test(userNewPassword) === false) {
+            errorNewPassword++
+            setErrorNewPassword('Password must match')
+        } else if (userNewPassword != userPasswordConfirm) {
+            setErrorNewPassword('')
+            setErrorPasswordConfirm('Password must match')
+            errorPasswordConfirm++
+        } else if (userPassword == userNewPassword) {
+            setErrorNewPassword('')
+            setErrorNewPassword('Password cannot be the current one')
+            errorPasswordConfirm++
+        }else {
             setErrorPasswordConfirm('')
-            errorPC = 0
+            errorNewPassword = 0
+            errorNewPassword =0
+            errorPasswordConfirm = 0
         }
-        if (errorP === 0 && errorPC === 0) {
-            updatePassword(token, user_id, userPasword, userPasswoordConfirm)
-            setSuccessPassword('Password success')
-            setOpenEditPasswordModal(false)
+        if (errorUserPassword === 0 && errorNewPassword === 0 && errorPasswordConfirm == 0) {
+            fetchData(token, user_id, userPassword, userNewPassword, userPasswordConfirm)
         }
+    }
+
+    async function fetchData(token, user_id, userPassword, userNewPassword, userPasswordConfirm) {
+        const response = await updatePassword(token, user_id, userPassword, userNewPassword, userPasswordConfirm)
+        if (response.success == false) {
+            setErrorUserPassword('Incorrect current password')
+        } else {
+            setErrorUserPassword('')
+            setErrorNewPassword('')
+            setErrorPasswordConfirm('')
+            setUserPassword('')
+            setUserNewPassword('')
+            setUserPasswordConfirm('')
+            setSuccess("Password update correctly")
+        }
+    }
+
+    const handleCloseEditPassword = () => {
+        setOpenEditPasswordModal(false);
+        setErrorUserPassword('')
+        setErrorNewPassword('')
+        setErrorPasswordConfirm('')
+        setUserPassword('')
+        setUserNewPassword('')
+        setUserPasswordConfirm('')
+        setSuccess('')
     }
 
     return (
         <Transition.Root show={openEditPasswordModal} as={Fragment}>
-            <Dialog as="div" className="relative z-50" onClose={() => setOpenEditPasswordModal(false)}>
+            <Dialog as="div" className="relative z-50" onClose={() => handleCloseEditPassword()}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -63,22 +118,41 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg text-center">
-                                <div className="pt-4 pb-2 flex items-center justify-center">
-                                    <span className="text-white font-bold">Change password</span>
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
+                            <div className="p-4 flex items-center justify-center relative">
+                                    <span className="text-white font-bold text-center">Edit password</span>
+                                    <a onClick={handleCloseEditPassword} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded cursor-pointer">
+                                        <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
+                                    </a>
                                 </div>
-                                <small className="text-green-700">{successPassword}</small>
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="Current password" />
-                                <small className="text-green-700">{successPassword}</small>
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="New password" value={userPasword} onChange={(e) => setUserPassword(e.target.value)} />
-                                <small className="text-red-400">{errorPassword}</small>
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="Confirm new password" value={userPasswoordConfirm} onChange={(e) => setUserPasswordConfirm(e.target.value)} />
-                                <small className="text-red-400">{errorPasswordConfirm}</small>
-                                <div className="text-center mt-4 pb-11">
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdatePassword(userState.userData.token, user_id, userPasword)}>
-                                        Change password
+                                <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                                <p id="error_signin" className="error_signin text-green-500 text-sm text-center font-semibold my-6">{success}</p>
+                                <div className="relative z-0 w-5/6 my-6 group mx-auto">
+                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
+                                        Current pass:
+                                    </label>
+                                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="password" placeholder="Current password" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+                                    <small className="text-red-400">{errorUserPassword}</small>
+                                </div>
+                                <div className="relative z-0 w-5/6 my-6 group mx-auto">
+                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
+                                        New password:
+                                    </label>
+                                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="password" placeholder="New password" value={userNewPassword} onChange={(e) => setUserNewPassword(e.target.value)} />
+                                    <small className="text-red-400">{errorNewPassword}</small>
+                                </div>
+                                <div className="relative z-0 w-5/6 my-6 group mx-auto">
+                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
+                                        Confirm new pass:
+                                    </label>
+                                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="password" placeholder="Confirm password" value={userPasswordConfirm} onChange={(e) => setUserPasswordConfirm(e.target.value)} />
+                                    <small className="text-red-400">{errorPasswordConfirm}</small>
+                                </div>
+                                <div className="text-center mt-8 pb-11">
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdatePassword(userState.userData.token, user_id, userPassword, userNewPassword, userPasswordConfirm)}>
+                                        Accept
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenEditPasswordModal(false)}>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseEditPassword()}>
                                         Cancel
                                     </button>
                                 </div>

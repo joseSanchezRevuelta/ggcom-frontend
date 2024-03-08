@@ -119,7 +119,7 @@ export async function updateUsernameRepository(token, user_id, user_name) {
 }
 
 export async function updateUsername(token, user_id, user_email) {
-    await updateUsernameRepository(token, user_id, user_email)
+    return await updateUsernameRepository(token, user_id, user_email)
     // window.location.href = `${frontUrl}/profile`;
 }
 
@@ -164,12 +164,12 @@ export async function updateEmailRepository(token, user_id, user_email) {
 }
 
 export async function updateEmail(token, user_id, user_email) {
-    await updateEmailRepository(token, user_id, user_email)
+    return await updateEmailRepository(token, user_id, user_email)
     // window.location.href = `${frontUrl}/profile`;
 }
 
 //updatePassword
-export async function updatePasswordRepository(token, user_id, new_password, new_password_confirm) {
+export async function updatePasswordRepository(token, user_id, user_password, new_password, new_password_confirm) {
     const requestOptions = {
         method: 'PATCH',
         headers: {
@@ -183,6 +183,7 @@ export async function updatePasswordRepository(token, user_id, new_password, new
                     "attributes": {
                         // "oldpassword": "123123123",
                         "id": user_id,
+                        "user_password": user_password,
                         "newpassword": new_password,
                         "newpassword_confirmation": new_password_confirm
                     }
@@ -209,8 +210,8 @@ export async function updatePasswordRepository(token, user_id, new_password, new
     
 }
 
-export async function updatePassword(token, user_id, new_password, new_password_confirm) {
-    await updatePasswordRepository(token, user_id, new_password, new_password_confirm)
+export async function updatePassword(token, user_id, user_password, new_password, new_password_confirm) {
+    return await updatePasswordRepository(token, user_id, user_password, new_password, new_password_confirm)
     // window.location.href = `${frontUrl}/profile`;
 }
 

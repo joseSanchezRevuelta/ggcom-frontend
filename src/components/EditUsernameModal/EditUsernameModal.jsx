@@ -1,9 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { updateUsername } from "../../features/users/usersRepository";
 import { updateUsernameState } from "../../features/users/usersSlice";
 import { useNavigate } from "react-router-dom";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 // eslint-disable-next-line react/prop-types
 function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, userNameState, user_id, email, setUserNameState }) {
@@ -11,27 +12,82 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
 
     const userState = useSelector(state => state.user)
 
-    const [userName, setUserName] = useState(userNameState)
+    const [userName, setUserName] = useState(userState.userData.username)
+    const [error, setError] = useState('')
 
     const dispatch = useDispatch();
 
     const navigateTo = useNavigate();
 
+    const usernameRef = useRef(null);
+
     function handleUpdateUsername(token, user_id, user_name) {
-        updateUsername(token, user_id, user_name)
-        setOpenEditUsernameModal(false)
-        setUserNameState(userName)
-        if (userState.userData.role != "admin") {
-            dispatch(updateUsernameState(user_name))
-            // window.location.href = `${frontUrl}/profile`;
-        } else if (userState.userData.role === "admin") {
-            navigateTo(`/edituser/${user_id}/${userName}/${email}`)
+        let error = 0;
+        if (user_name == userState.userData.username) {
+            error++
+            setError('New username cannot be the same')
+        } else if (user_name == '') {
+            error++
+            setError('New username required')
+        } else if (user_name.length > 20) {
+            error++
+            setError('Username is too long (max 20')
+        } else if (user_name.length < 3) {
+            error++
+            setError('Username is too sort (min 3)')
+        } 
+        if (error == 0) {
+            fetchData(token, user_id, user_name)
         }
     }
 
+    async function fetchData(token, user_id, user_name) {
+        try {
+            const response = await updateUsername(token, user_id, user_name)
+            if (response) {
+                console.log(response)
+                if (response.errors && response.errors['data.attributes.username']) {
+                    setError('Username already used')
+                }
+                if (response.success === true) {
+                    // updateUsername(token, user_id, user_name)
+                    setOpenEditUsernameModal(false)
+                    setUserNameState(userName)
+                    setError('')
+                    if (userState.userData.role != "admin") {
+                        dispatch(updateUsernameState(user_name))
+                        // window.location.href = `${frontUrl}/profile`;
+                    } else if (userState.userData.role === "admin") {
+                        navigateTo(`/edituser/${user_id}/${userName}/${email}`)
+                    }
+                }
+            } else {
+                console.log("Ha ocurrido un error")
+              }
+        } catch (error) {
+            console.error('Hubo un error en la solicitud:', error);
+          }
+    }
+
+    const handleCloseEditUsername = () => {
+        setOpenEditUsernameModal(false);
+        setUserName(userState.userData.username)
+        setError("");
+    }
+
+    // useEffect(() => {
+    //     const timeoutId = setTimeout(() => {
+    //       if (usernameRef.current) {
+    //         usernameRef.current.focus();
+    //       }
+    //     }, 300);
+    
+    //     return () => clearTimeout(timeoutId);
+    //   }, [openEditUsernameModal]);
+
     return (
         <Transition.Root show={openEditUsernameModal} as={Fragment}>
-            <Dialog as="div" className="relative z-50" onClose={() => setOpenEditUsernameModal(false)}>
+            <Dialog as="div" className="relative z-50" onClose={() => handleCloseEditUsername()}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -55,16 +111,22 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg text-center">
-                                <div className="p-4 flex items-center justify-center">
-                                    <span className="text-white font-bold">Edit Username</span>
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
+                                <div className="p-4 flex items-center justify-center relative">
+                                    <span className="text-white font-bold text-center">Edit username</span>
+                                    <a onClick={handleCloseEditUsername} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded cursor-pointer">
+                                        <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
+                                    </a>
                                 </div>
-                                <small className="text-white">Username must be available</small>
-                                {/* <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="Title Community" value={userName} onChange={(e) => setUserName(e.target.value)} /> */}
-                                {/* <small className="text-red-400">{errors.titleErrorText}</small> */}
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="New username" />
-                                <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="Password" />
-                                <div className="text-center mt-4 pb-11">
+                                <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                                <div className="relative z-0 w-5/6 my-6 group mx-auto">
+                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
+                                        New username:
+                                    </label>
+                                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="New username" value={userName} onChange={(e) => setUserName(e.target.value)} ref={usernameRef} />
+                                    <small className="text-red-400">{error}</small>
+                                </div>
+                                <div className="text-center mt-8 pb-11">
                                     <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateUsername(userState.userData.token, user_id, userName)}>
                                         Accept
                                     </button>
@@ -77,7 +139,7 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                     </div>
                 </div>
             </Dialog>
-        </Transition.Root>
+        </Transition.Root >
     )
 }
 
