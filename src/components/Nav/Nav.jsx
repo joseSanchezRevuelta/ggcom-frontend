@@ -9,6 +9,7 @@ import SignIn from '../SignIn/SignIn.jsx';
 import SignUp from '../SignUp/SignUp.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUserData } from '../../features/users/usersSlice.js';
+import ForgotPassword from '../ForgotPassword/ForgotPassword.jsx';
 
 // const navigation = [
 //     { name: 'Home', href: '/', current: true }, { name: 'Explore', href: '/explore', current: false }, { name: 'My Communities', href: '/mycommunities', current: false }, { name: 'Games', href: '/games', current: false }, { name: 'Shop', href: '/shop', current: false }, { name: 'About Us', href: '/aboutus', current: false }
@@ -18,7 +19,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
+function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotPassword, setOpenForgotPassword }) {
     const userState = useSelector(state => state.user)
     // console.log(userState)
 
@@ -68,8 +69,9 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp }) {
 
     return (
         <>
-            <SignIn openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} />
+            <SignIn openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} setOpenForgotPassword={setOpenForgotPassword}/>
             <SignUp openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />
+            <ForgotPassword openForgotPassword={openForgotPassword} setOpenForgotPassword={setOpenForgotPassword} setOpenSignIn={setOpenSignIn}/>
 
             <Disclosure as="nav" className="fixed top-0 bg-neutral-900 border-slate-800 border-b border-b-main w-full">
                 {({ open }) => (

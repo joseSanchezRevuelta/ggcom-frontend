@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userdAuth } from '../../features/users/usersSlice';
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
-const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
+// eslint-disable-next-line react/prop-types
+const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenForgotPassword }) => {
   const deviceName = import.meta.env.VITE_DEVICE_NAME;
 
   // dispatch
@@ -41,6 +42,12 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
   const handleButtonSignUp = () => {
     setOpenSignIn(false);
     setOpenSignUp(true);
+    setError("");
+  };
+
+  const handleButtonForgotPassword = () => {
+    setOpenSignIn(false);
+    setOpenForgotPassword(true)
     setError("");
   };
 
@@ -97,47 +104,6 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
       }
 
       fetchData();
-
-
-
-      // const res = dispatch(userdAuth(requestOptions));
-      // console.log(res)
-      // console.log(res.data)
-
-      // if (res.success === false) {
-      //   setError("Incorrect user or password")
-      // } else {
-      //   // window.location.reload();
-      // }
-
-      // fetch(apiUrl+'/api/login', requestOptions)
-      // .then(response => {
-      //     if (response.status === 200) {
-      //         return response.json();
-      //     } else {
-      //         console.log('Response status:', response.status);
-      //         setError("Incorrect user or password")
-      //         return null;
-      //     }
-      // })
-      // .then(data => {
-      //     if (data) {
-      //         console.log(data);
-      //         if (data.success === true) {
-      //           window.location.reload();
-      //         } else {
-      //           setError("Incorrect user or password")
-      //         }
-      //     } else {
-      //         console.error('Unexpected response status');
-      //     }
-      // })
-      // .catch(error => {
-      //     console.error('There was a problem with the fetch operation:', error);
-      // });
-
-
-
     }
   };
 
@@ -197,8 +163,9 @@ const SignIn = ({ openSignIn, setOpenSignIn, setOpenSignUp }) => {
                     <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Login</button>
                   </div>
                   <div className="flex items-center justify-center my-6">
-                    <a className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems logging in?</a>
+                    <a href="#" className="font-bold text-main text-sm hover:text-purple-600" onClick={() => handleButtonForgotPassword()}>¿Olvidaste tu contraseña?</a>
                   </div>
+
                 </form>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div className="p-4 flex items-center justify-center my-1">

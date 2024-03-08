@@ -460,7 +460,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signup.jpg')] bg-cover bg-no-repeat bg-center bg-neutral-600 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signup2.jpg')] bg-cover bg-no-repeat bg-center bg-neutral-600 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
                 <div className="p-4 flex items-center justify-center">
                   <span className="text-white font-bold">Sign up to GGCOM</span>
                 </div>
@@ -470,39 +470,39 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                       Username:
                     </label>
-                    <input className={`shadow appearance-none ${errors.usernameError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="username" type="text" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value); checkUsername(e.target.value); }} ref={usernameRef} />
+                    <input className={`shadow appearance-none ${errors.usernameError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="username" type="text" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value); checkUsername(e.target.value); }} ref={usernameRef} />
                     <small className="text-red-400">{errors.usernameErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
                       Email:
                     </label>
-                    <input className={`shadow appearance-none ${errors.emailError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="email" type="text" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); checkEmail(e.target.value); }} />
+                    <input className={`shadow appearance-none ${errors.emailError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="email" type="text" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); checkEmail(e.target.value); }} />
                     <small className="text-red-400">{errors.emailErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="confirmEmail">
                       Confirm Email
                     </label>
-                    <input className={`shadow appearance-none ${errors.emailConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="confirmEmail" type="text" placeholder="Confirm Email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
+                    <input className={`shadow appearance-none ${errors.emailConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="confirmEmail" type="text" placeholder="Confirm Email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
                     <small className="text-red-400">{errors.emailConfirmErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                       Password
                     </label>
-                    <input type='password' className={`shadow appearance-none ${errors.passwordError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900`} id="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); checkPassword(e.target.value); }} />
+                    <input type='password' className={`shadow appearance-none ${errors.passwordError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); checkPassword(e.target.value); }} />
                     <small className="text-red-400">{errors.passwordErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="confirmPassword">
                       Confirm Password
                     </label>
-                    <input type='password' className={`shadow appearance-none ${errors.passwordConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main`} id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <input type='password' className={`shadow appearance-none ${errors.passwordConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900 focus:border-main`} id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     <small className="text-red-400">{errors.passwordConfirmErrorText}</small>
                   </div>
                   <div className="text-center">
-                    <span className="display: block text-xs p-4 font-bold text-white">By clicking register, you indicate that you have read and accept the<br></br><a href='#' className="text-main2 hover:text-purple-600">Terms and Conditions </a>and the <a href='#' className="text-main2 hover:text-purple-600">Privacy Policy</a></span>
+                    <span className="display: block text-xs p-4 font-bold text-white">By clicking register, you indicate that you have read and accept the<br></br><a href='#' className="text-main hover:text-purple-600">Terms and Conditions </a>and the <a href='#' className="text-main hover:text-purple-600">Privacy Policy</a></span>
                   </div>
                   <div className="text-center">
                     <button type="submit" className="text-white bg-blue-700 font-bold hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Sign up</button>
@@ -510,7 +510,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                 </form>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div className="p-4 flex items-center justify-center">
-                  <span className="font-bold text-sm text-white">You have an account? <a href="#" className="text-main2 hover:text-purple-600 text-base ml-1" onClick={() => handleButtonSignIn()}>Login</a></span>
+                  <span className="font-bold text-sm text-white">You have an account? <a href="#" className="text-main hover:text-purple-600 text-base ml-1" onClick={() => handleButtonSignIn()}>Login</a></span>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

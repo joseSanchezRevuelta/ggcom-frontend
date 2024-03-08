@@ -10,6 +10,7 @@ function App() {
   const userState = useSelector(state => state.user)
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
+  const [openForgotPassword, setOpenForgotPassword] = useState(false);
   const [nav, setNav] = useState(false)
   const navigateTo = useNavigate();
 
@@ -32,7 +33,7 @@ function App() {
   return (
     <>
       {
-        nav ? <NavAdmin /> : <Nav openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} />
+        nav ? <NavAdmin /> : <Nav openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} openForgotPassword={openForgotPassword} setOpenForgotPassword={setOpenForgotPassword} />
       }
       <script type="text/javascript" src="../node"></script>
       <script type="text/javascript" src="../../../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script>
