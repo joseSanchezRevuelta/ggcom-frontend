@@ -53,7 +53,7 @@ function CommunityFull(community_id) {
     // Join community
     function handleJoinCommunity() {
         setLoadingJoinCommunity(true);
-        createJoinCommunity(userState.userData.token, userState.userData.id, community_id.id)
+        createJoinCommunity(userState.userData.token, userState.userData.id, community_id.id, community_id.user_id)
             .then(() => {
                 setRenderData(prevState => !prevState);
             })
@@ -131,10 +131,10 @@ function CommunityFull(community_id) {
                     </div>
                     {/* Formulario para commentario */}
                     <div className=''>
-                        <CreateCommentForm community_id={community_id.id} joinCommunityData={joinCommunityData} setRenderComments={setRenderComments} setPage={setPage}/>
+                        <CreateCommentForm community_id={community_id.id} joinCommunityData={joinCommunityData} setRenderComments={setRenderComments} setPage={setPage} user_role={userState.userData.role}/>
                     </div>
                     {/* Comentarios */}
-                    <Comments token={userState.userData.token} community_id={community_id.id} user_id={userState.userData.id} renderComments={renderComments} setRenderComments={setRenderComments} page={page} setPage={setPage}/>
+                    <Comments token={userState.userData.token} community_id={community_id.id} user_id={userState.userData.id} user_role={userState.userData.role} renderComments={renderComments} setRenderComments={setRenderComments} page={page} setPage={setPage}/>
                 </div>
             ) : (
                 <h1 className='mt-40 text-white'>Cargando datos...</h1>

@@ -2,14 +2,18 @@ import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import { useSelector } from "react-redux";
 import { deleteCommunity } from "../../features/communities/communityRepository";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function Delete({community_id, openDelete, setOpenDelete }) {
+function Delete({ community_id, openDelete, setOpenDelete }) {
 
     const userState = useSelector(state => state.user)
 
+    const navigateTo = useNavigate();
+
     function handleDelete(user_id, community_id) {
         deleteCommunity(user_id, community_id)
+        navigateTo('/explore')
     }
 
     return (
@@ -40,12 +44,23 @@ function Delete({community_id, openDelete, setOpenDelete }) {
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
                                 <div className="text-center py-8">
-                                    <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDelete(false)}>
-                                        Cancel
-                                    </button>
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, community_id)}>
-                                        Delete
-                                    </button>
+                                    <div className="p-4 flex items-center justify-center">
+                                        <span className="text-red-600 font-bold">Delete community</span>
+                                    </div>
+                                    <div className="p-2- flex items-center justify-center">
+                                        <span className="text-white">You will lose all the comments and people</span>
+                                    </div>
+                                    <div className="p-2 flex items-center justify-center">
+                                        <span className="text-white">This option is irreversible</span>
+                                    </div>
+                                    <div className="text-center mt-4 pb-8">
+                                        <button className="bg-red-600 hover:bg-red-700 border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, community_id)}>
+                                            Delete
+                                        </button>
+                                        <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDelete(false)}>
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

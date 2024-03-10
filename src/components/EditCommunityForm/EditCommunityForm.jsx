@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getCommunity, updateCommunity } from '../../features/communities/communityRepository';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Delete from '../Delete/Delete';
 
-function EditCommunityForm({ community_id }) {
+function EditCommunityForm({ community_id, user_id, user_role }) {
     const userState = useSelector(state => state.user)
 
     const [idUser, setIdUser] = useState('')
@@ -33,11 +34,20 @@ function EditCommunityForm({ community_id }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const [communityData, setCommunityData] = useState([]);
+
+    const [openDelete, setOpenDelete] = useState(false);
+
+    const navigateTo = useNavigate();
     // fetch a comunidad
     useEffect(() => {
         getCommunity(community_id)
             .then(data => {
                 setCommunityData(data);
+                console.log(user_id)
+                console.log(data)
+                if (user_id != data.user_id && user_role != 'admin') {
+                    navigateTo('/notfound')
+                }
                 // setStyleBackground({ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 1), transparent), url("${data.game_image}")` });
             })
             .catch(error => {
@@ -440,6 +450,7 @@ function EditCommunityForm({ community_id }) {
 
     return (
         <>
+            <Delete community_id={community_id} openDelete={openDelete} setOpenDelete={setOpenDelete} />
             <div className="relative flex justify-center lg:w-4/6 w-full mx-auto border border-main rounded">
                 <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
                     {/* <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p> */}
@@ -564,11 +575,16 @@ function EditCommunityForm({ community_id }) {
                         </div>
                     )}
                     <div className="text-center mt-12">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Save Changes</button>
+                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Save Changes</button>
                     </div>
-                    {/* <div className="flex items-center justify-center mt-10">
-                        <a className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems create community?</a>
-                    </div> */}
+                    <div className="text-center mt-12">
+                        <button className="text-white bg-transparent border border-main font-bold hover:bg-red-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:focus:ring-violet-900" onClick={(e) => {e.preventDefault();setOpenDelete(true);}}
+
+>Delete community</button>
+                    </div>
+                    <div className="flex items-center justify-center mt-10">
+                        <button className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems create community?</button>
+                    </div>
                 </form>
             </div>
         </>

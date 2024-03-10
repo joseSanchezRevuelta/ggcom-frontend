@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
-function CreateComment({ community_id, joinCommunityData, setRenderComments, setPage }) {
+function CreateComment({ community_id, joinCommunityData, setRenderComments, setPage, user_role }) {
     const userState = useSelector(state => state.user)
     const [comment, setComment] = useState('')
     const [errorComent, setErrorComment] = useState('')
@@ -15,8 +15,10 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments, set
         let errorJoin = 0
         // eslint-disable-next-line react/prop-types
         if (joinCommunityData.length === 0) {
-            setErrorComment('Debes unirte a la comunidad para poder comentar')
-            errorJoin++
+            if (user_role != 'admin') {
+                setErrorComment('Debes unirte a la comunidad para poder comentar')
+                errorJoin++
+            }
         } else if (comment === '') {
             errorComment++
             setErrorComment('El comentario no puede estar vacio')

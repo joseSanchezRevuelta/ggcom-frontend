@@ -12,7 +12,7 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
 
     const userState = useSelector(state => state.user)
 
-    const [userName, setUserName] = useState(userState.userData.username)
+    const [userName, setUserName] = useState(userNameState)
     const [error, setError] = useState('')
 
     const dispatch = useDispatch();
@@ -71,7 +71,11 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
 
     const handleCloseEditUsername = () => {
         setOpenEditUsernameModal(false);
-        setUserName(userState.userData.username)
+        if (userState.userData.role == 'admin') {
+            setUserName(userNameState)
+        } else {
+            setUserName(userState.userData.username)
+        }
         setError("");
     }
 
@@ -130,7 +134,7 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                                     <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateUsername(userState.userData.token, user_id, userName)}>
                                         Accept
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenEditUsernameModal(false)}>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseEditUsername()}>
                                         Cancel
                                     </button>
                                 </div>

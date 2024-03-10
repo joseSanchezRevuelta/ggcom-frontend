@@ -21,9 +21,13 @@ const ProtectedRoute = ({ children }) => {
   const { userData } = useSelector(state => state.user)
   if (Object.keys(userData).length) {
     return children;
-  } else if (location.pathname === '/profile') {
-    return <Home />;
-  }
+  } 
+  // else if (location.pathname === '/profile') {
+  //   return <NotFoundPage />;
+  // } 
+  // else if (location.pathname === '/editcommunity:id') {
+  //   return <NotFoundPage />;
+  // }
   return <NotFoundPage />
 }
 
@@ -158,6 +162,16 @@ function Router() {
           <ProtectedRoute>
             <ProtectedRouteAdmin>
               <CommunitiesList />
+            </ProtectedRouteAdmin>
+          </ProtectedRoute>
+        } />
+
+      <Route
+        path="/commentslistuser/::userid"
+        element={
+          <ProtectedRoute>
+            <ProtectedRouteAdmin>
+              {/* <CommentsListUser /> */}
             </ProtectedRouteAdmin>
           </ProtectedRoute>
         } />

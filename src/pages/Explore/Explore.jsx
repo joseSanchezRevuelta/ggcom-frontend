@@ -19,6 +19,7 @@ function Explore() {
         try {
             const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
+            console.log(data)
             if (data.data.length > 0) {
                 if (page == 0) {
                     setCommunities(data.data);
@@ -37,7 +38,7 @@ function Explore() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen items-center overflow-auto'>
+            <div className='bg-neutral-950 min-h-screen items-center overflow-auto bg-[url("/img/w1.jpg")] bg-cover bg-center bg-fixed'>
                 <Title title={'Explore Communities'} subtitle='Communities' />
                 {/* <Search /> */}
                 <Filter setCommunities={setCommunities} />

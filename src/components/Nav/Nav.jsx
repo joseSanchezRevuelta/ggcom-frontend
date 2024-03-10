@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import './Nav.css';
@@ -10,6 +10,7 @@ import SignUp from '../SignUp/SignUp.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUserData } from '../../features/users/usersSlice.js';
 import ForgotPassword from '../ForgotPassword/ForgotPassword.jsx';
+import { checkUser } from '../../features/users/usersRepository.js';
 
 // const navigation = [
 //     { name: 'Home', href: '/', current: true }, { name: 'Explore', href: '/explore', current: false }, { name: 'My Communities', href: '/mycommunities', current: false }, { name: 'Games', href: '/games', current: false }, { name: 'Shop', href: '/shop', current: false }, { name: 'About Us', href: '/aboutus', current: false }
@@ -22,15 +23,37 @@ function classNames(...classes) {
 function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotPassword, setOpenForgotPassword }) {
     const userState = useSelector(state => state.user)
     // console.log(userState)
-
     const dispatch = useDispatch();
 
+    const [isAdmin, setIsAdmin] = useState(false)
+    const [renderNav, setRenderNav] = useState(false)
+
+    const navigateTo = useNavigate();
+
     const handleLogOut = () => {
+        setIsAdmin(false)
+        if(userState.userData.role == 'admin') {
+            navigateTo('/')
+        }
         localStorage.removeItem("data_ggcom");
         dispatch(clearUserData());
     };
 
     const location = useLocation();
+
+    useEffect(() => {
+        if (userState.userData.id) {
+            checkUser(userState.userData.token)
+                .then(response => {
+                    if (userState.userData.role === 'admin' && response === true) {
+                        setIsAdmin(true)
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al verificar el usuario:', error);
+                });
+        }
+    }, [userState])
 
     const [navigation, setNavigation] = useState([
         { name: 'Home', href: '/', current: true },
@@ -66,14 +89,16 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
         }
     };
 
+    console.log(isAdmin)
+
 
     return (
         <>
-            <SignIn openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} setOpenForgotPassword={setOpenForgotPassword}/>
+            <SignIn openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} setOpenForgotPassword={setOpenForgotPassword} />
             <SignUp openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />
-            <ForgotPassword openForgotPassword={openForgotPassword} setOpenForgotPassword={setOpenForgotPassword} setOpenSignIn={setOpenSignIn}/>
+            <ForgotPassword openForgotPassword={openForgotPassword} setOpenForgotPassword={setOpenForgotPassword} setOpenSignIn={setOpenSignIn} />
 
-            <Disclosure as="nav" className="fixed top-0 bg-neutral-900 border-slate-800 border-b border-b-main w-full">
+            <Disclosure as="nav" className="fixed top-0 bg-neutral-950 border-slate-800 border-b border-b-main w-full">
                 {({ open }) => (
                     <>
                         <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-full">
@@ -96,7 +121,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                         <Link to="/">
                                             <img
                                                 className="h-8 w-auto hover:border border-transparent"
-                                                src="/img/logo.png"
+                                                src="/img/logo_sf.png"
                                                 alt="Your Company"
                                             />
                                         </Link>
@@ -169,16 +194,36 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                                             </Link>
                                                         )}
                                                     </Menu.Item>
-                                                    {/* <Menu.Item>
-                                                        {({ active }) => (
-                                                            <a
-                                                                href="#"
-                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                            >
-                                                                Settings
-                                                            </a>
-                                                        )}
-                                                    </Menu.Item> */}
+                                                    {isAdmin === true && (
+                                                        <>
+                                                            <Menu.Items>
+                                                                <Menu.Item>
+                                                                    {({ active }) => (
+                                                                        <Link
+                                                                            to="/userlist"
+                                                                            className={classNames(active ? 'bg-neutral-900' : '', 'block px-4 py-2 text-sm text-white hover:text-main')}
+                                                                            // onClick={handleLogOut}
+                                                                        >
+                                                                            Manage users
+                                                                        </Link>
+                                                                    )}
+                                                                </Menu.Item>
+                                                            </Menu.Items>
+                                                            <Menu.Items>
+                                                                <Menu.Item>
+                                                                    {({ active }) => (
+                                                                        <Link
+                                                                            to="/communitieslist"
+                                                                            className={classNames(active ? 'bg-neutral-900' : '', 'block px-4 py-2 text-sm text-white hover:text-main')}
+                                                                            // onClick={handleLogOut}
+                                                                        >
+                                                                            Manage communities
+                                                                        </Link>
+                                                                    )}
+                                                                </Menu.Item>
+                                                            </Menu.Items>
+                                                        </>
+                                                    )}
                                                     <Menu.Item>
                                                         {({ active }) => (
                                                             <a
@@ -220,8 +265,8 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                         // onClick={async () => {
                                         //     close()
                                         //   }}
-                                    // aria-current={item.current ? 'page' : undefined}
-                                    onClick={handleDisclosureButtonClick}
+                                        // aria-current={item.current ? 'page' : undefined}
+                                        onClick={handleDisclosureButtonClick}
                                     >
                                         {item.name}
                                         <span className="sr-only hidden">Open main menu</span>

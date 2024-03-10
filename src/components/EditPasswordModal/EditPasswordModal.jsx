@@ -28,7 +28,7 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
         let errorNewPassword = 0
         let errorPasswordConfirm = 0
         let expRegPass = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,30}$/
-        if (userPassword === "") {
+        if (userState.userData.role === 'user' && userPassword === "") {
             errorUserPassword++;
             setErrorUserPassword('Current password is required')
         } else {
@@ -55,10 +55,10 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
             setErrorNewPassword('')
             setErrorNewPassword('Password cannot be the current one')
             errorPasswordConfirm++
-        }else {
+        } else {
             setErrorPasswordConfirm('')
             errorNewPassword = 0
-            errorNewPassword =0
+            errorNewPassword = 0
             errorPasswordConfirm = 0
         }
         if (errorUserPassword === 0 && errorNewPassword === 0 && errorPasswordConfirm == 0) {
@@ -119,7 +119,7 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
-                            <div className="p-4 flex items-center justify-center relative">
+                                <div className="p-4 flex items-center justify-center relative">
                                     <span className="text-white font-bold text-center">Edit password</span>
                                     <a onClick={handleCloseEditPassword} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded cursor-pointer">
                                         <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
@@ -127,13 +127,15 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
                                 </div>
                                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                                 <p id="error_signin" className="error_signin text-green-500 text-sm text-center font-semibold my-6">{success}</p>
-                                <div className="relative z-0 w-5/6 my-6 group mx-auto">
-                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
-                                        Current pass:
-                                    </label>
-                                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="password" placeholder="Current password" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
-                                    <small className="text-red-400">{errorUserPassword}</small>
-                                </div>
+                                {userState.userData.role === 'user' && (
+                                    <div className="relative z-0 w-5/6 my-6 group mx-auto">
+                                        <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
+                                            Current pass:
+                                        </label>
+                                        <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="password" placeholder="Current password" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+                                        <small className="text-red-400">{errorUserPassword}</small>
+                                    </div>
+                                )}
                                 <div className="relative z-0 w-5/6 my-6 group mx-auto">
                                     <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                                         New password:

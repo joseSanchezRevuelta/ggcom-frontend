@@ -6,22 +6,23 @@ import { clearUserData } from "../../features/users/usersSlice";
 import { deleteCommentRepository } from "../../features/Comments/commentRepository";
 
 // eslint-disable-next-line react/prop-types
-function DeleteComment({comment_id, comment_user_id, community_id, openDeleteComment, setOpenDeleteComment, setRenderComments, setPage }) {
+function DeleteComment({ comment_id, comment_user_id, community_id, openDeleteComment, setOpenDeleteComment, setRenderComments, setPage }) {
     const userState = useSelector(state => state.user)
 
     function handleDelete(token, comment_user_id, community_id, comment_id) {
+        console.log('delete comment')
         deleteCommentRepository(token, comment_user_id, community_id, comment_id)
-        .then(() => {
-            // setPage(0)
-            setOpenDeleteComment(false)
-            setRenderComments(prevState => !prevState);
-        })
-        .catch(error => {
-            console.error('Error al corrar el comment:', error);
-        })
-        .finally(() => {
-            // setLoadingCreateComment(false)
-        });
+            .then(() => {
+                // setPage(0)
+                setOpenDeleteComment(false)
+                setRenderComments(prevState => !prevState);
+            })
+            .catch(error => {
+                console.error('Error al corrar el comment:', error);
+            })
+            .finally(() => {
+                // setLoadingCreateComment(false)
+            });
     }
 
     return (
@@ -52,11 +53,11 @@ function DeleteComment({comment_id, comment_user_id, community_id, openDeleteCom
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
                                 <div className="text-center py-8">
-                                    <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDeleteComment(false)}>
-                                        Cancel
-                                    </button>
                                     <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)}>
                                         Delete
+                                    </button>
+                                    <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDeleteComment(false)}>
+                                        Cancel
                                     </button>
                                 </div>
                             </Dialog.Panel>

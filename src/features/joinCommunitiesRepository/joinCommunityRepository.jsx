@@ -24,7 +24,7 @@ export async function getJoinCommunity(token, community_id) {
 }
 
 // create joincommunity
-export async function createJoinCommunityRepository(token, user_id, community_id) {
+export async function createJoinCommunityRepository(token, user_id, community_id, user_community_id) {
     try {
         const requestOptions = {
             method: 'POST',
@@ -38,7 +38,8 @@ export async function createJoinCommunityRepository(token, user_id, community_id
                     "data": {
                         "attributes": {
                             "user_id": user_id,
-                            "community_id": community_id
+                            "community_id": community_id,
+                            "user_community_id": user_community_id
                         }
                     }
                 }
@@ -60,8 +61,8 @@ export async function createJoinCommunityRepository(token, user_id, community_id
     }
 }
 
-export async function createJoinCommunity(token, user_id, community_id) {
-    const joincommunity_created = await createJoinCommunityRepository(token, user_id, community_id)
+export async function createJoinCommunity(token, user_id, community_id, user_community_id) {
+    const joincommunity_created = await createJoinCommunityRepository(token, user_id, community_id, user_community_id)
     console.log(joincommunity_created)
 }
 

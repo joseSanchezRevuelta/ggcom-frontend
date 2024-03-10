@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import User from '../User/User';
-import { getUsers } from "../../features/users/usersRepository";
+import { getUsers, getUsersFilter } from "../../features/users/usersRepository";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import FilterUsers from '../Filter/FilterUsers';
 
 // eslint-disable-next-line react/prop-types
 function ListUsers({ token }) {
 
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState('');
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const limit = 24;
+
+    const [search, setSearch] = useState('')
+    const [order, setOrder] = useState('datedesc')
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -40,10 +44,28 @@ function ListUsers({ token }) {
         }
     };
 
+    const handleSearch = (event) => {
+        getUsersFilter(search, order)
+            .then(data => {
+                console.log(data)
+                setUsers(data)
+                // setCreatedCommunities(data)
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            })
+            .finally(() => {
+                // setLoadingJoinCommunity(false);
+                // setLoadingLeaveCommunity(false);
+            });
+        event.preventDefault();
+    }
+
+
     return (
         <>
             {/* SEARCH */}
-            <div className="flex flex-col justify-between w-4/5 mx-auto" data-te-input-wrapper-init id="async">
+            {/* <div className="flex flex-col justify-between w-4/5 mx-auto" data-te-input-wrapper-init id="async">
                 <div className="">
                     <div className="relative mb-4 flex w-full flex-wrap items-stretch">
                         <input
@@ -52,8 +74,8 @@ function ListUsers({ token }) {
                             placeholder="Search Users"
                             aria-label="Search"
                             aria-describedby="button-addon1"
-                        // value={search}
-                        // onChange={(e) => setSearch(e.target.value)}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         />
                         <button
                             className="relative z-[2] flex items-center rounded-r bg-main px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
@@ -61,7 +83,7 @@ function ListUsers({ token }) {
                             id="button-addon1"
                             data-te-ripple-init
                             data-te-ripple-color="light"
-                        // onClick={handleSubmit}
+                            onClick={handleSearch}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +98,8 @@ function ListUsers({ token }) {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <FilterUsers setUsers={setUsers} />
             {/* USERS */}
             <div className='bg-neutral-950 min-h-screen items-center overflow-auto'>
                 <div className='w-4/5 text-surface text-white mx-auto'>
@@ -90,22 +113,37 @@ function ListUsers({ token }) {
                         dataLength={users.length}
                         next={fetchData}
                         hasMore={hasMore}
-                        loader={
-                            <div className="overflow-hidden">
-                                <div className="w-full text-center mx-auto text-main">
-                                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                        <span className="hidden">Loading...</span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+                        // loader={
+                        //     <div className="overflow-hidden">
+                        //         <div className="w-full text-center mx-auto text-main">
+                        //             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                        //                 <span className="hidden">Loading...</span>
+                        //             </div>
+                        //         </div>
+                        //     </div>
+                        // }
                     // endMessage={<p>No hay más comunidades para cargar.</p>}
                     >
-                        {!users ? (
+                        {/* {!users ? (
                             <div className="w-full text-center mx-auto text-main">
                                 <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </div>
+                            </div>
+                        ) : (
+                            users.map(user => (
+                                <User key={user.id} user={user} />
+                            ))
+                        )} */}
+
+                        {!users ? (
+                            <div className="w-full text-center mx-auto text-main overflow-hidden mt-8">
+                                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                </div>
+                            </div>
+                        ) : users.length === 0 ? (
+                            <div className='flex items-center justify-center mt-8'>
+                                <h1 className='text-white'>No users found</h1>
                             </div>
                         ) : (
                             users.map(user => (

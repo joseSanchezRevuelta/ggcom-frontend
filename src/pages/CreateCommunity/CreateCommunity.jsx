@@ -12,7 +12,7 @@ function CreateCommunity() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen'>
+            <div className='bg-neutral-950 min-h-screen bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
             <Title title={'Create Community'} subtitle='Create your communities' />
                 {Object.keys(userState.userData).length ? (
                     <>
@@ -20,7 +20,7 @@ function CreateCommunity() {
                     </>
                 ) : (
                     <>
-                        <div className='text-center'>
+                        <div className='text-center bg-neutral-950'>
                             <h1 className='mx-auto my-6 text-white'>Debes iniciar sesión para crear y unirte a comunidades</h1>
                             <button className="mx-auto mt-6 bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenSignIn(true)}>
                                 Login

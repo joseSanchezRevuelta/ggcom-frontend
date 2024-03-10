@@ -8,7 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 
 // eslint-disable-next-line react/prop-types
-function Comments({ token, community_id, user_id, renderComments, setRenderComments, page, setPage }) {
+function Comments({ token, community_id, user_id, user_role, renderComments, setRenderComments, page, setPage }) {
     const [comments, setComments] = useState('')
     const [commentsCheck, setCommentsCheck] = useState(false)
     const [hasMore, setHasMore] = useState(true);
@@ -72,7 +72,7 @@ function Comments({ token, community_id, user_id, renderComments, setRenderComme
                                         <div className="flex flex-row items-center">
                                             <span className="">{comment.created_at}</span>
                                             {
-                                                comment.user_id === user_id && (
+                                                (comment.user_id === user_id || user_role === 'admin') && (
                                                     <div>
                                                         <CommentDrop comment_id={comment.id} comment_user_id={comment.user_id} community_id={comment.community_id} setRenderComments={setRenderComments} setPage={setPage} />
                                                     </div>

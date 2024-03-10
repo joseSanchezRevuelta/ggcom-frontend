@@ -13,7 +13,7 @@ function MyCommunities() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen'>
+            <div className='bg-neutral-950 min-h-screen bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
                 <Title title={'My Communities'} subtitle='Explore your videogame communities' />
                 {Object.keys(userState.userData).length ? (
                     <>

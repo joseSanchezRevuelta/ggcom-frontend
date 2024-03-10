@@ -5,11 +5,12 @@ import { useParams } from 'react-router-dom';
 import { geMyCreatedCommunities } from '../../features/communities/communityRepository';
 import Community from '../Community/Community';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Filter from '../../components/Filter/Filter';
 
 // eslint-disable-next-line react/prop-types
 function ListCommunities({ id }) {
 
-    const [communities, setCommunities] = useState([]);
+    const [communities, setCommunities] = useState('');
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const limit = 25;
@@ -41,6 +42,7 @@ function ListCommunities({ id }) {
 
     return (
         <>
+            <Filter setCommunities={setCommunities} />
             <div className='bg-neutral-950 min-h-screen items-center overflow-auto'>
                 <div className='w-4/5 text-surface text-white mx-auto'>
                     <a className='block w-full rounded-lg p-4 transition duration-500 hover:bg-zinc-50 hover:text-black focus:bg-zinc-50 focus:text-black focus:ring-0 active:bg-zinc-100 active:text-surface dark:hover:bg-neutral-700/60 dark:hover:text-white dark:focus:bg-neutral-700/60 dark:focus:text-white dark:active:bg-surface dark:active:text-white border border-main flex flex-row justify-between'>
@@ -52,22 +54,26 @@ function ListCommunities({ id }) {
                         dataLength={communities.length}
                         next={fetchData}
                         hasMore={hasMore}
-                        loader={
-                            <div className="overflow-hidden mt-12">
-                                <div className="w-full text-center mx-auto text-main">
-                                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                        <span className="hidden">Loading...</span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+                    // loader={
+                    //     <div className="overflow-hidden mt-12">
+                    //         <div className="w-full text-center mx-auto text-main">
+                    //             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                    //                 <span className="hidden">Loading...</span>
+                    //             </div>
+                    //         </div>
+                    //     </div>
+                    // }
                     // endMessage={<p>No hay más comunidades para cargar.</p>}
                     >
                         {!communities ? (
-                            <div className="w-full text-center mx-auto text-main">
+                            <div className="w-full text-center mx-auto text-main overflow-hidden mt-8">
                                 <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                    <span className="sr-only">Loading...</span>
+                                    {/* <span className="text-white">{communities.communities}</span> */}
                                 </div>
+                            </div>
+                        ) : communities.length === 0 ? (
+                            <div className='flex items-center justify-center mt-8'>
+                                <h1 className='text-white'>No communities found</h1>
                             </div>
                         ) : (
                             communities.map(community => (

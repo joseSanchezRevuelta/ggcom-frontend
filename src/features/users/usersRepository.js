@@ -35,7 +35,7 @@ export async function registerRepository(requestOptions) {
 }
 
 // delete user
-export async function deleteUserRepository(token, user_id) {
+export async function deleteUserRepository(token, user_id, password) {
     const requestOptions = {
         method: 'DELETE',
         headers: {
@@ -47,7 +47,8 @@ export async function deleteUserRepository(token, user_id) {
             {
                 "data": {
                     "attributes": {
-                        "id": user_id
+                        "id": user_id,
+                        "password": password
                     }
                 }
             }
@@ -74,8 +75,8 @@ export async function deleteUserRepository(token, user_id) {
     }
 }
 
-export async function deleteUser(token, user_id) {
-    await deleteUserRepository(token, user_id)
+export async function deleteUser(token, user_id, password) {
+    return await deleteUserRepository(token, user_id, password)
 }
 
 //updateUsername
@@ -280,5 +281,27 @@ export async function getUsersRepository(token, page, limit) {
 export async function getUsers(token, page, limit) {
     return await getUsersRepository(token, page, limit)
     // window.location.href = `${frontUrl}/profile`;
+}
+
+//get comnunities filter
+export async function getUsersFilterRepository(search, order, role) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        const response = await fetch(`${apiUrl}/searchusers?search=${search}&order=${order}&role=${role}`, requestOptions);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        // window.location.href = `${frontUrl}/notfound`;
+        console.error('Error al obtener datos de la API', error);
+    }
+}
+
+export async function getUsersFilter(search, order, role) {
+    return await getUsersFilterRepository(search, order, role)
 }
 

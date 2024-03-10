@@ -268,7 +268,7 @@ function Filter({ setCommunities }) {
                     <div className="relative mb-4 flex w-full flex-wrap items-stretch">
                         <input
                             type="search"
-                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-main focus:text-white focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 focus:border-main dark:focus:border-main"
+                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-neutral-950 bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-main focus:text-white focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 focus:border-main dark:focus:border-main"
                             placeholder="Search Communities"
                             aria-label="Search"
                             aria-describedby="button-addon1"
@@ -304,7 +304,7 @@ function Filter({ setCommunities }) {
                         className="border-b border-neutral-200 bg-white dark:border-neutral-600 dark:bg-transparent">
                         <h2 className="mb-0" id="headingTwo">
                             <button
-                                className="group relative flex w-full items-center rounded-none border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-transparent dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                                className="group relative flex w-full items-center rounded-none border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-950 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
                                 type="button"
                                 data-te-collapse-init
                                 data-te-collapse-collapsed

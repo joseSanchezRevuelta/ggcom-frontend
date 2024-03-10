@@ -381,5 +381,5 @@ export async function deleteCommunityRepository(token, community_id) {
 
 export async function deleteCommunity(token, community_id) {
     await deleteCommunityRepository(token, community_id)
-    window.location.href = `${frontUrl}/explore`;
+    // window.location.href = `${frontUrl}/explore`;
 }
