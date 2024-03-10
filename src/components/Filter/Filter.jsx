@@ -298,13 +298,13 @@ function Filter({ setCommunities }) {
                 </div>
             </div>
             {/* FILTER */}
-            <div className="mb-8 flex flex-row justify-between w-4/5 mx-auto" data-te-input-wrapper-init id="async">
+            <div className="mb-8 flex flex-row justify-between w-4/5 mx-auto rounded-l" data-te-input-wrapper-init id="async">
                 <div id="accordionExample" className="w-full">
                     <div
-                        className="border-b border-neutral-200 bg-white dark:border-neutral-600 dark:bg-transparent">
+                        className="border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-transparent rounded-l">
                         <h2 className="mb-0" id="headingTwo">
                             <button
-                                className="group relative flex w-full items-center rounded-none border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-950 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                                className="group relative flex w-full items-center rounded-l border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-950 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
                                 type="button"
                                 data-te-collapse-init
                                 data-te-collapse-collapsed
@@ -335,7 +335,7 @@ function Filter({ setCommunities }) {
                             data-te-collapse-item
                             aria-labelledby="headingTwo"
                             data-te-parent="#accordionExample">
-                            <div className="flex flex-row justify-between">
+                            <div className="flex flex-row justify-between w-11/12 mx-auto">
                                 <div className='w-2/12 my-4'>
                                     {/* Order */}
                                     <div className="relative z-0 w-full group">
@@ -452,9 +452,9 @@ function Filter({ setCommunities }) {
                                 </div>
                             </div>
                             {/* GAME */}
-                            <div className="w-full">
+                            <div className="w-11/12 mx-auto">
                                 {/* autoComplete */}
-                                <div className="autocomplete relative z-0 mt-2 mb-4 group w-full mx-auto">
+                                <div className="autocomplete relative z-0 mt-2 mb-6 group w-full mx-auto">
                                     <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                                         Game
                                     </label>

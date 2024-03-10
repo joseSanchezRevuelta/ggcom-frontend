@@ -26,7 +26,7 @@ function CommunitySimple({ community }) {
 
 
                         <div className='px-6 pb-4 pt-4'>
-                            <a href='#' className='flex items-center hover:text-lg hover:scale-105'>
+                            <div href='#' className='flex items-center hover:text-lg hover:scale-105'>
                                 <img
                                     key={community.id}
                                     className="h-8 w-8 rounded-full object-cover object-center"
@@ -38,7 +38,7 @@ function CommunitySimple({ community }) {
                                 />
                                 <span className='ml-1'>{community.game_name}</span>
                                 {/* <span className='ml-1 hover:w-44'>{community.game_name}</span> */}
-                            </a>
+                            </div>
                         </div>
 
                         <div className="name_community px-6 pb-4 flex items-center">
