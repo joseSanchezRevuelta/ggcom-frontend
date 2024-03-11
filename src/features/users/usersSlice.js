@@ -52,6 +52,19 @@ export const userSlice = createSlice({
         ...state,
         userData: data_ggcom
       };
+    },
+    updateRoleState: (state, action) => {
+      // Obtener el objeto data_ggcom del localStorage
+      const data_ggcom = JSON.parse(localStorage.getItem("data_ggcom"));
+      // Actualizar el campo username del objeto data_ggcom con el nuevo nombre de usuario
+      data_ggcom.role = action.payload;
+      // Guardar el objeto actualizado en el localStorage
+      localStorage.setItem("data_ggcom", JSON.stringify(data_ggcom));
+      // Devolver un nuevo estado actualizado con el objeto data_ggcom actualizado
+      return {
+        ...state,
+        userData: data_ggcom
+      };
     }
   },
   extraReducers: (builder) => {
@@ -76,6 +89,6 @@ export const counterSlice = createSlice({
 // Action creators are generated for each case reducer function
 // export const {} = userSlice.actions
 
-export const { clearUserData, updateUsernameState, updateEmailState } = userSlice.actions;
+export const { clearUserData, updateUsernameState, updateEmailState, updateRoleState } = userSlice.actions;
 
 export default userSlice.reducer

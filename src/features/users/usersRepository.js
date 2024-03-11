@@ -216,6 +216,51 @@ export async function updatePassword(token, user_id, user_password, new_password
     // window.location.href = `${frontUrl}/profile`;
 }
 
+//updateRole
+export async function updateRoleRepository(token, user_id, user_role) {
+    const requestOptions = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(
+            {
+                "data": {
+                    "attributes": {
+                        "id": user_id,
+                        "role": user_role
+                    }
+                }
+            }
+        )
+    };
+    try {
+        const response = await fetch(apiUrl + '/api/updateuserrole', requestOptions);
+        if (response.ok) {
+            console.log(response)
+            const data = await response.json();
+            console.log("role actualizado:", data); // Aquí imprimes la respuesta recibida
+            return data;
+        } else {
+            console.error('Error en la respuesta. Estado:', response.status);
+            const errorData = await response.json();
+            console.error('Detalles del error:', errorData);
+            return errorData;
+        }
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+        return error;
+    }
+    
+}
+
+export async function updateRole(token, user_id, user_role) {
+    return await updateRoleRepository(token, user_id, user_role)
+    // window.location.href = `${frontUrl}/profile`;
+}
+
 //checkUser
 export async function checkUserRepository(token) {
     const requestOptions = {

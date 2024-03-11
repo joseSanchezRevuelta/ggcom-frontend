@@ -1,4 +1,8 @@
 @font-face {
-    font-family: 'mantinia';
-    src: url('//fonts//Mantinia Regular.otf') format('opentype');
+    font-family: 'lato';
+    src: url('/fonts//lato.ttf') format('opentype');
 }
+
+/* div h1 span{
+    text-shadow: 0.1em 0.1em 0.2em #166357;
+} */

@@ -66,7 +66,7 @@ function CommunitySimple({ community }) {
                             </div>
                         </div>
 
-                        <div className="name_community px-6 pb-4 flex items-center">
+                        <div className="name_community px-6 pb-4 flex items-center text-left">
                             <div className="font-bold text-base mb-1">{community.title}</div>
                         </div>
                         <div className="data flex justify-between w-full px-2 pt-2">

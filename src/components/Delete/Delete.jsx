@@ -13,7 +13,11 @@ function Delete({ community_id, openDelete, setOpenDelete }) {
 
     function handleDelete(user_id, community_id) {
         deleteCommunity(user_id, community_id)
-        navigateTo('/explore')
+        if (userState.userData.role == 'admin') {
+            navigateTo('/communitieslist')
+        } else {
+            navigateTo('/explore')
+        }
     }
 
     return (

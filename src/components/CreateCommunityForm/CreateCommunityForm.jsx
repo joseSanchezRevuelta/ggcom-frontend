@@ -257,11 +257,11 @@ function CreateCommunityForm() {
                 titleErrorText: 'Title is too sort (min 5)',
             }));
             errorTitle++
-        } else if (title.length > 200) {
+        } else if (title.length > 100) {
             setErrors(prevErrors => ({
                 ...prevErrors,
                 titleError: true,
-                titleErrorText: 'Title is too long (max 200)',
+                titleErrorText: 'Title is too long (max 100)',
             }));
             errorTitle++
         } else {
@@ -430,7 +430,7 @@ function CreateCommunityForm() {
 
     return (
         <>
-            <div className="relative flex justify-center lg:w-4/6 w-full mx-auto border border-main rounded bg-neutral-950">
+            <div className="relative flex justify-center lg:w-4/6 w-full mx-auto border border-main rounded bg-neutral-950 mb-10">
                 <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
                     {/* <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p> */}
                     <div className="relative z-0 w-full my-4 group">

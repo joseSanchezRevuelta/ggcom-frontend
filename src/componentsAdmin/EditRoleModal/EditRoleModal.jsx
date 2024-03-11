@@ -1,19 +1,20 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { Fragment, useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { updateUsername } from "../../features/users/usersRepository";
-import { updateUsernameState } from "../../features/users/usersSlice";
+import { updateRole, updateUsername } from "../../features/users/usersRepository";
+import { updateRoleState, updateUsernameState } from "../../features/users/usersSlice";
 import { useNavigate } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 // eslint-disable-next-line react/prop-types
-function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, userNameState, user_id, email, setUserNameState }) {
+function EditRoleModal({ openEditRoleModal, setOpenEditRoleModal, user_id, roleState, setRoleState }) {
     const frontUrl = import.meta.env.VITE_URL_FRONT;
 
     const userState = useSelector(state => state.user)
 
-    const [userName, setUserName] = useState(userNameState)
-    const [newUserName, setNewUserName] = useState(userNameState)
+
+    const [userRole, setUserRole] = useState(roleState)
+    const [newUserRole, setNewUserRole] = useState(roleState)
     const [error, setError] = useState('')
 
     const dispatch = useDispatch();
@@ -22,70 +23,70 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
 
     const usernameRef = useRef(null);
 
-    function handleUpdateUsername(token, user_id, user_name) {
-        console.log(userName)
+    function handleUpdateRole(token, user_id, user_role) {
         let error = 0;
         if (userState.userData.role == 'admin') {
-            if (user_name == userName) {
+            if (user_role == userRole) {
                 error++
                 setError('New username cannot be the same')
             }
         } else {
-            if (user_name == userState.userData.username) {
+            if (user_role == userState.userData.role) {
                 error++
                 setError('New username cannot be the same')
             }
         }
-        if (user_name == '') {
+        if (user_role == '') {
             error++
             setError('New username required')
-        } else if (user_name.length > 20) {
+        } else if (user_role.length > 20) {
             error++
             setError('Username is too long (max 20')
-        } else if (user_name.length < 3) {
+        } else if (user_role.length < 3) {
             error++
             setError('Username is too sort (min 3)')
-        } 
+        }
         if (error == 0) {
-            fetchData(token, user_id, user_name)
+            fetchData(token, user_id, user_role)
         }
     }
 
-    async function fetchData(token, user_id, user_name) {
+    async function fetchData(token, user_id, user_role) {
         try {
-            const response = await updateUsername(token, user_id, user_name)
+            const response = await updateRole(token, user_id, user_role)
             if (response) {
                 console.log(response)
                 if (response.errors && response.errors['data.attributes.username']) {
                     setError('Username already used')
                 }
                 if (response.success === true) {
-                    // updateUsername(token, user_id, user_name)
-                    setOpenEditUsernameModal(false)
-                    setUserNameState(user_name)
-                    setUserName(user_name)
+                    // updateUsername(token, user_id, user_role)
+                    setOpenEditRoleModal(false)
+                    setRoleState(user_role)
+                    setUserRole(user_role)
                     setError('')
                     if (userState.userData.role != "admin") {
-                        dispatch(updateUsernameState(user_name))
+                        // dispatch(updateUsernameState(user_role))
                         // window.location.href = `${frontUrl}/profile`;
                     } else if (userState.userData.role === "admin") {
-                        // navigateTo(`/edituser/${user_id}/${userName}/${email}`)
+                        dispatch(updateRoleState(user_role))
+                        // navigateTo(`/edituser/${user_id}/${userRole}/${email}`)
                     }
                 }
             } else {
                 console.log("Ha ocurrido un error")
-              }
+            }
         } catch (error) {
             console.error('Hubo un error en la solicitud:', error);
-          }
+        }
     }
 
-    const handleCloseEditUsername = () => {
-        setOpenEditUsernameModal(false);
+    const handleCloseEditRole = () => {
+        setOpenEditRoleModal(false);
         if (userState.userData.role == 'admin') {
-            setNewUserName(userName)
+            setNewUserRole(userRole)
         } else {
-            setUserName(userState.userData.username)
+            setUserRole(userState.userData.username)
         }
         setError("");
     }
@@ -96,13 +97,13 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
     //         usernameRef.current.focus();
     //       }
     //     }, 300);
-    
+
     //     return () => clearTimeout(timeoutId);
     //   }, [openEditUsernameModal]);
 
     return (
-        <Transition.Root show={openEditUsernameModal} as={Fragment}>
-            <Dialog as="div" className="relative z-50" onClose={() => handleCloseEditUsername()}>
+        <Transition.Root show={openEditRoleModal} as={Fragment}>
+            <Dialog as="div" className="relative z-50" onClose={() => handleCloseEditRole()}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -129,7 +130,7 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
                                 <div className="p-4 flex items-center justify-center relative">
                                     <span className="text-white font-bold text-center">Edit username</span>
-                                    <a onClick={handleCloseEditUsername} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded cursor-pointer">
+                                    <a onClick={handleCloseEditRole} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded cursor-pointer">
                                         <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
                                     </a>
                                 </div>
@@ -138,14 +139,37 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                                     <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                                         New username:
                                     </label>
-                                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="New username" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} ref={usernameRef} />
+                                    <select
+                                        id="Country"
+                                        name="country"
+                                        autoComplete="country-name"
+                                        placeholder="Country"
+                                        className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                        value={newUserRole}
+                                        onChange={(e) => setNewUserRole(e.target.value)}
+                                    >
+                                        <option key="countryDefault" value={newUserRole}>
+                                            {newUserRole}
+                                        </option>
+                                        {
+                                            newUserRole == 'user' ? (
+                                                <option key="admin" value='admin' className='cursor-pointer'>
+                                                    admin
+                                                </option>
+                                            ) : (
+                                                <option key="user" value='user' className='cursor-pointer'>
+                                                    user
+                                                </option>
+                                            )
+                                        }
+                                    </select>
                                     <small className="text-red-400">{error}</small>
                                 </div>
                                 <div className="text-center mt-8 pb-11">
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateUsername(userState.userData.token, user_id, newUserName)}>
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateRole(userState.userData.token, user_id, newUserRole)}>
                                         Accept
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseEditUsername()}>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseEditRole()}>
                                         Cancel
                                     </button>
                                 </div>
@@ -158,4 +182,4 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
     )
 }
 
-export default EditUsernameModal
+export default EditRoleModal

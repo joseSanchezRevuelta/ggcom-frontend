@@ -8,6 +8,10 @@ import './CommunityFull.css';
 import Comments from '../Comments/Comments';
 import Footer from '../Footer/Footer';
 import { ChatBubbleOvalLeftEllipsisIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import SignIn from '../SignIn/SignIn';
+import SignUp from '../SignUp/SignUp';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
 function CommunityFull(community_id) {
     const userState = useSelector(state => state.user)
@@ -19,6 +23,12 @@ function CommunityFull(community_id) {
     const [renderData, setRenderData] = useState(false)
     const [renderComments, setRenderComments] = useState(false)
     const [page, setPage] = useState(0);
+
+    const [openSignIn, setOpenSignIn] = useState(false);
+    const [openSignUp, setOpenSignUp] = useState(false);
+    const [openForgotPassword, setOpenForgotPassword] = useState(false);
+
+    console.log(userState)
 
     useEffect(() => {
         console.log('El estado de renderComments ha cambiado:', renderComments);
@@ -78,8 +88,11 @@ function CommunityFull(community_id) {
 
     return (
         <>
+            <SignIn openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} setOpenForgotPassword={setOpenForgotPassword} />
+            <SignUp openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />
+            <ForgotPassword openForgotPassword={openForgotPassword} setOpenForgotPassword={setOpenForgotPassword} setOpenSignIn={setOpenSignIn} />
             {communityData ? (
-                <div className='text-center w-full lg:w-4/6 mx-auto rounded-xl mt-20 lg:mt-0 lg:pt-28 pb-16'>
+                <div className='min-h-screen text-center w-full lg:w-4/6 mx-auto rounded-xl mt-20 lg:mt-0 lg:pt-28 pb-16'>
                     {/* IMG */}
                     <div className="relative w-full">
                         <div className={`img_title lg:w-full rounded-t-xl overflow-hidden bg-cover bg-no-repeat bg-center`} style={styleBackground}>
@@ -160,49 +173,76 @@ function CommunityFull(community_id) {
                             </div>
                             <div className='absolute inset-x-0 flex justify-center'>
                                 {
-                                    !userState || (userState.userData.id !== communityData.user_id) ? (
-                                        <>
-                                            {
-                                                joinCommunityData.length ? (
-                                                    <button
-                                                        className="bg-red-500 hover:bg-main2 text-white font-bold py-2 px-4 rounded"
-                                                        onClick={handleLeaveCommunity}
-                                                        disabled={loadingLeaveCommunity}
-                                                    >
-                                                        {loadingLeaveCommunity ? 'Loading...' : 'Leave community'}
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        className="bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded"
-                                                        onClick={handleJoinCommunity}
-                                                        disabled={loadingJoinCommunity}
-                                                    >
-                                                        {loadingJoinCommunity ? 'Loading...' : 'Join Community'}
-                                                    </button>
-                                                )
-                                            }
-                                        </>
+                                    !userState.userData.token ? (
+                                        <button className="bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded" onClick={() => setOpenSignIn(true)}>
+                                            Login for join
+                                        </button>
                                     ) : (
-                                        <div>
-                                            <CommunityDrop community_id={community_id.id} />
-                                        </div>
+                                        userState.userData.id !== communityData.user_id ? (
+                                            <>
+                                                {
+                                                    joinCommunityData.length ? (
+                                                        <button
+                                                            className="bg-transparent hover:bg-main border border-main text-white font-bold py-2 w-36 rounded"
+                                                            onClick={handleLeaveCommunity}
+                                                            disabled={loadingLeaveCommunity}
+                                                        >
+                                                            {loadingLeaveCommunity ? (
+                                                                <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                                            ) : (
+                                                                'Leave community'
+                                                            )}
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            className="bg-main hover:bg-transparent border border-main text-white font-bold py-2 w-36 rounded"
+                                                            onClick={handleJoinCommunity}
+                                                            disabled={loadingJoinCommunity}
+                                                        >
+                                                            {loadingJoinCommunity ? (
+                                                                <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                                            ) : (
+                                                                'Join community'
+                                                            )}
+                                                        </button>
+                                                    )
+                                                }
+                                            </>
+                                        ) : (
+                                            <>
+                                                {/* Comenta temporalmente este bloque de código */}
+                                                {/* <div>
+                    <CommunityDrop community_id={community_id.id} />
+                </div> */}
+
+                                                {/* Renderiza un enlace para editar la comunidad */}
+                                                <div>
+                                                    <Link key={communityData.id} to={`/editcommunity/${communityData.id}`} className='bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded'> Edit community
+                                                        {/* Aquí podrías agregar contenido dentro del enlace si es necesario */}
+                                                        {/* Por ejemplo, puedes mostrar el nombre de la comunidad: */}
+                                                        {/* {community.name} */}
+                                                    </Link>
+                                                </div>
+                                            </>
+                                        )
                                     )
                                 }
+
                             </div>
                             <div href='#' className='flex items-center'>
                                 <span className='mr-1'>{communityData.num_comments}</span><ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 mb-1 text-main inline-block" />
                             </div>
                         </div>
 
-                        <div className='flex flex-row text-center items-center justify-between w-5/6 px-5 pt-12 pb-6 text-4xl'>
-                            <span className='mx-auto'>
+                        <div className='flex flex-row text-left items-center justify-between w-5/6 px-5 pt-12 pb-6 text-4xl'>
+                            <span className=''>
                                 {communityData.title}
                             </span>
                         </div>
                         {
                             communityData.description !== '' ? (
-                                <div className='flex flex-row text-center items-center justify-between w-full pb-16 px-5 text-xl'>
-                                    <span className='mx-auto'>
+                                <div className='flex flex-row text-left items-center justify-between w-5/6 pt-6 pb-16 px-5 text-xl'>
+                                    <span className=''>
                                         {communityData.description}
                                     </span>
                                 </div>
@@ -221,9 +261,13 @@ function CommunityFull(community_id) {
                     <Comments token={userState.userData.token} community_id={community_id.id} user_id={userState.userData.id} user_role={userState.userData.role} renderComments={renderComments} setRenderComments={setRenderComments} page={page} setPage={setPage} />
                 </div>
             ) : (
-                <h1 className='mt-40 text-white'>Cargando datos...</h1>
+                // <h1 className='mt-40 text-white'>Cargando datos...</h1>
+                <div className="w-full text-center mx-auto text-main overflow-hidden pt-40 pb-24">
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                    </div>
+                </div>
             )}
-            <Footer />
+            <Footer width={'w-full'}/>
         </>
     )
 }

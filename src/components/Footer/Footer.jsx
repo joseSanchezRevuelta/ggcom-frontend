@@ -6,7 +6,7 @@ function Footer({ width }) {
         <>
             {/* <!-- Footer container --> */}
             <footer
-                className={`bg-neutral-950 text-center text-surface/75 dark:bg-neutral-950 dark:text-white/75 lg:text-left lg:${width} mx-auto`}>
+                className={`bg-neutral-950 text-center text-surface/75 dark:bg-neutral-950 dark:text-white/75 lg:text-left lg:${width} mx-auto mt-auto`}>
                 <div
                     className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-white/10 lg:justify-between">
                     <div className="me-12 hidden lg:block">

@@ -5,19 +5,22 @@ import EditPasswordlModal from "../../../components/EditPasswordModal/EditPasswo
 import { Link, useParams } from "react-router-dom"
 import DeleteUser from "../../../components/DeleteUser/DeleteUser.jsx"
 import Title from "../../../components/Title/Title.jsx"
+import EditRoleModal from "../../../componentsAdmin/EditRoleModal/EditRoleModal.jsx"
 
 // eslint-disable-next-line react/prop-types
 export default function EditUser() {
 
-    const { id, username, email } = useParams();
+    const { id, username, email, role } = useParams();
     const [userId, setUserId] = useState(id)
     const [userNameState, setUserNameState] = useState(username)
     const [userEmailState, setUserEmailState] = useState(email)
     const [passwordState, setPasswordState] = useState('')
+    const [roleState, setRoleState] = useState(role)
 
     const [openEditUsernameModal, setOpenEditUsernameModal] = useState(false);
     const [openEditEmailModal, setOpenEditEmailModal] = useState(false);
     const [openEditPasswordModal, setOpenEditPasswordModal] = useState(false);
+    const [openEditRoleModal, setOpenEditRoleModal] = useState(false);
     // const [openEditPasswordModal, setOpenEditPasswordModal] = useState(false);
     const [openDeleteUser, setOpenDeleteUser] = useState(false);
 
@@ -30,6 +33,7 @@ export default function EditUser() {
             <EditUsernameModal openEditUsernameModal={openEditUsernameModal} setOpenEditUsernameModal={setOpenEditUsernameModal} userNameState={userNameState} user_id={id} email={email} setUserNameState={setUserNameState} />
             <EditEmailModal openEditEmailModal={openEditEmailModal} setOpenEditEmailModal={setOpenEditEmailModal} userEmailState={userEmailState} user_id={id} username={username} setUserEmailState={setUserEmailState} />
             <EditPasswordlModal openEditPasswordModal={openEditPasswordModal} setOpenEditPasswordModal={setOpenEditPasswordModal} passwordState={passwordState} user_id={id} />
+            <EditRoleModal openEditRoleModal={openEditRoleModal} setOpenEditRoleModal={setOpenEditRoleModal} user_id={id} roleState={roleState} setRoleState={setRoleState}/>
             <DeleteUser openDeleteUser={openDeleteUser} setOpenDeleteUser={setOpenDeleteUser} user_id={id} />
 
             <Title title={'Edit user'} subtitle='' />
@@ -68,6 +72,16 @@ export default function EditUser() {
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">pa********rd</span>
                             <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-transparent border border-main focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={() => setOpenEditPasswordModal(true)}>Edit</button>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div className="elative z-0 w-5/6 my-4 group mx-auto items-center justify-center">
+                        <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
+                            Role
+                        </label>
+                        <div className="w-full text-center flex items-center justify-between">
+                            <span className="text-white">{roleState}</span>
+                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-transparent border border-main focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={() => setOpenEditRoleModal(true)}>Edit</button>
                         </div>
                     </div>
                     {/* <div className="text-center mt-12">

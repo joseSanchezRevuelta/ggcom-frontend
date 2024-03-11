@@ -18,7 +18,7 @@ export default {
         'main2': '#b99a54'
       },
       fontFamily: {
-        'main': ['georgia'],
+        'main': ['lato'],
         // body: ['MantinaRegular']
       },
       textColor: {

@@ -89,11 +89,11 @@ function Router() {
           <MyCommunities />
         } />
 
-      <Route
+      {/* <Route
         path="/aboutus"
         element={
           <AboutUs />
-        } />
+        } /> */}
 
       <Route
         path="community/:id"
@@ -137,7 +137,7 @@ function Router() {
         } />
 
       <Route
-        path="/edituser/:id/:username/:email"
+        path="/edituser/:id/:username/:email/:role"
         element={
           <ProtectedRoute>
             <ProtectedRouteAdmin>

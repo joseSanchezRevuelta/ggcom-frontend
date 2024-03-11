@@ -36,7 +36,9 @@ function JoinedCommunities() {
             ) : (
                 <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 xs:grid-cols-1 gap-4 lg:w-4/5 md:w-4/5 xs:w-full mx-auto">
                     {joinedCommunities.map(community => (
-                        <CommunitySimple key={community.id} community={community} />
+                        community.user_id !== userState.userData.id ? (
+                            <CommunitySimple key={community.id} community={community} />
+                        ) : null
                     ))}
                 </div>
             )}

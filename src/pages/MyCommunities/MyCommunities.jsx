@@ -14,7 +14,7 @@ function MyCommunities() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
+            <div className='bg-neutral-950 min-h-screen bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed flex flex-col'>
                 <Title title={'My Communities'} />
                 {Object.keys(userState.userData).length ? (
                     <>
@@ -33,7 +33,7 @@ function MyCommunities() {
                         {/*<h1>You haven&apos;t joined any community yet, explore and join!</h1> */}
                     </>
                 )}
-                <Footer width={'w-4/5'}/>
+                <Footer width={'w-full'}/>
             </div>
         </>
     );

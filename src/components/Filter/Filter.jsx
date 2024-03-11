@@ -302,7 +302,7 @@ function Filter({ setCommunities, setHasMore }) {
             <div className="mb-8 flex flex-row justify-between w-4/5 mx-auto rounded-l" data-te-input-wrapper-init id="async">
                 <div id="accordionExample" className="w-full">
                     <div
-                        className="border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-transparent rounded-l">
+                        className="border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-950 rounded-l">
                         <h2 className="mb-0" id="headingTwo">
                             <button
                                 className="group relative flex w-full items-center rounded-l border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-950 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
@@ -348,7 +348,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="order"
                                             autoComplete="order-name"
                                             placeholder="Timezone"
-                                            className="w-full rounded-md py-2 px-1 bg-transparent text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
+                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
                                             value={order}
                                             onChange={(e) => setOrder(e.target.value)}
                                             onKeyPress={handleKeyPress}
@@ -385,7 +385,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="country"
                                             autoComplete="country-name"
                                             placeholder="Country"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
+                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
                                             value={country}
                                             onChange={(e) => setCountry(e.target.value)}
                                         >
@@ -413,7 +413,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="language"
                                             autoComplete="language-name"
                                             placeholder="Language"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
                                             value={language}
                                             onChange={(e) => setLanguage(e.target.value)}
                                         >
@@ -437,7 +437,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="timezone"
                                             autoComplete="timezone-name"
                                             placeholder="Timezone"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
                                             value={timezone}
                                             onChange={(e) => setTimezone(e.target.value)}
                                         >

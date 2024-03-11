@@ -1,16 +1,17 @@
 @font-face {
-    font-family: mantinia;
-    src: url('//fonts//Mantinia Regular.otf');
+    font-family: lato;
+    src: url('//lato.ttf');
 }
 
 /* global.css */
 body {
     background-color: #0a0a0a; /* Cambia el color de fondo a tu preferencia */
+    font-family: lato;
 }
 
 
 .mantinia {
-    font-family: mantinia;
+    font-family: lato;
 }
 
 /* Anchura del scrollbar */

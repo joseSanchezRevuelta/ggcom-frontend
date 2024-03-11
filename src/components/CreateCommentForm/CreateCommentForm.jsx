@@ -9,7 +9,7 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments, set
     const [comment, setComment] = useState('')
     const [errorComent, setErrorComment] = useState('')
     const [loadingCreateComment, setLoadingCreateComment] = useState(false);
-    
+
     function handleComment() {
         let errorComment = 0
         let errorJoin = 0
@@ -19,6 +19,9 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments, set
                 setErrorComment('Debes unirte a la comunidad para poder comentar')
                 errorJoin++
             }
+        } else if (!userState.userData.token) {
+            setErrorComment('Debes loguearte para poder comentar')
+            errorJoin++
         } else if (comment === '') {
             errorComment++
             setErrorComment('El comentario no puede estar vacio')
@@ -66,10 +69,14 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments, set
                         <small className="text-red-400">{errorComent}</small>
                     </div>
                     <div className="text-center mt-12">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900"
+                        <button className="text-white bg-indigo-600 font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900"
                             onClick={handleComment}
                             disabled={loadingCreateComment}>
-                            {loadingCreateComment ? 'Loading...' : 'Comment'}
+                            {loadingCreateComment ? (
+                                <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                            ) : (
+                                'Comment'
+                            )}
                         </button>
                     </div>
                 </div>

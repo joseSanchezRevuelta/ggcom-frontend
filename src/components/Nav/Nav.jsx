@@ -30,16 +30,20 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
 
     const navigateTo = useNavigate();
 
+    const location = useLocation();
+
     const handleLogOut = () => {
         setIsAdmin(false)
         if(userState.userData.role == 'admin') {
             navigateTo('/')
+        } else {
+            if (location.pathname === '/profile' || location.pathname === '/editcommunity/:id') {
+                navigateTo('/explore')
+              }
         }
         localStorage.removeItem("data_ggcom");
         dispatch(clearUserData());
     };
-
-    const location = useLocation();
 
     useEffect(() => {
         if (userState.userData.id) {

@@ -43,7 +43,7 @@ function Comments({ token, community_id, user_id, user_role, renderComments, set
 
     return (
         <>
-            <div className="relative flex justify-center lg:w-full w-full mx-auto border border-main rounded flex flex-col text-center">
+            <div className="relative flex justify-center lg:w-full w-full mx-auto border border-main rounded flex flex-col text-center bg-neutral-950">
                 {/* <InfiniteScroll
                     dataLength={comments.length}
                     next={fetchData}
@@ -63,18 +63,20 @@ function Comments({ token, community_id, user_id, user_role, renderComments, set
                     comments.length > 0 ? (
                         <>
                             {comments.map(comment => (
-                                <div key={comment.id} className="p-4 text-center text-white w-5/6 mx-auto border border-main rounded my-4">
+                                <div key={comment.id} className="p-4 text-center text-white w-5/6 mx-auto border border-main rounded my-4 bg-neutral-950">
                                     <div className="flex flex-row items-center mb-3 justify-between">
                                         <div className="flex flex-row items-center">
                                             <UserCircleIcon className="block h-8 w-8 text-main" aria-hidden="true" />
-                                            <span>{comment.username}</span>
+                                            <span className="ml-1">{comment.username}</span>
                                         </div>
                                         <div className="flex flex-row items-center">
-                                            <span className="">{comment.created_at}</span>
+                                            {/* <span className="">{comment.created_at.slice(0, 10) + " " + comment.created_at.slice(11, 16)}</span> */}
+                                            <span className="">{comment.created_at.slice(0, 10)}</span>
                                             {
                                                 (comment.user_id === user_id || user_role === 'admin') && (
                                                     <div>
-                                                        <CommentDrop comment_id={comment.id} comment_user_id={comment.user_id} community_id={comment.community_id} setRenderComments={setRenderComments} setPage={setPage} />
+                                                        <Comme
+                                                        ntDrop comment_id={comment.id} comment_user_id={comment.user_id} community_id={comment.community_id} setRenderComments={setRenderComments} setPage={setPage} />
                                                     </div>
                                                 )
                                             }
@@ -87,10 +89,17 @@ function Comments({ token, community_id, user_id, user_role, renderComments, set
                             ))}
                         </>
                     ) : (
-                        <h1 className='text-white'>No hay comentarios en esta comunidad</h1>
+                        <div className="py-12">
+                            <h1 className='text-white'>No hay comentarios en esta comunidad</h1>
+                        </div>
                     )
                 ) : (
-                    <h1 className='text-white'>Cargando comentarios...</h1>
+                    // <h1 className='text-white'>Cargando comentarios...</h1>
+                    <div className="w-full text-center mx-auto text-main overflow-hidden py-12">
+                        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                            {/* <span className="text-white">{communities.communities}</span> */}
+                        </div>
+                    </div>
                 )}
                 {/* </InfiniteScroll> */}
             </div>

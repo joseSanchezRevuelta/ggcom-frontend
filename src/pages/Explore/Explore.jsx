@@ -46,7 +46,7 @@ function Explore() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen items-center overflow-auto bg-[url("/img/w1.jpg")] bg-cover bg-center bg-fixed'>
+            <div className='bg-neutral-950 min-h-screen items-center overflow-auto bg-[url("/img/w1.jpg")] bg-cover bg-center bg-fixed flex flex-col'>
                 <Title title={'Explore Communities'} />
                 <Filter setCommunities={setCommunities} setHasMore={setHasMore}/>
                 {!communities ? (

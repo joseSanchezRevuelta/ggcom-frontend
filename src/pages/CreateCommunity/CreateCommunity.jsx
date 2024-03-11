@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import CreateCommunityForm from '../../components/CreateCommunityForm/CreateCommunityForm.jsx'
 import Title from '../../components/Title/Title.jsx';
 import { useEffect } from 'react';
+import Footer from '../../components/Footer/Footer.jsx';
 
 function CreateCommunity() {
     useEffect(() => {
@@ -29,6 +30,7 @@ function CreateCommunity() {
                     </>
                     // <h1>You haven&apos;t joined any community yet, explore and join!</h1>
                 )}
+                <Footer width={'w-full'}/>
             </div>
         </>
     );

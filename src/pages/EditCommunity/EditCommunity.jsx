@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getCommunity, getEditCommunity } from '../../features/communities/communityRepository';
 import Title from '../../components/Title/Title';
 import EditCommunityForm from '../../components/EditCommunityForm/EditCommunityForm';
+import Footer from '../../components/Footer/Footer';
 
 // eslint-disable-next-line react/prop-types
 function EditCommunity() {
@@ -50,6 +51,7 @@ function EditCommunity() {
                 <Title title={'Edit community'} subtitle='' />
                 {/* <EditCommunityComponent community_id={id} title={community.title} description={community.description} game_name={community.game_name} country={community.country} language={community.language} timezone={community.timezone}/> */}
                 <EditCommunityForm  community_id={id} user_id={userState.userData.id} user_role={userState.userData.role}/>
+                <Footer width={'w-full'}/>
             </div>
         </>
     );
