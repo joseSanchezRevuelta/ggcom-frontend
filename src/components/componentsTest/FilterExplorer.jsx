@@ -7,27 +7,32 @@ import { getCommunitiesFilter } from "../../features/communities/communityReposi
 
 
 // eslint-disable-next-line react/prop-types
-function Filter({ setCommunities, setHasMore }) {
-    const [search, setSearch] = useState('')
-    const [order, setOrder] = useState('mostpopular')
-    const [country, setCountry] = useState('all')
+function Filter({ setCommunities, search, setSearch, idGame, setIdGame, country, setCountry, language, setLanguage, timezone, setTimezone, order, setOrder, fetchData, page, setPage, limit }) {
+    // const [search, setSearch] = useState('')
+    // const [order, setOrder] = useState('mostpopular')
+    // const [country, setCountry] = useState('all')
     const [countries, setCountries] = useState([]);
     const [countriesArray, setCountriesArray] = useState('')
-    const [language, setLanguage] = useState('all')
+    // const [language, setLanguage] = useState('all')
     const [renderState, setRenderState] = useState(false)
     const [languages, setLanguages] = useState([]);
-    const [timezone, setTimezone] = useState('all')
+    // const [timezone, setTimezone] = useState('all')
     const [timezones, setTimezones] = useState([]);
 
     const [game, setGame] = useState('')
     const [gameConfirmed, setGameConfirmed] = useState('')
-    const [idGame, setIdGame] = useState('')
+    // const [idGame, setIdGame] = useState('')
     const [gameObject, setGameObject] = useState('')
     const [gameSearch, setGameSearch] = useState('')
     const [isOpen, setIsOpen] = useState(false);
 
     const [gameError, setgameError] = useState(false);
     const [gameErrorText, setGameErrorText] = useState(false);
+
+    // const [loading, setLoading] = useState(false);
+    // const [page, setPage] = useState(0);
+    // const [hasMore, setHasMore] = useState(true);
+    // const limit = 12;
 
     useEffect(() => {
         setRenderState(true)
@@ -216,30 +221,27 @@ function Filter({ setCommunities, setHasMore }) {
             errorGame++
         }
         if (errorGame === 0) {
+            console.log("pageFilter")
+
+            setPage(1)
+            console.log(page)
             setGameErrorText('')
             setCommunities('')
-            // getCommunitiesFilter(search, idGame, country, language, timezone, order)
-            // console.log(search)
-            // console.log(idGame)
-            // console.log(game)
-            // console.log(order)
-            // console.log(country)
-            // console.log(language)
-            console.log(timezone)
-            getCommunitiesFilter(search, idGame, country, language, timezone, order)
-                .then(data => {
-                    console.log(data)
-                    setCommunities(data)
-                    setHasMore(false)
-                    // setCreatedCommunities(data)
-                })
-                .catch(error => {
-                    console.error('Error al obtener los datos:', error);
-                })
-                .finally(() => {
-                    // setLoadingJoinCommunity(false);
-                    // setLoadingLeaveCommunity(false);
-                });
+            fetchData(search, idGame, country, language, timezone, order, page, limit)
+            // // getCommunitiesFilter(search, idGame, country, language, timezone, order)
+            // getCommunitiesFilter(search, idGame, country, language, timezone, order, page, limit)
+            //     .then(data => {
+            //         console.log(data)
+            //         setCommunities(data.data)
+            //         // setCreatedCommunities(data)
+            //     })
+            //     .catch(error => {
+            //         console.error('Error al obtener los datos:', error);
+            //     })
+            //     .finally(() => {
+            //         // setLoadingJoinCommunity(false);
+            //         // setLoadingLeaveCommunity(false);
+            //     });
         }
         event.preventDefault();
     }
@@ -275,6 +277,7 @@ function Filter({ setCommunities, setHasMore }) {
                             aria-describedby="button-addon1"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
+                            // onClick={handleSubmit}
                         />
                         <button
                             className="relative z-[2] flex items-center rounded-r bg-main px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"

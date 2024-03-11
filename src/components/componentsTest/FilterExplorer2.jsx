@@ -7,21 +7,21 @@ import { getCommunitiesFilter } from "../../features/communities/communityReposi
 
 
 // eslint-disable-next-line react/prop-types
-function Filter({ setCommunities, setHasMore }) {
-    const [search, setSearch] = useState('')
-    const [order, setOrder] = useState('mostpopular')
-    const [country, setCountry] = useState('all')
+function Filter({ setCommunities, setHasMore, search, setSearch, idGame, setIdGame, country, setCountry, language, setLanguage, timezone, setTimezone, order, setOrder, fetchDataFilter, setHandleFilter }) {
+    // const [search, setSearch] = useState('')
+    // const [order, setOrder] = useState('mostpopular')
+    // const [country, setCountry] = useState('all')
     const [countries, setCountries] = useState([]);
     const [countriesArray, setCountriesArray] = useState('')
-    const [language, setLanguage] = useState('all')
+    // const [language, setLanguage] = useState('all')
     const [renderState, setRenderState] = useState(false)
     const [languages, setLanguages] = useState([]);
-    const [timezone, setTimezone] = useState('all')
+    // const [timezone, setTimezone] = useState('all')
     const [timezones, setTimezones] = useState([]);
 
     const [game, setGame] = useState('')
     const [gameConfirmed, setGameConfirmed] = useState('')
-    const [idGame, setIdGame] = useState('')
+    // const [idGame, setIdGame] = useState('')
     const [gameObject, setGameObject] = useState('')
     const [gameSearch, setGameSearch] = useState('')
     const [isOpen, setIsOpen] = useState(false);
@@ -216,30 +216,32 @@ function Filter({ setCommunities, setHasMore }) {
             errorGame++
         }
         if (errorGame === 0) {
+            setHandleFilter(prevState => !prevState)
             setGameErrorText('')
             setCommunities('')
+            fetchDataFilter(search, idGame, country, language, timezone, order)
+            // // getCommunitiesFilter(search, idGame, country, language, timezone, order)
+            // // console.log(search)
+            // // console.log(idGame)
+            // // console.log(game)
+            // // console.log(order)
+            // // console.log(country)
+            // // console.log(language)
+            // // console.log(timezone)
             // getCommunitiesFilter(search, idGame, country, language, timezone, order)
-            // console.log(search)
-            // console.log(idGame)
-            // console.log(game)
-            // console.log(order)
-            // console.log(country)
-            // console.log(language)
-            console.log(timezone)
-            getCommunitiesFilter(search, idGame, country, language, timezone, order)
-                .then(data => {
-                    console.log(data)
-                    setCommunities(data)
-                    setHasMore(false)
-                    // setCreatedCommunities(data)
-                })
-                .catch(error => {
-                    console.error('Error al obtener los datos:', error);
-                })
-                .finally(() => {
-                    // setLoadingJoinCommunity(false);
-                    // setLoadingLeaveCommunity(false);
-                });
+            //     .then(data => {
+            //         console.log(data)
+            //         setCommunities(data)
+            //         setHasMore(false)
+            //         // setCreatedCommunities(data)
+            //     })
+            //     .catch(error => {
+            //         console.error('Error al obtener los datos:', error);
+            //     })
+            //     .finally(() => {
+            //         // setLoadingJoinCommunity(false);
+            //         // setLoadingLeaveCommunity(false);
+            //     });
         }
         event.preventDefault();
     }

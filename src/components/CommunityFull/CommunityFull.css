@@ -5,3 +5,13 @@
 .title {
     background-color: black;
 }
+
+div {
+    text-shadow: 0.1em 0.1em 0.2em black;
+}
+
+@media (max-width: 640px) {
+    .img_title {
+        height: 300px;
+    }
+}

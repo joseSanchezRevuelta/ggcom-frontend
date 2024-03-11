@@ -3,6 +3,7 @@ import Filter from '../../components/Filter/Filter.jsx'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import MyCommunitiesComponent from '../../components/MyCommunitiesComponent/MyCommunitiesComponent.jsx';
+import Footer from '../../components/Footer/Footer.jsx';
 
 function MyCommunities() {
     useEffect(() => {
@@ -32,6 +33,7 @@ function MyCommunities() {
                         {/*<h1>You haven&apos;t joined any community yet, explore and join!</h1> */}
                     </>
                 )}
+                <Footer width={'w-4/5'}/>
             </div>
         </>
     );

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CarouselHome from '../../components/CarouselHome/CarouselHome.jsx'
 import TitleHome from '../../components/TitleHome/TitleHome.jsx';
 import FooterHome from '../../components/FooterHome/FooterHome.jsx';
+import Footer from '../../components/Footer/Footer.jsx';
 
 function Home() {
 

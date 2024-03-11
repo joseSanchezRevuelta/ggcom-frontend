@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Title from '../../components/Title/Title.jsx'
 import Filter from '../../components/Filter/Filter.jsx'
 import Communities from '../../components/Communities/Communities.jsx'
-import Footer from '../../components/Footer/Footer.jsx';
 
 function Explore() {
     const [communities, setCommunities] = useState('');
@@ -48,7 +47,7 @@ function Explore() {
         <>
             <div className='bg-neutral-950 min-h-screen items-center overflow-auto bg-[url("/img/w1.jpg")] bg-cover bg-center bg-fixed'>
                 <Title title={'Explore Communities'} />
-                <Filter setCommunities={setCommunities} setHasMore={setHasMore}/>
+                <Filter setCommunities={setCommunities} />
                 {!communities ? (
                     <div className="w-full text-center mx-auto text-main overflow-hidden">
                         <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
@@ -84,7 +83,6 @@ function Explore() {
                         )}
                     </>
                 )}
-                <Footer width={'w-full'}/>
             </div>
         </>
     );

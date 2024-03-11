@@ -7,7 +7,7 @@ import { getCommunitiesFilter } from "../../features/communities/communityReposi
 
 
 // eslint-disable-next-line react/prop-types
-function Filter({ setCommunities, setHasMore }) {
+function Filter({ setCommunities }) {
     const [search, setSearch] = useState('')
     const [order, setOrder] = useState('mostpopular')
     const [country, setCountry] = useState('all')
@@ -28,6 +28,11 @@ function Filter({ setCommunities, setHasMore }) {
 
     const [gameError, setgameError] = useState(false);
     const [gameErrorText, setGameErrorText] = useState(false);
+
+    const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+    const limit = 12;
 
     useEffect(() => {
         setRenderState(true)
@@ -219,18 +224,10 @@ function Filter({ setCommunities, setHasMore }) {
             setGameErrorText('')
             setCommunities('')
             // getCommunitiesFilter(search, idGame, country, language, timezone, order)
-            // console.log(search)
-            // console.log(idGame)
-            // console.log(game)
-            // console.log(order)
-            // console.log(country)
-            // console.log(language)
-            console.log(timezone)
-            getCommunitiesFilter(search, idGame, country, language, timezone, order)
+            getCommunitiesFilter(search, idGame, country, language, timezone, order, page, limit)
                 .then(data => {
                     console.log(data)
-                    setCommunities(data)
-                    setHasMore(false)
+                    setCommunities(data.data)
                     // setCreatedCommunities(data)
                 })
                 .catch(error => {

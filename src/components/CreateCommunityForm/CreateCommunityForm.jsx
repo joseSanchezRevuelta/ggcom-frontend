@@ -460,7 +460,7 @@ function CreateCommunityForm() {
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                             Game
                         </label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} />
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} autoComplete="off"/>
                         {
                             isOpen && gameSearch && (
                                 <div className='bg-white rounded-lg shadow-lg z-50 w-full'>

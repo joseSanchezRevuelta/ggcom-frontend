@@ -46,9 +46,9 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments, set
 
     return (
         <>
-            <div className="relative flex justify-center lg:w-full w-full mx-auto border border-main rounded">
-                <div className="lg:w-5/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
-                    <div className="relative z-0 w-full my-10 group">
+            <div className="relative flex justify-center lg:w-full w-full mx-auto border border-main rounded bg-neutral-950">
+                <div className="lg:w-5/6 w-11/12 mx-auto font-bold-600 text-left my-14">
+                    <div className="relative z-0 w-full mt-4 mb-10 group">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="description">
                             Add comment
                         </label>
