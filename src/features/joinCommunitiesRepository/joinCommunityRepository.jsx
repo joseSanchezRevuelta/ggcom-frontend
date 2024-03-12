@@ -25,6 +25,7 @@ export async function getJoinCommunity(token, community_id) {
 
 // create joincommunity
 export async function createJoinCommunityRepository(token, user_id, community_id, user_community_id) {
+    console.log(community_id)
     try {
         const requestOptions = {
             method: 'POST',

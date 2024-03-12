@@ -418,6 +418,7 @@ function CreateCommunityForm() {
             //fetch
             createCommunity(requestOptions)
                 .then(data => {
+                    console.log(data)
                     setLoadingCreateCommunityComment(false)
                     redirectToCommunity(data.id);
                 })

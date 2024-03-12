@@ -15,6 +15,7 @@ function JoinedCommunities() {
     useEffect(() => {
         geMyJointCommunities(userState.userData.token, userState.userData.id)
             .then(data => {
+                console.log(data)
                 setJoinedCommunities(data)
             })
             .catch(error => {

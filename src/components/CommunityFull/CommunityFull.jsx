@@ -65,7 +65,7 @@ function CommunityFull(community_id) {
     // Join community
     function handleJoinCommunity() {
         setLoadingJoinCommunity(true);
-        createJoinCommunity(userState.userData.token, userState.userData.id, community_id.id, community_id.user_id)
+        createJoinCommunity(userState.userData.token, userState.userData.id, community_id.id, communityData.user_id)
             .then(() => {
                 setRenderData(prevState => !prevState);
             })
