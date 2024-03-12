@@ -9,27 +9,49 @@ body {
     font-family: lato;
 }
 
-
 .mantinia {
     font-family: lato;
 }
 
+* {
+    scrollbar-color: #a5a5a5 hsla(0, 0%, 100%, 0.1);
+    scrollbar-width: auto;
+}
+
 /* Anchura del scrollbar */
 ::-webkit-scrollbar {
-    /* width: 10px; */
+    width: auto;
 }
 
-/* Estilo del scrollbar */
+/* scrollbar */
 ::-webkit-scrollbar-track {
-    background: #171717;
+    background: hsla(0, 0%, 100%, 0.1);
 }
 
-/* Estilo del thumb (la barra que se mueve) */
+/* la barra que se mueve */
 ::-webkit-scrollbar-thumb {
-    background: #a53a3a !important;
+    background-color: #a5a5a5;
 }
 
-/* Hover style */
+/* Hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/* SCROLLBAR SELECT */
+/* CSS personalizado para personalizar el scroll de un select */
+.select::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+}
+
+.select::-webkit-scrollbar-thumb {
+    background-color: #a5a5a5; /* Color del thumb del scrollbar */
+    border-radius: 4px; /* Radio de borde del thumb */
+}
+
+/* Aplicar la clase select-custom-scrollbar al select */
+.select {
+    scrollbar-width: thin; /* Grosor del scrollbar */
+    scrollbar-color: #a5a5a5 transparent; /* Color del thumb y del scrollbar */
+}
+

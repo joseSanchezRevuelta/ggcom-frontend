@@ -7,7 +7,7 @@ import CreateCommentForm from '../CreateCommentForm/CreateCommentForm';
 import './CommunityFull.css';
 import Comments from '../Comments/Comments';
 import Footer from '../Footer/Footer';
-import { ChatBubbleOvalLeftEllipsisIcon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, UserGroupIcon, ClockIcon, LanguageIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
@@ -98,50 +98,20 @@ function CommunityFull(community_id) {
                         <div className={`img_title lg:w-full rounded-t-xl overflow-hidden bg-cover bg-no-repeat bg-center`} style={styleBackground}>
                         </div>
                         <div href='#' className='flex items-center absolute top-2 left-2 text-white font-bold px-2 py-1'>
-                            {/* <img
-                                key={communityData.id}
-                                className="h-8 w-8 rounded-full object-cover object-center"
-                                src={`${communityData.game_image}`}
-                                alt="game_image"
-                            // onError={(e) => { // Maneja el evento de error para intentar recargar la imagen
-                            //     e.target.src = `${community.game_image}?${new Date().getTime()}`; // Agrega una marca de tiempo para evitar la caché
-                            // }}
-                            /> */}
                             <span className='ml-2'>{communityData.game_name}</span>
                         </div>
                     </div>
-
                     <div className="relative title text-white flex flex-col justify-center items-center space-y-4">
-                        {/* <div className='flex flex-row justify-between w-full px-5'>
-                            <div href='#' className='flex items-center'>
-                                <img
-                                    key={communityData.id}
-                                    className="h-8 w-8 rounded-full object-cover object-center"
-                                    src={`${communityData.game_image}`}
-                                    alt="game_image"
-                                // onError={(e) => { // Maneja el evento de error para intentar recargar la imagen
-                                //     e.target.src = `${community.game_image}?${new Date().getTime()}`; // Agrega una marca de tiempo para evitar la caché
-                                // }}
-                                />
-                                <span className='ml-2'>{communityData.game_name}</span>
-                            </div>
-                            <div href='#' className='flex items-center'>
-                                <span className='text-white mr-1'>{communityData.language}</span>
-                                <img
-                                    className="h-6 ml-1 w-auto hover:border border-transparent"
-                                    src="/img/languages.png"
-                                    alt="language"
-                                />
-                            </div>
-                        </div> */}
                         <div className='flex flex-row justify-between w-full px-5 py-4'>
+                            {/* Language */}
                             <div href='#' className='flex items-center'>
-                                <img
+                                {/* <img
                                     className="h-6 ml-1 w-auto hover:border border-transparent"
                                     src="/img/languages.png"
                                     alt="language"
-                                />
-                                <span className='text-white ml-3'>{communityData.language}</span>
+                                /> */}
+                                <LanguageIcon className="h-5 w-5 ml-1 text-main inline-block" />
+                                <span className='text-white ml-1'>{communityData.language}</span>
                             </div>
                             <div className='absolute left-1/2 transform -translate-x-1/2 flex flex-row flex items-center'>
                                 <img
@@ -151,6 +121,7 @@ function CommunityFull(community_id) {
                                     alt="Ucrania" />
                                 <span className='text-white ml-3'>{communityData.country}</span>
                             </div>
+                            {/* Timezone */}
                             <div className='flex items-center'>
                                 {
                                     communityData.timezone === 'Notspecify' ? (
@@ -159,22 +130,24 @@ function CommunityFull(community_id) {
                                         <span className="mr-1">{communityData.timezone}</span>
                                     )
                                 }
-                                <img
+                                <ClockIcon className="h-5 w-5 text-main inline-block" />
+                                {/* <img
                                     className="h-6 ml-1 w-auto hover:border border-transparent"
                                     src="/img/timezone.png"
                                     alt="timezone"
-                                />
+                                /> */}
                             </div>
                         </div>
 
-                        <div className='relative flex flex-row justify-between w-full px-5'>
+                        <div className='relative flex flex-row justify-between w-full px-5 pt-4'>
+                            {/* Persons */}
                             <div href='#' className='flex items-center'>
-                                <UserGroupIcon className="h-6 w-6 mb-1 text-main inline-block" /><span className='ml-1'>{communityData.num_persons}</span>
+                                <UserGroupIcon className="h-5 w-5 mb-1 text-main inline-block" /><span className='ml-1'>{communityData.num_persons}</span>
                             </div>
                             <div className='absolute inset-x-0 flex justify-center'>
                                 {
                                     !userState.userData.token ? (
-                                        <button className="bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded" onClick={() => setOpenSignIn(true)}>
+                                        <button className="bg-main hover:bg-transparent border border-main text-white font-bold py-2 px-4 rounded" onClick={() => setOpenSignIn(true)}>
                                             Login for join
                                         </button>
                                     ) : (
@@ -210,31 +183,23 @@ function CommunityFull(community_id) {
                                             </>
                                         ) : (
                                             <>
-                                                {/* Comenta temporalmente este bloque de código */}
-                                                {/* <div>
-                    <CommunityDrop community_id={community_id.id} />
-                </div> */}
-
-                                                {/* Renderiza un enlace para editar la comunidad */}
                                                 <div>
-                                                    <Link key={communityData.id} to={`/editcommunity/${communityData.id}`} className='bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded'> Edit community
-                                                        {/* Aquí podrías agregar contenido dentro del enlace si es necesario */}
-                                                        {/* Por ejemplo, puedes mostrar el nombre de la comunidad: */}
-                                                        {/* {community.name} */}
+                                                    <Link key={communityData.id} to={`/editcommunity/${communityData.id}`} className='bg-main hover:bg-transparent border border-main text-white font-bold py-2 px-4 rounded'>
+                                                        Edit community
                                                     </Link>
                                                 </div>
                                             </>
                                         )
                                     )
                                 }
-
                             </div>
+                            {/* Comments */}
                             <div href='#' className='flex items-center'>
-                                <span className='mr-1'>{communityData.num_comments}</span><ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 mb-1 text-main inline-block" />
+                                <span className='mr-1'>{communityData.num_comments}</span><ChatBubbleOvalLeftEllipsisIcon className="h-5 w-5 mb-1 text-main inline-block" />
                             </div>
                         </div>
-
-                        <div className='flex flex-row text-left items-center justify-between w-5/6 px-5 pt-12 pb-6 text-4xl'>
+                        {/* Title & Description */}
+                        <div className='flex flex-row text-left items-center justify-between w-5/6 px-5 py-12 text-4xl'>
                             <span className=''>
                                 {communityData.title}
                             </span>
@@ -248,10 +213,7 @@ function CommunityFull(community_id) {
                                 </div>
                             ) : null
                         }
-
-
-
-
+                        {/* Form Comment */}
                     </div>
                     {/* Formulario para commentario */}
                     <div className=''>
@@ -267,7 +229,7 @@ function CommunityFull(community_id) {
                     </div>
                 </div>
             )}
-            <Footer width={'w-full'}/>
+            <Footer width={'w-full'} />
         </>
     )
 }

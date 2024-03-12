@@ -8,6 +8,12 @@
     height: 100px;
 }
 
+/* @media (max-width: 1290px) {
+    .img_game_simple {
+        height: 56px;
+    }
+} */
+
 /* .community_data {
     min-height: 200px;
 } */

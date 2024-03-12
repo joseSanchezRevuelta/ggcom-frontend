@@ -587,16 +587,16 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                         </div>
                     )}
                     <div className="text-center mt-12">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Save Changes</button>
+                        <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>Save Changes</button>
                     </div>
                     <div className="text-center mt-12">
                         <button className="text-white bg-transparent border border-main font-bold hover:bg-red-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:focus:ring-violet-900" onClick={(e) => { e.preventDefault(); setOpenDelete(true); }}
 
                         >Delete community</button>
                     </div>
-                    <div className="flex items-center justify-center mt-10">
+                    {/* <div className="flex items-center justify-center mt-10">
                         <button className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems create community?</button>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </>

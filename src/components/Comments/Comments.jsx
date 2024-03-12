@@ -75,8 +75,7 @@ function Comments({ token, community_id, user_id, user_role, renderComments, set
                                             {
                                                 (comment.user_id === user_id || user_role === 'admin') && (
                                                     <div>
-                                                        <Comme
-                                                        ntDrop comment_id={comment.id} comment_user_id={comment.user_id} community_id={comment.community_id} setRenderComments={setRenderComments} setPage={setPage} />
+                                                        <CommentDrop comment_id={comment.id} comment_user_id={comment.user_id} community_id={comment.community_id} setRenderComments={setRenderComments} setPage={setPage} />
                                                     </div>
                                                 )
                                             }

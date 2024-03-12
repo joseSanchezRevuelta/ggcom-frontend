@@ -170,12 +170,12 @@ const ForgotPassword = ({ openForgotPassword, setOpenForgotPassword, setOpenSign
                                         </div>
                                     </div>
                                     <div className="text-center mt-8">
-                                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Send reset link</button>
+                                        <button className="text-white bg-main font-bold hover:bg-transparent border border-main focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={handleSubmit}>Send reset link</button>
                                     </div>
                                 </form>
                                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                                 <div className="p-4 flex items-center justify-center my-1">
-                                    <span className="font-bold text-sm text-white">Return to<a href="#" className="text-main text-base ml-3 hover:text-purple-600" onClick={() => handleButtonSignIn()}>Sign in</a></span>
+                                    <span className="font-bold text-sm text-white">Return to<a href="#" className="text-main text-base ml-3 hover:text-emerald-400" onClick={() => handleButtonSignIn()}>Sign in</a></span>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

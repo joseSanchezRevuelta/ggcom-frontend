@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { ChatBubbleOvalLeftEllipsisIcon, UserGroupIcon, FlagIcon } from '@heroicons/react/24/outline'
+import { ChatBubbleOvalLeftEllipsisIcon, UserGroupIcon, FlagIcon, LanguageIcon, ClockIcon } from '@heroicons/react/24/outline'
 import './CommunitySimple.css';
 import CommunityImage from '../CommunityImage/CommunityImage';
 import { Link } from 'react-router-dom';
@@ -10,14 +10,14 @@ function CommunitySimple({ community }) {
     return (
         <>
             <Link to={`/community/${community.id}`}>
-                <div className="communitySimple relative rounded-lg overflow-hidden shadow-lg bg-neutral-900 mb-2 text-white cursor-pointer hover:scale-105 font-medium md:text-sm">
+                <div className="communitySimple relative rounded-lg overflow-hidden shadow-lg bg-neutral-950 mb-2 text-white cursor-pointer hover:scale-105 font-medium md:text-sm border border-neutral-600">
                     {/* <img className="w-full h-56" src={`${community.game_image}`} alt="Sunset in the mountains" /> */}
                     <CommunityImage
                         imageUrl={imageUrl}
                         maxWidth={maxWidth}
                         alt="game_image"
                         ke={community.id}
-                        className="w-full h-56"
+                        className="img_game_simple w-full h-56"
                     />
                     {/* <div className='px-6 pt-4'>
                     <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Videojuego</span>
@@ -42,14 +42,46 @@ function CommunitySimple({ community }) {
 
 
                         <div className='flex flex-row justify-between w-full px-2 py-4'>
-                        <div href='#' className='flex items-center'>
-                                <img
+                            {/* People */}
+                            <div className='flex items-center'>
+                                <UserGroupIcon className="h-5 w-5 mb-1 text-main inline-block" />
+                                <span className='ml-1'>{community.num_persons}</span>
+                            </div>
+                            {/* Comments */}
+                            <div className='flex items-center'>
+                                <span className='mr-1'>{community.num_comments}</span>
+                                <ChatBubbleOvalLeftEllipsisIcon className="h-5 w-5 mb-1 text-main inline-block" />
+                            </div>
+                        </div>
+
+                        <div className="name_community px-6 pb-4 flex items-center text-left">
+                            <div className="font-bold text-base mb-1">{community.title}</div>
+                        </div>
+                        <div className="data flex justify-between w-full px-2 pt-2">
+                            {/* Language */}
+                        <div className='flex items-center'>
+                                {/* <img
                                     className="h-5 ml-1 w-auto"
                                     src="/img/languages.png"
                                     alt="language"
-                                />
-                                <span className='text-white ml-2'>{community.language}</span>
+                                /> */}
+                                <LanguageIcon className="h-5 w-5 ml-1 text-main inline-block" />
+                                <span className='text-white ml-1'>{community.language}</span>
                             </div>
+                            {/* Country */}
+                            <div className='flex items-center absolute inset-x-0 flex justify-center'>
+                                {/* <FlagIcon className="h-6 w-6 text-violet-600 inline-block" /><span className='ml-1'> */}
+                                {/* {language} */}
+                                <img
+                                    src={community.flag}
+                                    srcSet="https://flagcdn.com/w40/ua.png 2x"
+                                    width="25"
+                                    alt="Ucrania" 
+                                    // className='border border-neutral-600'
+                                    />
+                                {/* </span> */}
+                            </div>
+                            {/* Tiemzone */}
                             <div className='flex items-center'>
                                 {
                                     community.timezone === 'Notspecify' ? (
@@ -58,33 +90,12 @@ function CommunitySimple({ community }) {
                                         <span className="mr-1">{community.timezone}</span>
                                     )
                                 }
-                                <img
+                                <ClockIcon className="h-5 w-5 text-main inline-block" />
+                                {/* <img
                                     className="h-5 ml-1 w-auto hover:border border-transparent"
                                     src="/img/timezone.png"
                                     alt="timezone"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="name_community px-6 pb-4 flex items-center text-left">
-                            <div className="font-bold text-base mb-1">{community.title}</div>
-                        </div>
-                        <div className="data flex justify-between w-full px-2 pt-2">
-                            <div className='flex items-center'>
-                            <UserGroupIcon className="h-6 w-6 mb-1 text-main inline-block" /><span className='ml-1'>{community.num_persons}</span>
-                            </div>
-                            <div className='flex items-center'>
-                                {/* <FlagIcon className="h-6 w-6 text-violet-600 inline-block" /><span className='ml-1'> */}
-                                {/* {language} */}
-                                <img
-                                    src={community.flag}
-                                    srcSet="https://flagcdn.com/w40/ua.png 2x"
-                                    width="25"
-                                    alt="Ucrania" />
-                                {/* </span> */}
-                            </div>
-                            <div className='flex items-center'>
-                            <span className='mr-1'>{community.num_comments}</span><ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 mb-1 text-main inline-block" />
+                                /> */}
                             </div>
                         </div>
                     </div>

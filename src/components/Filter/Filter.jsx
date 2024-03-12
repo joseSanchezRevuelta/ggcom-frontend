@@ -264,12 +264,12 @@ function Filter({ setCommunities, setHasMore }) {
     return (
         <>
             {/* SEARCH */}
-            <div className="flex flex-col justify-between w-4/5 mx-auto" data-te-input-wrapper-init id="async">
+            <div className="flex flex-col justify-between w-4/5 mx-auto px-3" data-te-input-wrapper-init id="async">
                 <div className="">
                     <div className="relative mb-4 flex w-full flex-wrap items-stretch">
                         <input
                             type="search"
-                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-neutral-950 bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-main focus:text-white focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 focus:border-main dark:focus:border-main"
+                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-neutral-950 bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:border-main focus:text-white focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 focus:border-main dark:focus:border-main"
                             placeholder="Search Communities"
                             aria-label="Search"
                             aria-describedby="button-addon1"
@@ -277,7 +277,7 @@ function Filter({ setCommunities, setHasMore }) {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                         <button
-                            className="relative z-[2] flex items-center rounded-r bg-main px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
+                            className="relative flex items-center rounded-r bg-main px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-transparent border border-main hover:border-main hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
                             type="button"
                             id="button-addon1"
                             data-te-ripple-init
@@ -299,13 +299,13 @@ function Filter({ setCommunities, setHasMore }) {
                 </div>
             </div>
             {/* FILTER */}
-            <div className="mb-8 flex flex-row justify-between w-4/5 mx-auto rounded-l" data-te-input-wrapper-init id="async">
+            <div className="mb-8 flex flex-row justify-between w-4/5 mx-auto rounded-l px-3" data-te-input-wrapper-init id="async">
                 <div id="accordionExample" className="w-full">
                     <div
                         className="border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-950 rounded-l">
                         <h2 className="mb-0" id="headingTwo">
                             <button
-                                className="group relative flex w-full items-center rounded-l border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-950 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                                className="group relative flex w-full items-center rounded-l border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] focus:outline-none dark:bg-neutral-950 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
                                 type="button"
                                 data-te-collapse-init
                                 data-te-collapse-collapsed
@@ -348,7 +348,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="order"
                                             autoComplete="order-name"
                                             placeholder="Timezone"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
+                                            className="select w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
                                             value={order}
                                             onChange={(e) => setOrder(e.target.value)}
                                             onKeyPress={handleKeyPress}
@@ -385,7 +385,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="country"
                                             autoComplete="country-name"
                                             placeholder="Country"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
+                                            className="select w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
                                             value={country}
                                             onChange={(e) => setCountry(e.target.value)}
                                         >
@@ -413,7 +413,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="language"
                                             autoComplete="language-name"
                                             placeholder="Language"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                            className="select w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
                                             value={language}
                                             onChange={(e) => setLanguage(e.target.value)}
                                         >
@@ -437,7 +437,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             name="timezone"
                                             autoComplete="timezone-name"
                                             placeholder="Timezone"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                            className="select w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
                                             value={timezone}
                                             onChange={(e) => setTimezone(e.target.value)}
                                         >
@@ -462,12 +462,12 @@ function Filter({ setCommunities, setHasMore }) {
                                     <input className="shadow appearance-none border border-neutral-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} />
                                     {
                                         isOpen && gameSearch && (
-                                            <div className='bg-white rounded-lg shadow-lg z-50 w-full'>
-                                                <ul key="ul" className='ml-2'>
+                                            <div className='rounded-lg shadow-lg z-50 w-full bg-neutral-900'>
+                                                <ul key="ul" className='bg-neutral-900'>
                                                     {gameSearch.map((game, index) => (
-                                                        <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between py-1' key={index} onClick={() => gameSelected(game)}>
-                                                            <span className="inline-block">{game.name}</span>
-                                                            <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" />
+                                                        <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between pl-2 py-1' key={index} onClick={() => gameSelected(game)}>
+                                                            <span className="inline-block text-white">{game.name}</span>
+                                                            {/* <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" /> */}
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -479,8 +479,8 @@ function Filter({ setCommunities, setHasMore }) {
                             </div>
                             {/* BUTON */}
                             <div className="text-center mb-4">
-                                <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-1/4 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900 mr-2" onClick={handleSubmit}>Apply filters</button>
-                                <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-1/4 px-5 py-2.5 text-center dark:bg-transparent dark:hover:bg-violet-700 dark:focus:ring-violet-900 border border-neutrañ-500 ml-2" onClick={clearAll}>Clear all</button>
+                                <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-1/4 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900 mr-2 border border-main" onClick={handleSubmit}>Apply filters</button>
+                                <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-1/4 px-5 py-2.5 text-center dark:bg-transparent dark:hover:bg-main dark:focus:ring-violet-900 border border-main ml-2" onClick={clearAll}>Clear all</button>
                             </div>
                         </div>
                     </div>

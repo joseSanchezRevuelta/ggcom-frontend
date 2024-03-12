@@ -502,15 +502,15 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                     <small className="text-red-400">{errors.passwordConfirmErrorText}</small>
                   </div>
                   <div className="text-center">
-                    <span className="display: block text-xs p-4 font-bold text-white">By clicking register, you indicate that you have read and accept the<br></br><a href='#' className="text-main hover:text-purple-600">Terms and Conditions </a>and the <a href='#' className="text-main hover:text-purple-600">Privacy Policy</a></span>
+                    <span className="display: block text-xs p-4 font-bold text-white">By clicking register, you indicate that you have read and accept the<br></br><a href='#' className="text-main hover:text-emerald-400">Terms and Conditions </a>and the <a href='#' className="text-main hover:text-emerald-400">Privacy Policy</a></span>
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="text-white bg-blue-700 font-bold hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Sign up</button>
+                    <button type="submit" className="text-white bg-main border border-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={handleSubmit}>Sign up</button>
                   </div>
                 </form>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div className="p-4 flex items-center justify-center">
-                  <span className="font-bold text-sm text-white">You have an account? <a href="#" className="text-main hover:text-purple-600 text-base ml-1" onClick={() => handleButtonSignIn()}>Login</a></span>
+                  <span className="font-bold text-sm text-white">You have an account? <a href="#" className="text-main hover:text-emerald-400 text-base ml-1" onClick={() => handleButtonSignIn()}>Login</a></span>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

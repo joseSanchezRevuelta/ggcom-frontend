@@ -69,7 +69,7 @@ function CreateCommunityForm() {
     const changeGame = (event) => {
         setGame(event)
         setGameConfirmed('')
-        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=5&ordering=-rating&ordering=-popularity`)
+        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=10&ordering=-rating&ordering=-popularity`)
             .then(res => res.json())
         gameSought.then(data => {
             // Acceder a los resultados
@@ -163,7 +163,7 @@ function CreateCommunityForm() {
             const flag = item.flag;
             countriesArray2.push({ "country": countryName, "flag": flag });
         });
-        setCountriesArray2(countriesArray2)
+        setCountriesArray2(countriesArray2.sort())
     }, [countries]);
     // console.log(countriesArray2)
 
@@ -463,11 +463,11 @@ function CreateCommunityForm() {
                         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} autoComplete="off"/>
                         {
                             isOpen && gameSearch && (
-                                <div className='bg-white rounded-lg shadow-lg z-50 w-full'>
-                                    <ul key="ul" className='ml-2'>
+                                <div className='bg-neutral-900 rounded-lg shadow-lg z-50 w-full bg-neutral-900 h-60 overflow-auto'>
+                                    <ul key="ul" className='bg-neutral-900'>
                                         {gameSearch.map((game, index) => (
-                                            <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between py-1' key={index} onClick={() => gameSelected(game)}>
-                                                <span className="inline-block">{game.name}</span>
+                                            <li className='cursor-pointer bg-neutral-900 hover:bg-gray-500 flex items-center justify-between pl-2 py-1' key={index} onClick={() => gameSelected(game)}>
+                                                <span className="inline-block text-white">{game.name}</span>
                                                 <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" />
                                             </li>
                                         ))}
@@ -487,7 +487,7 @@ function CreateCommunityForm() {
                             name="country"
                             autoComplete="country-name"
                             placeholder="Country"
-                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                            className="select w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                         >
@@ -509,7 +509,7 @@ function CreateCommunityForm() {
                             name="language"
                             autoComplete="language-name"
                             placeholder="Language"
-                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                            className="select w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
                             value={language}
                             onChange={(e) => setLanguage(e.target.value)}
                         >
@@ -530,7 +530,7 @@ function CreateCommunityForm() {
                             name="timezone"
                             autoComplete="timezone-name"
                             placeholder="Timezone"
-                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                            className="select w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
                             value={timezone}
                             onChange={(e) => setTimezone(e.target.value)}
                         >
@@ -543,12 +543,12 @@ function CreateCommunityForm() {
                         </select>
                         <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small>
                     </div>
-                    <div className="text-center mt-12">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Create Community</button>
+                    <div className="text-center mt-20">
+                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Create Community</button>
                     </div>
-                    <div className="flex items-center justify-center mt-10">
+                    {/* <div className="flex items-center justify-center mt-10">
                         <a className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems create community?</a>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </>
