@@ -6,6 +6,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { userdAuth } from '../../features/users/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerRepository } from '../../features/users/usersRepository';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
   const deviceName = import.meta.env.VITE_DEVICE_NAME;
@@ -450,7 +451,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
         </Transition.Child>
 
         <div className="fixed inset-0 w-screen overflow-y-auto z-50">
-          <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full items-center justify-center lg:p-4 text-center sm:items-center p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -461,8 +462,11 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signup2.jpg')] bg-cover bg-no-repeat bg-center bg-neutral-600 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
-                <div className="p-4 flex items-center justify-center">
+                <div className="p-4 flex items-center justify-center relative">
                   <span className="text-white font-bold">Sign up to GGCOM</span>
+                  <button onClick={handleCloseSignUp} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded">
+                    <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
+                  </button>
                 </div>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <form className="max-w-md mx-auto my-4 font-bold-600">
@@ -470,35 +474,40 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                       Username:
                     </label>
-                    <input className={`shadow appearance-none ${errors.usernameError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="username" type="text" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value); checkUsername(e.target.value); }} ref={usernameRef} />
+                    <input className={`shadow appearance-none ${errors.usernameError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="username" type="text" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value); checkUsername(e.target.value); }} ref={usernameRef}
+                    autoComplete='off' />
                     <small className="text-red-400">{errors.usernameErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
                       Email:
                     </label>
-                    <input className={`shadow appearance-none ${errors.emailError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="email" type="text" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); checkEmail(e.target.value); }} />
+                    <input className={`shadow appearance-none ${errors.emailError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="email" type="text" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); checkEmail(e.target.value); }}
+                    autoComplete='off' />
                     <small className="text-red-400">{errors.emailErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="confirmEmail">
                       Confirm Email
                     </label>
-                    <input className={`shadow appearance-none ${errors.emailConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="confirmEmail" type="text" placeholder="Confirm Email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
+                    <input className={`shadow appearance-none ${errors.emailConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="confirmEmail" type="text" placeholder="Confirm Email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)}
+                    autoComplete='off' />
                     <small className="text-red-400">{errors.emailConfirmErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                       Password
                     </label>
-                    <input type='password' className={`shadow appearance-none ${errors.passwordError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); checkPassword(e.target.value); }} />
+                    <input type='password' className={`shadow appearance-none ${errors.passwordError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); checkPassword(e.target.value); }}
+                    autoComplete='off' />
                     <small className="text-red-400">{errors.passwordErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="confirmPassword">
                       Confirm Password
                     </label>
-                    <input type='password' className={`shadow appearance-none ${errors.passwordConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900 focus:border-main`} id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <input type='password' className={`shadow appearance-none ${errors.passwordConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900 focus:border-main`} id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} 
+                    autoComplete='off'/>
                     <small className="text-red-400">{errors.passwordConfirmErrorText}</small>
                   </div>
                   <div className="text-center">

@@ -186,7 +186,7 @@ function Filter({ setCommunities, setHasMore }) {
     const changeGame = (event) => {
         setGame(event)
         setGameConfirmed('')
-        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=5&ordering=-rating&ordering=-popularity`)
+        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=10&ordering=-rating&ordering=-popularity`)
             .then(res => res.json())
         gameSought.then(data => {
             // Acceder a los resultados
@@ -264,7 +264,7 @@ function Filter({ setCommunities, setHasMore }) {
     return (
         <>
             {/* SEARCH */}
-            <div className="flex flex-col justify-between w-4/5 mx-auto px-3" data-te-input-wrapper-init id="async">
+            <div className="flex flex-col justify-between w-full lg:w-4/5 mx-auto px-1 lg:px-3" data-te-input-wrapper-init id="async">
                 <div className="">
                     <div className="relative mb-4 flex w-full flex-wrap items-stretch">
                         <input
@@ -299,7 +299,7 @@ function Filter({ setCommunities, setHasMore }) {
                 </div>
             </div>
             {/* FILTER */}
-            <div className="mb-8 flex flex-row justify-between w-4/5 mx-auto rounded-l px-3" data-te-input-wrapper-init id="async">
+            <div className="mb-8 flex flex-row justify-between w-full lg:w-4/5 mx-auto rounded-l px-1 lg:px-3" data-te-input-wrapper-init id="async">
                 <div id="accordionExample" className="w-full">
                     <div
                         className="border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-950 rounded-l">
@@ -336,8 +336,8 @@ function Filter({ setCommunities, setHasMore }) {
                             data-te-collapse-item
                             aria-labelledby="headingTwo"
                             data-te-parent="#accordionExample">
-                            <div className="flex flex-row justify-between w-11/12 mx-auto">
-                                <div className='w-2/12 my-4'>
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:w-full md:w-4/5 xs:w-full mx-auto overflow-hidden py-3 lg:px-3">
+                                <div className='lg:w-4/6 w-10/12 my-4 mx-auto'>
                                     {/* Order */}
                                     <div className="relative z-0 w-full group">
                                         <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
@@ -375,7 +375,7 @@ function Filter({ setCommunities, setHasMore }) {
                                     </div>
                                 </div>
                                 {/* Country */}
-                                <div className='w-2/12 my-4'>
+                                <div className='lg:w-4/6 w-10/12 my-4 mx-auto'>
                                     <div className="relative z-0 w-full group">
                                         <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
                                             Country
@@ -403,7 +403,7 @@ function Filter({ setCommunities, setHasMore }) {
                                     </div>
                                 </div>
                                 {/* Language */}
-                                <div className='w-2/12 my-4'>
+                                <div className='lg:w-4/6 w-10/12 my-4 mx-auto'>
                                     <div className="relative z-0 w-full group">
                                         <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
                                             Language
@@ -427,7 +427,7 @@ function Filter({ setCommunities, setHasMore }) {
                                     </div>
                                 </div>
                                 {/* Timezone */}
-                                <div className='w-2/12 my-4'>
+                                <div className='lg:w-4/6 w-10/12 my-4 mx-auto'>
                                     <div className="relative z-0 w-ful group">
                                         <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
                                             Timezone
@@ -459,10 +459,10 @@ function Filter({ setCommunities, setHasMore }) {
                                     <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                                         Game
                                     </label>
-                                    <input className="shadow appearance-none border border-neutral-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} />
+                                    <input className="shadow appearance-none border border-neutral-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} onClick={(e) => changeGame(e.target.value)} autoComplete="off"/>
                                     {
                                         isOpen && gameSearch && (
-                                            <div className='rounded-lg shadow-lg z-50 w-full bg-neutral-900'>
+                                            <div className='rounded-lg shadow-lg z-50 w-full bg-neutral-900 h-60 overflow-auto'>
                                                 <ul key="ul" className='bg-neutral-900'>
                                                     {gameSearch.map((game, index) => (
                                                         <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between pl-2 py-1' key={index} onClick={() => gameSelected(game)}>
@@ -479,8 +479,8 @@ function Filter({ setCommunities, setHasMore }) {
                             </div>
                             {/* BUTON */}
                             <div className="text-center mb-4">
-                                <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-1/4 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900 mr-2 border border-main" onClick={handleSubmit}>Apply filters</button>
-                                <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-1/4 px-5 py-2.5 text-center dark:bg-transparent dark:hover:bg-main dark:focus:ring-violet-900 border border-main ml-2" onClick={clearAll}>Clear all</button>
+                                <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:w-1/4 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900 mr-2 border border-main" onClick={handleSubmit}>Apply filters</button>
+                                <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:w-1/4 px-5 py-2.5 text-center dark:bg-transparent dark:hover:bg-main dark:focus:ring-violet-900 border border-main ml-2" onClick={clearAll}>Clear all</button>
                             </div>
                         </div>
                     </div>

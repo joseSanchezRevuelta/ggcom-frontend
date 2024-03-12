@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../features/users/usersRepository";
 import { clearUserData } from "../../features/users/usersSlice";
@@ -8,19 +8,21 @@ import { deleteCommentRepository } from "../../features/Comments/commentReposito
 // eslint-disable-next-line react/prop-types
 function DeleteComment({ comment_id, comment_user_id, community_id, openDeleteComment, setOpenDeleteComment, setRenderComments, setPage }) {
     const userState = useSelector(state => state.user)
+    const [loadingDeleteComment, setLoadingDeleteComment] = useState(false);
 
     function handleDelete(token, comment_user_id, community_id, comment_id) {
-        console.log('delete comment')
+        setLoadingDeleteComment(true)
         deleteCommentRepository(token, comment_user_id, community_id, comment_id)
             .then(() => {
                 // setPage(0)
-                setOpenDeleteComment(false)
                 setRenderComments(prevState => !prevState);
             })
             .catch(error => {
                 console.error('Error al corrar el comment:', error);
             })
             .finally(() => {
+                setOpenDeleteComment(false)
+                setLoadingDeleteComment(false)
                 // setLoadingCreateComment(false)
             });
     }
@@ -53,10 +55,17 @@ function DeleteComment({ comment_id, comment_user_id, community_id, openDeleteCo
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
                                 <div className="text-center py-8">
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)}>
+                                    {/* <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)}>
                                         Delete
+                                    </button> */}
+                                    <button className="bg-main hover:bg-transparent border border-main text-white font-bold py-2 px-4 w-2/12 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)} disabled={loadingDeleteComment}>
+                                        {loadingDeleteComment ? (
+                                            <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                        ) : (
+                                            'Delete'
+                                        )}
                                     </button>
-                                    <button className="bg-red-500 hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDeleteComment(false)}>
+                                    <button className="bg-transparent hover:bg-main border border-main  text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDeleteComment(false)}>
                                         Cancel
                                     </button>
                                 </div>

@@ -19,6 +19,8 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
 
     const [success, setSuccess] = useState("")
 
+    const [loadingEditPassword, setLoadingEditPassword] = useState(false);
+
     function handleUpdatePassword(token, user_id, userPassword, userNewPassword, userPasswordConfirm) {
         setSuccess('')
         setErrorUserPassword('')
@@ -67,10 +69,13 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
     }
 
     async function fetchData(token, user_id, userPassword, userNewPassword, userPasswordConfirm) {
+        setLoadingEditPassword(true)
         const response = await updatePassword(token, user_id, userPassword, userNewPassword, userPasswordConfirm)
         if (response.success == false) {
+            setLoadingEditPassword(false)
             setErrorUserPassword('Incorrect current password')
         } else {
+            setLoadingEditPassword(false)
             setErrorUserPassword('')
             setErrorNewPassword('')
             setErrorPasswordConfirm('')
@@ -151,10 +156,14 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
                                     <small className="text-red-400">{errorPasswordConfirm}</small>
                                 </div>
                                 <div className="text-center mt-8 pb-11">
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdatePassword(userState.userData.token, user_id, userPassword, userNewPassword, userPasswordConfirm)}>
-                                        Accept
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleUpdatePassword(userState.userData.token, user_id, userPassword, userNewPassword, userPasswordConfirm)}>
+                                        {loadingEditPassword ? (
+                                            <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                        ) : (
+                                            'Accept'
+                                        )}
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseEditPassword()}>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleCloseEditPassword()}>
                                         Cancel
                                     </button>
                                 </div>

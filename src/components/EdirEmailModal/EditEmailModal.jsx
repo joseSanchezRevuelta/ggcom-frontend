@@ -21,6 +21,8 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
 
     const navigateTo = useNavigate();
 
+    const [loadingEditEmail, setLoadingEditEmail] = useState(false);
+
     function handleUpdateEmail(token, user_id, newEmail, newEmailConfirm) {
         console.log(newEmailConfirm)
         let errorEmail = 0
@@ -53,10 +55,11 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
     }
 
     async function fetchData(token, user_id, newEmail, newEmailConfirm) {
+        setLoadingEditEmail(true)
         try {
             const response = await updateEmail(token, user_id, newEmail, newEmailConfirm)
             if (response) {
-                console.log(response)
+                setLoadingEditEmail(false)
                 if (response.errors && response.errors['data.attributes.email']) {
                     setErrorEmailConfirm('')
                     setErrorEmail('Email already used')
@@ -139,10 +142,14 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
                                     <small className="text-red-400">{errorEmailConfirm}</small>
                                 </div>
                                 <div className="text-center mt-8 pb-11">
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateEmail(userState.userData.token, user_id, newEmail, newEmailConfirm)}>
-                                        Accept
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleUpdateEmail(userState.userData.token, user_id, newEmail, newEmailConfirm)}>
+                                        {loadingEditEmail ? (
+                                            <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                        ):(
+                                                'Accept'
+                                            )}
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseEditEmail()}>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2 text-center w-3/12 lg:w-2/12" onClick={() => handleCloseEditEmail()}>
                                         Cancel
                                     </button>
                                 </div>

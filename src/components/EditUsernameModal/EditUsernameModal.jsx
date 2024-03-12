@@ -20,6 +20,8 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
 
     const navigateTo = useNavigate();
 
+    const [loadingEditUsername, setLoadingEditUsername] = useState(false);
+
     const usernameRef = useRef(null);
 
     function handleUpdateUsername(token, user_id, user_name) {
@@ -45,23 +47,26 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
         } else if (user_name.length < 3) {
             error++
             setError('Username is too sort (min 3)')
-        } 
+        }
         if (error == 0) {
             fetchData(token, user_id, user_name)
         }
     }
 
     async function fetchData(token, user_id, user_name) {
+        setLoadingEditUsername(true)
         try {
             const response = await updateUsername(token, user_id, user_name)
             if (response) {
                 console.log(response)
                 if (response.errors && response.errors['data.attributes.username']) {
+                    setLoadingEditUsername(false)
                     setError('Username already used')
                 }
                 if (response.success === true) {
                     // updateUsername(token, user_id, user_name)
                     setOpenEditUsernameModal(false)
+                    setLoadingEditUsername(false)
                     setUserNameState(user_name)
                     setUserName(user_name)
                     setError('')
@@ -74,10 +79,10 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                 }
             } else {
                 console.log("Ha ocurrido un error")
-              }
+            }
         } catch (error) {
             console.error('Hubo un error en la solicitud:', error);
-          }
+        }
     }
 
     const handleCloseEditUsername = () => {
@@ -85,7 +90,8 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
         if (userState.userData.role == 'admin') {
             setNewUserName(userName)
         } else {
-            setUserName(userState.userData.username)
+            console.log()
+            setNewUserName(userState.userData.username)
         }
         setError("");
     }
@@ -96,7 +102,7 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
     //         usernameRef.current.focus();
     //       }
     //     }, 300);
-    
+
     //     return () => clearTimeout(timeoutId);
     //   }, [openEditUsernameModal]);
 
@@ -142,10 +148,14 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                                     <small className="text-red-400">{error}</small>
                                 </div>
                                 <div className="text-center mt-8 pb-11">
-                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleUpdateUsername(userState.userData.token, user_id, newUserName)}>
-                                        Accept
+                                    <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleUpdateUsername(userState.userData.token, user_id, newUserName)}>
+                                        {loadingEditUsername ? (
+                                            <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                        ) : (
+                                            'Accept'
+                                        )}
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseEditUsername()}>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleCloseEditUsername()}>
                                         Cancel
                                     </button>
                                 </div>

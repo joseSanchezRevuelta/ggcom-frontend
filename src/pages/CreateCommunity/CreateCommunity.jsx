@@ -31,7 +31,7 @@ function CreateCommunity() {
                     </>
                 ) : (
                     <>
-                        <div className='text-center mt-6'>
+                        <div className='text-center mb-16 xl:mt-6 lg:mb-16 lg:pb-0'>
                             <h1 className='mx-auto my-6 text-white'>Debes iniciar sesión para crear comunidades</h1>
                             <button className="bg-main hover:bg-transparent border border-main text-white font-bold py-2 px-4 mt-4 rounded" onClick={() => setOpenSignIn(true)}>
                                 Login for create

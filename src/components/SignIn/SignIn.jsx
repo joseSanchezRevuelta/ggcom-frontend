@@ -123,7 +123,7 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
         </Transition.Child>
 
         <div className="fixed inset-0 w-screen overflow-y-auto z-50">
-          <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full items-center justify-center lg:p-4 text-center sm:items-center px-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -151,13 +151,19 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
                       Email or Username
                     </label>
-                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="email" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} ref={emailRef} />
+                    <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="email" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} ref={emailRef}
+                      // style={{
+                      //   WebkitTextFillColor: "white",
+                      //   color: "white"
+                      // }}
+                      autoComplete='off' />
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                       Password
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}
+                      autoComplete='off' />
                   </div>
                   <div className="text-center mt-7">
                     <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>Login</button>

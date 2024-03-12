@@ -31,6 +31,8 @@ function CreateCommunityForm() {
     const [gameSearch, setGameSearch] = useState('')
     const [isOpen, setIsOpen] = useState(false);
 
+    const [loadingCreateCommunityComment, setLoadingCreateCommunityComment] = useState(false);
+
     const navigate = useNavigate();
 
     //Games
@@ -257,11 +259,11 @@ function CreateCommunityForm() {
                 titleErrorText: 'Title is too sort (min 5)',
             }));
             errorTitle++
-        } else if (title.length > 100) {
+        } else if (title.length > 50) {
             setErrors(prevErrors => ({
                 ...prevErrors,
                 titleError: true,
-                titleErrorText: 'Title is too long (max 100)',
+                titleErrorText: 'Title is too long (max 50)',
             }));
             errorTitle++
         } else {
@@ -411,18 +413,19 @@ function CreateCommunityForm() {
             const redirectToCommunity = (id) => {
                 const url = `/community/${id}`;
                 navigate(url);
-              };
-
+            };
+            setLoadingCreateCommunityComment(true)
             //fetch
             createCommunity(requestOptions)
-            .then(data => {
-            redirectToCommunity(data.id);
-            })
-            .catch(error => {
-              console.error('Error al crear la comunidad:', error);
-            });
-            
-              // Llamada a la función para redireccionar
+                .then(data => {
+                    setLoadingCreateCommunityComment(false)
+                    redirectToCommunity(data.id);
+                })
+                .catch(error => {
+                    console.error('Error al crear la comunidad:', error);
+                })
+
+            // Llamada a la función para redireccionar
             // redirectToCommunity(id);
         }
         event.preventDefault();
@@ -431,7 +434,7 @@ function CreateCommunityForm() {
     return (
         <>
             <div className="relative flex justify-center lg:w-4/6 w-full mx-auto border border-main rounded bg-neutral-950 mb-10">
-                <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
+                <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left lg:py-8">
                     {/* <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p> */}
                     <div className="relative z-0 w-full my-4 group">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
@@ -456,11 +459,11 @@ function CreateCommunityForm() {
                         <small className="text-red-400">{errors.descriptionError}</small>
                     </div>
                     {/* autoComplete */}
-                    <div className="autocomplete relative z-0 my-10 group w-1/2">
+                    <div className="autocomplete relative z-0 my-10 group lg:w-1/2">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                             Game
                         </label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} autoComplete="off"/>
+                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} autoComplete="off" />
                         {
                             isOpen && gameSearch && (
                                 <div className='bg-neutral-900 rounded-lg shadow-lg z-50 w-full bg-neutral-900 h-60 overflow-auto'>
@@ -468,7 +471,7 @@ function CreateCommunityForm() {
                                         {gameSearch.map((game, index) => (
                                             <li className='cursor-pointer bg-neutral-900 hover:bg-gray-500 flex items-center justify-between pl-2 py-1' key={index} onClick={() => gameSelected(game)}>
                                                 <span className="inline-block text-white">{game.name}</span>
-                                                <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" />
+                                                {/* <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" /> */}
                                             </li>
                                         ))}
                                     </ul>
@@ -544,7 +547,13 @@ function CreateCommunityForm() {
                         <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small>
                     </div>
                     <div className="text-center mt-20">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={handleSubmit}>Create Community</button>
+                        <button className="text-white bg-indigo-600 font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>
+                            {loadingCreateCommunityComment ? (
+                                <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                            ) : (
+                                'Create Community'
+                            )}
+                        </button>
                     </div>
                     {/* <div className="flex items-center justify-center mt-10">
                         <a className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems create community?</a>

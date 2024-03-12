@@ -37,14 +37,17 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
 
     const [openDelete, setOpenDelete] = useState(false);
 
+    const [loadingEditCommunity, setLoadingEditCommunity] = useState(false);
+    const [loadingButtonEditCommunity, setButtonLoadingEditCommunity] = useState(false);
+
     const navigateTo = useNavigate();
     // fetch a comunidad
     useEffect(() => {
+        setLoadingEditCommunity(true)
         getCommunity(community_id)
             .then(data => {
+                setLoadingEditCommunity(false)
                 setCommunityData(data);
-                console.log(user_id)
-                console.log(data)
                 if (user_id != data.user_id && user_role != 'admin') {
                     navigateTo('/notfound')
                 }
@@ -103,7 +106,7 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
     const changeGame = (event) => {
         setGame(event)
         setGameConfirmed('')
-        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=5&ordering=-rating&ordering=-popularity`)
+        const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=10&ordering=-rating&ordering=-popularity`)
             .then(res => res.json())
         gameSought.then(data => {
             // Acceder a los resultados
@@ -291,11 +294,11 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                 titleErrorText: 'Title is too sort (min 5)',
             }));
             errorTitle++
-        } else if (title.length > 100) {
+        } else if (title.length > 50) {
             setErrors(prevErrors => ({
                 ...prevErrors,
                 titleError: true,
-                titleErrorText: 'Title is too long (max 100)',
+                titleErrorText: 'Title is too long (max 50)',
             }));
             errorTitle++
         } else {
@@ -444,11 +447,11 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
             };
             //fetch
             console.log(user_role)
+            setButtonLoadingEditCommunity(true)
             updateCommunity(requestOptions)
                 .then(response => {
+                    setButtonLoadingEditCommunity(false)
                     console.log(response)
-                    console.log(user_role)
-                    console.log(community_id)
                     if (user_role == 'user') {
                         navigateTo(`/community/${community_id}`);
                     }
@@ -464,140 +467,153 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
         <>
             <Delete community_id={community_id} openDelete={openDelete} setOpenDelete={setOpenDelete} />
             <div className="relative flex justify-center lg:w-4/6 w-full mx-auto border border-main rounded  mb-10">
-                <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
-                    {/* <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p> */}
-                    <div className="relative z-0 w-full my-4 group">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
-                            Title Community
-                        </label>
-                        <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="Title Community" value={title} onChange={(e) => setTitle(e.target.value)} ref={titleRef} />
-                        <small className="text-red-400">{errors.titleErrorText}</small>
-                    </div>
-                    <div className="relative z-0 w-full my-10 group">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="description">
-                            Description
-                        </label>
-                        <textarea
-                            id="description"
-                            name="description"
-                            rows={3}
-                            className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6 bg-neutral-900 p-3"
-                            placeholder='You can add a description to the community'
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                        <small className="text-red-400">{errors.descriptionError}</small>
-                    </div>
-                    {/* autoComplete */}
-                    <div className="autocomplete relative z-0 my-10 group w-1/2">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
-                            Game
-                        </label>
-                        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} />
-                        {
-                            isOpen && gameSearch && (
-                                <div className='bg-white rounded-lg shadow-lg z-50 w-full'>
-                                    <ul key="ul" className='ml-2'>
-                                        {gameSearch.map((game, index) => (
-                                            <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between py-1' key={index} onClick={() => gameSelected(game)}>
-                                                <span className="inline-block">{game.name}</span>
-                                                <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )
-                        }
-                        <small className="text-red-400">{errors.gameErrorText}</small>
-                    </div>
-                    {/* /Country */}
-                    <div className="relative z-0 w-full my-10 group">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
-                            Country
-                        </label>
-                        <select
-                            id="Country"
-                            name="country"
-                            autoComplete="country-name"
-                            placeholder="Country"
-                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                        >
-                            <option key="countryDefault" value={country}>
-
-                                {country && JSON.parse(country).country}
-                            </option>
-                            <option key="international" value={JSON.stringify({ "country": "international", "flag": "/img/world.png" })} className='cursor-pointer'>
-                                International
-                            </option>
-                            {renderCountryOptions()}
-                        </select>
-                        <input type="hidden" value={flag} name='flag' />
-                        <small className="block mt-1 text-red-400">{errors.countryErrorText}</small>
-                    </div>
-                    <div className="relative z-0 w-full my-10 group">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
-                            Language
-                        </label>
-                        <select
-                            id="language"
-                            name="language"
-                            autoComplete="language-name"
-                            placeholder="Language"
-                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
-                            value={language}
-                            onChange={(e) => setLanguage(e.target.value)}
-                        >
-                            <option disabled hidden value="">Select Language</option>
-                            <option key="all" value="All" className='cursor-pointer'>
-                                All
-                            </option>
-                            {renderLanguageOptions()}
-                        </select>
-                        <small className="block mt-1 text-red-400">{errors.languageErrorText}</small>
-                    </div>
-                    <div className="relative z-0 w-full my-10 group">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
-                            Timezone
-                        </label>
-                        <select
-                            id="Timezone"
-                            name="timezone"
-                            autoComplete="timezone-name"
-                            placeholder="Timezone"
-                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
-                            value={timezone}
-                            onChange={(e) => setTimezone(e.target.value)}
-                        >
-                            <option disabled hidden value="">Select Timezone</option>
-                            <option key="notspecify" value="Notspecify" className='cursor-pointer'>
-                                Not specify
-                            </option>
-                            {/* <hr className='hr_select'></hr> */}
-                            {renderTimezoneOptions()}
-                        </select>
-                        <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small>
-                    </div>
-                    {userState.userData.role === 'admin' && (
-                        <div className="text-center mt-12">
-                            <Link to={`/commentslist/${idCommunity}/${idUser}`} className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900">
-                                View Comments
-                            </Link>
+                {loadingEditCommunity ? (
+                    <div className="w-full text-center mx-auto text-main overflow-hidden pt-28 pb-24">
+                        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
                         </div>
-                    )}
-                    <div className="text-center mt-12">
-                        <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>Save Changes</button>
                     </div>
-                    <div className="text-center mt-12">
-                        <button className="text-white bg-transparent border border-main font-bold hover:bg-red-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:focus:ring-violet-900" onClick={(e) => { e.preventDefault(); setOpenDelete(true); }}
+                ) : (
+                    <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
+                        {/* <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p> */}
+                        <div className="relative z-0 w-full my-4 group">
+                            <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
+                                Title Community
+                            </label>
+                            <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="Title Community" value={title} onChange={(e) => setTitle(e.target.value)} ref={titleRef} />
+                            <small className="text-red-400">{errors.titleErrorText}</small>
+                        </div>
+                        <div className="relative z-0 w-full my-10 group">
+                            <label className="block text-white text-sm font-bold mb-2" htmlFor="description">
+                                Description
+                            </label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows={3}
+                                className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6 bg-neutral-900 p-3"
+                                placeholder='You can add a description to the community'
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                            <small className="text-red-400">{errors.descriptionError}</small>
+                        </div>
+                        {/* autoComplete */}
+                        <div className="autocomplete relative z-0 my-10 group w-1/2">
+                            <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
+                                Game
+                            </label>
+                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} onClick={(e) => changeGame(e.target.value)} autoComplete="off" />
+                            {
+                                isOpen && gameSearch && (
+                                    <div className='bg-neutral-900 rounded-lg shadow-lg z-50 w-full bg-neutral-900 h-60 overflow-auto'>
+                                        <ul key="ul" className='ml-2 bg-neutral-900'>
+                                            {gameSearch.map((game, index) => (
+                                                <li className='cursor-pointer hover:bg-gray-500 flex items-center justify-between pl-2 py-1' key={index} onClick={() => gameSelected(game)}>
+                                                    <span className="inline-block text-white">{game.name}</span>
+                                                    {/* <img src={game.background_image} alt={game.name} className="w-8 h-8 mr-2 inline-block mr-12 rounded-full object-cover object-center" /> */}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )
+                            }
+                            <small className="text-red-400">{errors.gameErrorText}</small>
+                        </div>
+                        {/* /Country */}
+                        <div className="relative z-0 w-full my-10 group">
+                            <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
+                                Country
+                            </label>
+                            <select
+                                id="Country"
+                                name="country"
+                                autoComplete="country-name"
+                                placeholder="Country"
+                                className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                value={country}
+                                onChange={(e) => setCountry(e.target.value)}
+                            >
+                                <option key="countryDefault" value={country}>
 
-                        >Delete community</button>
-                    </div>
-                    {/* <div className="flex items-center justify-center mt-10">
+                                    {country && JSON.parse(country).country}
+                                </option>
+                                <option key="international" value={JSON.stringify({ "country": "international", "flag": "/img/world.png" })} className='cursor-pointer'>
+                                    International
+                                </option>
+                                {renderCountryOptions()}
+                            </select>
+                            <input type="hidden" value={flag} name='flag' />
+                            <small className="block mt-1 text-red-400">{errors.countryErrorText}</small>
+                        </div>
+                        <div className="relative z-0 w-full my-10 group">
+                            <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
+                                Language
+                            </label>
+                            <select
+                                id="language"
+                                name="language"
+                                autoComplete="language-name"
+                                placeholder="Language"
+                                className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                            >
+                                <option disabled hidden value="">Select Language</option>
+                                <option key="all" value="All" className='cursor-pointer'>
+                                    All
+                                </option>
+                                {renderLanguageOptions()}
+                            </select>
+                            <small className="block mt-1 text-red-400">{errors.languageErrorText}</small>
+                        </div>
+                        <div className="relative z-0 w-full my-10 group">
+                            <label className="block text-white text-sm font-bold mb-2" htmlFor="language">
+                                Timezone
+                            </label>
+                            <select
+                                id="Timezone"
+                                name="timezone"
+                                autoComplete="timezone-name"
+                                placeholder="Timezone"
+                                className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer"
+                                value={timezone}
+                                onChange={(e) => setTimezone(e.target.value)}
+                            >
+                                <option disabled hidden value="">Select Timezone</option>
+                                <option key="notspecify" value="Notspecify" className='cursor-pointer'>
+                                    Not specify
+                                </option>
+                                {/* <hr className='hr_select'></hr> */}
+                                {renderTimezoneOptions()}
+                            </select>
+                            <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small>
+                        </div>
+                        {userState.userData.role === 'admin' && (
+                            <div className="text-center mt-12">
+                                <Link to={`/commentslist/${idCommunity}/${idUser}`} className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900">
+                                    View Comments
+                                </Link>
+                            </div>
+                        )}
+                        <div className="text-center mt-12">
+                            <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>
+                                {loadingButtonEditCommunity ? (
+                                    <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                ) : (
+                                    'Save changes'
+                                )}
+                            </button>
+                        </div>
+                        <div className="text-center mt-12">
+                            <button className="text-white bg-transparent border border-main font-bold hover:bg-red-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:focus:ring-violet-900" onClick={(e) => { e.preventDefault(); setOpenDelete(true); }}
+
+                            >Delete community</button>
+                        </div>
+                        {/* <div className="flex items-center justify-center mt-10">
                         <button className="font-bold text-main text-sm hover:text-purple-600" href="#">Having problems create community?</button>
                     </div> */}
-                </form>
+                    </form>
+                )}
             </div>
         </>
     )

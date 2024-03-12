@@ -34,12 +34,12 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
 
     const handleLogOut = () => {
         setIsAdmin(false)
-        if(userState.userData.role == 'admin') {
+        if (userState.userData.role == 'admin') {
             navigateTo('/')
         } else {
             if (location.pathname === '/profile' || location.pathname === '/editcommunity/:id') {
                 navigateTo('/explore')
-              }
+            }
         }
         localStorage.removeItem("data_ggcom");
         dispatch(clearUserData());
@@ -63,6 +63,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
         { name: 'Home', href: '/', current: true },
         { name: 'Explore', href: '/explore', current: false },
         { name: 'My Communities', href: '/mycommunities', current: false },
+        { name: 'Create Community', href: '/createcommunity', current: false },
         // { name: 'Games', href: '/games', current: false },
         // { name: 'Shop', href: '/shop', current: false },
         // { name: 'About Us', href: '/aboutus', current: false }
@@ -122,7 +123,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                 {/* Menu nav full screen*/}
                                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                     <div className="">
-                                        <Link to="/">
+                                        <Link to="/explore">
                                             <img
                                                 className="h-8 w-auto hover:border border-transparent"
                                                 src="/img/logo_sf.png"
@@ -132,7 +133,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                     </div>
                                     <div className="hidden sm:ml-6 sm:block">
                                         <div className="flex space-x-4">
-                                            {navigation.map((item) => (
+                                            {/* {navigation.map((item) => (
                                                 <Link
                                                     key={item.name}
                                                     to={item.href}
@@ -144,7 +145,34 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                                 >
                                                     {item.name}
                                                 </Link>
-                                            ))}
+                                            ))} */}
+                                            {navigation.map((item) => (
+                                                (item.name === 'Create Community' ? (
+                                                    <Link
+                                                        key={item.name}
+                                                        to={item.href}
+                                                        activeclassname="active"
+                                                        className={classNames(
+                                                            item.current ? 'text-main hover:bg-main hover:text-white' : 'text-white hover:bg-main hover:text-white',
+                                                            'rounded-md px-3 py-2 text-sm font-medium lg:hidden'
+                                                        )}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                ) : (
+                                                    <Link
+                                                        key={item.name}
+                                                        to={item.href}
+                                                        activeclassname="active"
+                                                        className={classNames(
+                                                            item.current ? 'text-main hover:bg-main hover:text-white' : 'text-white hover:bg-main hover:text-white',
+                                                            'rounded-md px-3 py-2 text-sm font-medium'
+                                                        )}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                )
+                                                )))}
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +234,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                                                         <Link
                                                                             to="/userlist"
                                                                             className={classNames(active ? 'bg-neutral-900' : '', 'block px-4 py-2 text-sm text-white hover:text-main')}
-                                                                            // onClick={handleLogOut}
+                                                                        // onClick={handleLogOut}
                                                                         >
                                                                             Manage users
                                                                         </Link>
@@ -219,7 +247,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                                                         <Link
                                                                             to="/communitieslist"
                                                                             className={classNames(active ? 'bg-neutral-900' : '', 'block px-4 py-2 text-sm text-white hover:text-main')}
-                                                                            // onClick={handleLogOut}
+                                                                        // onClick={handleLogOut}
                                                                         >
                                                                             Manage communities
                                                                         </Link>

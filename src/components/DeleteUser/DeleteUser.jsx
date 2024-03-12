@@ -18,11 +18,14 @@ function DeleteUser({ openDeleteUser, setOpenDeleteUser, user_id }) {
 
     const navigateTo = useNavigate();
 
+    const [loadingDeleteUser, setLoadingDeleteUser] = useState(false);
+
     async function fetchData(token, user_id, password) {
+        setLoadingDeleteUser(true)
         try {
             const response = await deleteUser(token, user_id, password)
             if (response) {
-                console.log(response)
+                setLoadingDeleteUser(false)
                 if (response.error == 'Incorrect password') {
                     setErrorPassword('Incorrect password')
                 }
@@ -127,10 +130,14 @@ function DeleteUser({ openDeleteUser, setOpenDeleteUser, user_id }) {
                                 {/* <input className="shadow border rounded w-5/6 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main my-6 mx-auto" id="title" type="text" placeholder="Insert your password" value={password} onChange={(e) => setPassword(e.target.value)} /> */}
                                 {/* <small className="text-red-400">{errorPassword}</small> */}
                                 <div className="text-center mt-4 pb-11">
-                                    <button className="bg-red-600 hover:bg-red-700 border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, user_id, password)}>
-                                        Delete user
+                                    <button className="bg-red-600 hover:bg-red-700 border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleDelete(userState.userData.token, user_id, password)}>
+                                        {loadingDeleteUser ? (
+                                            <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                                        ) : (
+                                            'Delete'
+                                        )}
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleCloseDelete()}>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleCloseDelete()}>
                                         Cancel
                                     </button>
                                 </div>

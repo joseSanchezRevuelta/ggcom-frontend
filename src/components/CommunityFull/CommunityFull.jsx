@@ -101,8 +101,8 @@ function CommunityFull(community_id) {
                             <span className='ml-2'>{communityData.game_name}</span>
                         </div>
                     </div>
-                    <div className="relative title text-white flex flex-col justify-center items-center space-y-4">
-                        <div className='flex flex-row justify-between w-full px-5 py-4'>
+                    <div className="relative title text-white flex flex-col justify-center items-center space-y-4 text-sm lg:text-base">
+                        <div className='flex flex-row justify-between w-full px-2 lg:px-5 py-4'>
                             {/* Language */}
                             <div href='#' className='flex items-center'>
                                 {/* <img
@@ -110,16 +110,18 @@ function CommunityFull(community_id) {
                                     src="/img/languages.png"
                                     alt="language"
                                 /> */}
-                                <LanguageIcon className="h-5 w-5 ml-1 text-main inline-block" />
+                                <LanguageIcon className="h-5 w-5 text-main inline-block" />
                                 <span className='text-white ml-1'>{communityData.language}</span>
                             </div>
                             <div className='absolute left-1/2 transform -translate-x-1/2 flex flex-row flex items-center'>
-                                <img
-                                    src={communityData.flag}
-                                    srcSet="https://flagcdn.com/w40/ua.png 2x"
-                                    width="30"
-                                    alt="Ucrania" />
-                                <span className='text-white ml-3'>{communityData.country}</span>
+                                <div className='flex flex-col lg:flex-row items-center'>
+                                    <img
+                                        src={communityData.flag}
+                                        srcSet="https://flagcdn.com/w40/ua.png 2x"
+                                        width="30"
+                                        alt="Ucrania" />
+                                    <span className='text-white lg:ml-3'>{communityData.country}</span>
+                                </div>
                             </div>
                             {/* Timezone */}
                             <div className='flex items-center'>
@@ -139,7 +141,7 @@ function CommunityFull(community_id) {
                             </div>
                         </div>
 
-                        <div className='relative flex flex-row justify-between w-full px-5 pt-4'>
+                        <div className='relative flex flex-row justify-between w-full px-2 lg:px-5 pt-4'>
                             {/* Persons */}
                             <div href='#' className='flex items-center'>
                                 <UserGroupIcon className="h-5 w-5 mb-1 text-main inline-block" /><span className='ml-1'>{communityData.num_persons}</span>
@@ -199,14 +201,14 @@ function CommunityFull(community_id) {
                             </div>
                         </div>
                         {/* Title & Description */}
-                        <div className='flex flex-row text-left items-center justify-between w-5/6 px-5 py-12 text-4xl'>
-                            <span className=''>
+                        <div className='flex text-center items-center w-5/6 lg:px-5 py-4 lg:py-12 text-xl lg:text-4xl'>
+                            <span className='mx-auto'>
                                 {communityData.title}
                             </span>
                         </div>
                         {
                             communityData.description !== '' ? (
-                                <div className='flex flex-row text-left items-center justify-between w-5/6 pt-6 pb-16 px-5 text-xl'>
+                                <div className='flex flex-row text-left items-center justify-between w-5/6 lg:pt-6 pb-8 lg:pb-16 lg:px-5 text-sm lg:text-xl'>
                                     <span className=''>
                                         {communityData.description}
                                     </span>
