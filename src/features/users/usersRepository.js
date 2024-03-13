@@ -3,6 +3,7 @@ const apiUrl = import.meta.env.VITE_URL;
 
 //Login
 export async function loginRepository(requestOptions) {
+    console.log(apiUrl)
     try {
         const response = await fetch(apiUrl + '/api/login', requestOptions);
         if (response.status === 200) {
