@@ -272,11 +272,25 @@ function CreateCommunityForm() {
             errorTitle = 0
         }
         //Description
-        if (description.length > 200) {
+        if (description.length <5) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                descriptionError: true,
+                descriptionErrorText: 'Description is too sort (min 5)',
+            }));
+            errorDescription++
+        } else if (description.length > 200) {
             setErrors(prevErrors => ({
                 ...prevErrors,
                 descriptionError: true,
                 descriptionErrorText: 'Description is too long (max 200)',
+            }));
+            errorDescription++
+        } else if (description == '' || description == null)  {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                descriptionError: true,
+                descriptionErrorText: 'Description is required',
             }));
             errorDescription++
         } else {
@@ -448,7 +462,7 @@ function CreateCommunityForm() {
                             name="description"
                             rows={3}
                             className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6 bg-neutral-900 p-3"
-                            placeholder='You can add a description to the community'
+                            placeholder='Add a description to the community'
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
