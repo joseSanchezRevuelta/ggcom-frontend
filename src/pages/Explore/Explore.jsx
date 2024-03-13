@@ -22,7 +22,7 @@ function Explore() {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await fetch(apiUrl + `/communities?page=${page}&limit=${limit}`);
+            const response = await fetch(`https://ggcom-backend-production.up.railway.app/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
             if (data.data.length > 0) {
                 if (page == 0) {
