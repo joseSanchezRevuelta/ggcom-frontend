@@ -2,7 +2,7 @@
 function TitleHome({ title, subtitle, subtitle2 }) {
     return (
         <>
-            <div className='text-center lg:w-4/5 mx-auto mt-32'>
+            <div className='text-center lg:w-4/5 mx-auto mt-36'>
                 <img
                     className="h-8 w-auto hover:border border-transparent mx-auto mb-4"
                     src="/img/logo_sf.png"

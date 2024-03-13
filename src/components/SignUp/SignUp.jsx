@@ -239,7 +239,8 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
       errorEmail = 0
     }
     //Password
-    let expRegPass = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,30}$/
+    // let expRegPass = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,30}$/
+    let expRegPass = /^(?=.*[A-Z])(?=.*\d).{8,30}$/;
     if (password === "") {
       setErrors(prevErrors => ({
         ...prevErrors,
@@ -271,7 +272,8 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
       setErrors(prevErrors => ({
         ...prevErrors,
         passwordError: true,
-        passwordErrorText: 'Required: 1 uppercase, 1 lowercase, 1 number, 1 special character (@, $, !, %, *, ?, &, .)',
+        // passwordErrorText: 'Required: 1 uppercase, 1 lowercase, 1 number, 1 special character (@, $, !, %, *, ?, &, .)',
+        passwordErrorText: 'Required: 1 uppercase, 1 lowercase, 1 number',
         passwordConfirmError: false,
         passwordConfirmErrorText: '',
       }));
