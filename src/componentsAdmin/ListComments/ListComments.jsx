@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { getComments } from '../../features/Comments/commentRepository';
+import { getComments } from '../../features/comments/commentRepository';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentDrop from '../../components/CommentDrop/CommentDrop';
 

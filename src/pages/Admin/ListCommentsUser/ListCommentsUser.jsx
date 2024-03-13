@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { getComments } from '../../features/Comments/commentRepository';
+import { getComments } from '../../features/comments/commentRepository';
 import CommentDrop from '../../components/CommentDrop/CommentDrop';
 
 // eslint-disable-next-line react/prop-types

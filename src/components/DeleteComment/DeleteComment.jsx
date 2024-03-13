@@ -3,7 +3,7 @@ import { Fragment, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../features/users/usersRepository";
 import { clearUserData } from "../../features/users/usersSlice";
-import { deleteCommentRepository } from "../../features/Comments/commentRepository";
+import { deleteCommentRepository } from "../../features/comments/commentRepository";
 
 // eslint-disable-next-line react/prop-types
 function DeleteComment({ comment_id, comment_user_id, community_id, openDeleteComment, setOpenDeleteComment, setRenderComments, setPage }) {
