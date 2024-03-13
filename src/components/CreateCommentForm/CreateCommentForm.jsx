@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { createComent, createCommentRepository } from "../../features/Comments/commentRepository"
+import { createComent } from "../../features/Comments/commentRepository.js"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
@@ -35,7 +35,7 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments, set
         }
         if (errorComment === 0 && errorJoin === 0) {
             setLoadingCreateComment(true)
-            createCommentRepository(userState.userData.token, userState.userData.id, community_id, userState.userData.username, comment)
+            createComent(userState.userData.token, userState.userData.id, community_id, userState.userData.username, comment)
                 .then(() => {
                     // setPage(0)
                     setRenderComments(prevState => !prevState);
