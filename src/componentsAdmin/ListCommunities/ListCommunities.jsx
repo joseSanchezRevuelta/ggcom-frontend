@@ -6,6 +6,8 @@ import Filter from '../../components/Filter/Filter';
 // eslint-disable-next-line react/prop-types
 function ListCommunities({ id }) {
 
+    const apiUrl = import.meta.env.VITE_URL;
+
     const [communities, setCommunities] = useState('');
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
@@ -18,7 +20,7 @@ function ListCommunities({ id }) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
+            const response = await fetch(apiUrl + `/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
             if (data.data.length > 0) {
                 if (page == 0) {

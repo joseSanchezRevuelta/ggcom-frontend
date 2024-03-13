@@ -5,6 +5,9 @@ import Communities from '../../components/Communities/Communities.jsx'
 import { getCommunitiesFilter } from '../../features/communities/communityRepository.js';
 
 function Explore() {
+
+    const apiUrl = import.meta.env.VITE_URL;
+
     const [communities, setCommunities] = useState('');
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(0);
@@ -34,7 +37,7 @@ function Explore() {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
+            const response = await fetch(apiUrl + `/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
             if (data.data.length > 0) {
                 if (page == 0) {

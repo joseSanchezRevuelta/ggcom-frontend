@@ -4,6 +4,9 @@ import Communities from '../Communities/Communities.jsx'
 import { useState, useEffect } from 'react';
 
 function Explore() {
+
+    const apiUrl = import.meta.env.VITE_URL;
+
     useEffect(() => {
         window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
     }, []);
@@ -14,7 +17,7 @@ function Explore() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/communities`);
+                const response = await fetch(apiUrl + `/communities`);
                 const data = await response.json();
                 setCommunities(data)
             } catch (error) {

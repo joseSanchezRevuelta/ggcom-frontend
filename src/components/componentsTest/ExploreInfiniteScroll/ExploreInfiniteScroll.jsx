@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Explore() {
+
+    const apiUrl = import.meta.env.VITE_URL;
+
     useEffect(() => {
         window.scrollTo(0, 0);
         fetchData()
@@ -17,7 +20,7 @@ function Explore() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
+            const response = await fetch(apiUrl + `/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
             if (data.data.length > 0) {
                 if (page == 0) {
