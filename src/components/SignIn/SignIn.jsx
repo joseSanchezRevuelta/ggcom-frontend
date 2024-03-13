@@ -175,10 +175,9 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
                       )}
                     </button>
                   </div>
-                  <div className="flex items-center justify-center my-6">
+                  {/* <div className="flex items-center justify-center my-6">
                     <a href="#" className="font-bold text-main text-sm hover:text-emerald-400" onClick={() => handleButtonForgotPassword()}>¿Olvidaste tu contraseña?</a>
-                  </div>
-
+                  </div> */}
                 </form>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                 <div className="p-4 flex items-center justify-center my-1">
