@@ -11,7 +11,6 @@ export default {
       colors: {
         'main': '#349988',
         'main2': '#42BFAA',
-        'main3': '#f8df96',
       },
       backgroundColor: {
         'main': '#349988',
@@ -19,7 +18,6 @@ export default {
       },
       fontFamily: {
         'main': ['lato'],
-        // body: ['MantinaRegular']
       },
       textColor: {
         'main': '#349988',

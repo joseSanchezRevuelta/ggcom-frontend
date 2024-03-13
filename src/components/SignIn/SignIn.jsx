@@ -2,7 +2,6 @@ import './SignIn.css';
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux';
-// import { loginRepository } from '../../features/users/usersRepository';
 import { userdAuth } from '../../features/users/usersSlice';
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -10,17 +9,16 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenForgotPassword }) => {
   const deviceName = import.meta.env.VITE_DEVICE_NAME;
 
-  // dispatch
-  const dispatch = useDispatch();
   const loginState = useSelector(state => state.user)
 
-  const [loadingSignin, setButtonLoadinSignin] = useState(false);
+  const dispatch = useDispatch();
 
   const emailRef = useRef(null);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loadingSignin, setButtonLoadinSignin] = useState(false);
 
   useEffect(() => {
     setEmail('')
@@ -140,9 +138,6 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/signin.jpeg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
-                {/* <div className="p-4 flex items-center justify-center">
-                  <span className="text-white font-bold">Login to GGCOM</span>
-                </div> */}
                 <div className="p-4 flex items-center justify-center relative">
                   <span className="text-white font-bold text-center">Login to GGCOM</span>
                   <button onClick={handleCloseSignIn} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded">

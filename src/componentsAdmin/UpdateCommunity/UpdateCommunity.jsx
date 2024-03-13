@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
-
-import { useSelector } from 'react-redux';
-import { geMyCreatedCommunities, getCommunity } from '../../features/community/communityRepository';
-import Community from '../Community/Community';
 import { useParams } from 'react-router-dom';
+import { getCommunity } from '../../features/community/communityRepository';
+import Community from '../Community/Community';
 
 // eslint-disable-next-line react/prop-types
 function UpdateCommunity() {
-
-    const userState = useSelector(state => state.user)
 
     const { id } = useParams();
 
@@ -23,7 +19,6 @@ function UpdateCommunity() {
         try {
             getCommunity(id)
                 .then(response => {
-                    console.log(response)
                     setCommunity(response)
                 })
                 .catch(error => {
@@ -52,7 +47,7 @@ function UpdateCommunity() {
                         </a>
                         {community.map(community => (
                             // <User key={user.id} user={user} />
-                            <Community key={community.id} community={community}/>
+                            <Community key={community.id} community={community} />
                         ))}
                     </div>
                 )}

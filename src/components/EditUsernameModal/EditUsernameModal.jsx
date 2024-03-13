@@ -25,7 +25,6 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
     const usernameRef = useRef(null);
 
     function handleUpdateUsername(token, user_id, user_name) {
-        console.log(userName)
         let error = 0;
         if (userState.userData.role == 'admin') {
             if (user_name == userName) {
@@ -58,7 +57,6 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
         try {
             const response = await updateUsername(token, user_id, user_name)
             if (response) {
-                console.log(response)
                 if (response.errors && response.errors['data.attributes.username']) {
                     setLoadingEditUsername(false)
                     setError('Username already used')
@@ -90,21 +88,10 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
         if (userState.userData.role == 'admin') {
             setNewUserName(userName)
         } else {
-            console.log()
             setNewUserName(userState.userData.username)
         }
         setError("");
     }
-
-    // useEffect(() => {
-    //     const timeoutId = setTimeout(() => {
-    //       if (usernameRef.current) {
-    //         usernameRef.current.focus();
-    //       }
-    //     }, 300);
-
-    //     return () => clearTimeout(timeoutId);
-    //   }, [openEditUsernameModal]);
 
     return (
         <Transition.Root show={openEditUsernameModal} as={Fragment}>

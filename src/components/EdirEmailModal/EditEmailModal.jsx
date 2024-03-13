@@ -24,7 +24,6 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
     const [loadingEditEmail, setLoadingEditEmail] = useState(false);
 
     function handleUpdateEmail(token, user_id, newEmail, newEmailConfirm) {
-        console.log(newEmailConfirm)
         let errorEmail = 0
         let errorEmaiConfirm = 0
         let expRegEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -145,9 +144,9 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
                                     <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2 w-3/12 lg:w-2/12" onClick={() => handleUpdateEmail(userState.userData.token, user_id, newEmail, newEmailConfirm)}>
                                         {loadingEditEmail ? (
                                             <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
-                                        ):(
-                                                'Accept'
-                                            )}
+                                        ) : (
+                                            'Accept'
+                                        )}
                                     </button>
                                     <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2 text-center w-3/12 lg:w-2/12" onClick={() => handleCloseEditEmail()}>
                                         Cancel

@@ -1,9 +1,10 @@
 const frontUrl = import.meta.env.VITE_URL_FRONT;
 const apiUrl = import.meta.env.VITE_URL;
 
+//Login
 export async function loginRepository(requestOptions) {
     try {
-        const response = await fetch(apiUrl+'/api/login', requestOptions);
+        const response = await fetch(apiUrl + '/api/login', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
             return data;
@@ -17,9 +18,10 @@ export async function loginRepository(requestOptions) {
     }
 }
 
+//Register
 export async function registerRepository(requestOptions) {
     try {
-        const response = await fetch(apiUrl+'/api/register', requestOptions);
+        const response = await fetch(apiUrl + '/api/register', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
             return data;
@@ -34,7 +36,7 @@ export async function registerRepository(requestOptions) {
     }
 }
 
-// delete user
+//Delete User
 export async function deleteUserRepository(token, user_id, password) {
     const requestOptions = {
         method: 'DELETE',
@@ -55,14 +57,12 @@ export async function deleteUserRepository(token, user_id, password) {
         )
     };
     try {
-        const response = await fetch(apiUrl+'/api/deleteuser', requestOptions);
+        const response = await fetch(apiUrl + '/api/deleteuser', requestOptions);
         if (response.status === 201) {
             const data = await response.json();
-            console.log("user borrado")
             return data;
         } if (response.status === 200) {
             const data = await response.json();
-            console.log(data)
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -79,9 +79,8 @@ export async function deleteUser(token, user_id, password) {
     return await deleteUserRepository(token, user_id, password)
 }
 
-//updateUsername
+//Update Username
 export async function updateUsernameRepository(token, user_id, user_name) {
-    console.log(user_name)
     const requestOptions = {
         method: 'PATCH',
         headers: {
@@ -104,7 +103,6 @@ export async function updateUsernameRepository(token, user_id, user_name) {
         const response = await fetch(apiUrl + '/api/updateusername', requestOptions);
         if (response.ok) {
             const data = await response.json();
-            console.log("Username actualizado:", data); // Aquí imprimes la respuesta recibida
             return data;
         } else {
             console.error('Error en la respuesta. Estado:', response.status);
@@ -116,7 +114,7 @@ export async function updateUsernameRepository(token, user_id, user_name) {
         console.error('Error en la solicitud:', error);
         return error;
     }
-    
+
 }
 
 export async function updateUsername(token, user_id, user_email) {
@@ -124,9 +122,8 @@ export async function updateUsername(token, user_id, user_email) {
     // window.location.href = `${frontUrl}/profile`;
 }
 
-//updateEmail
+//Update Email
 export async function updateEmailRepository(token, user_id, user_email) {
-    console.log(user_email)
     const requestOptions = {
         method: 'PATCH',
         headers: {
@@ -149,7 +146,6 @@ export async function updateEmailRepository(token, user_id, user_email) {
         const response = await fetch(apiUrl + '/api/updateuseremail', requestOptions);
         if (response.ok) {
             const data = await response.json();
-            console.log("Email actualizado:", data); // Aquí imprimes la respuesta recibida
             return data;
         } else {
             console.error('Error en la respuesta. Estado:', response.status);
@@ -161,7 +157,7 @@ export async function updateEmailRepository(token, user_id, user_email) {
         console.error('Error en la solicitud:', error);
         return error;
     }
-    
+
 }
 
 export async function updateEmail(token, user_id, user_email) {
@@ -169,7 +165,7 @@ export async function updateEmail(token, user_id, user_email) {
     // window.location.href = `${frontUrl}/profile`;
 }
 
-//updatePassword
+//Update Password
 export async function updatePasswordRepository(token, user_id, user_password, new_password, new_password_confirm) {
     const requestOptions = {
         method: 'PATCH',
@@ -196,7 +192,6 @@ export async function updatePasswordRepository(token, user_id, user_password, ne
         const response = await fetch(apiUrl + '/api/updateuserpassword', requestOptions);
         if (response.ok) {
             const data = await response.json();
-            console.log("Pass actualizada:", data); // Aquí imprimes la respuesta recibida
             return data;
         } else {
             console.error('Error en la respuesta. Estado:', response.status);
@@ -208,7 +203,7 @@ export async function updatePasswordRepository(token, user_id, user_password, ne
         console.error('Error en la solicitud:', error);
         return error;
     }
-    
+
 }
 
 export async function updatePassword(token, user_id, user_password, new_password, new_password_confirm) {
@@ -216,7 +211,7 @@ export async function updatePassword(token, user_id, user_password, new_password
     // window.location.href = `${frontUrl}/profile`;
 }
 
-//updateRole
+//Update Role
 export async function updateRoleRepository(token, user_id, user_role) {
     const requestOptions = {
         method: 'PATCH',
@@ -239,9 +234,7 @@ export async function updateRoleRepository(token, user_id, user_role) {
     try {
         const response = await fetch(apiUrl + '/api/updateuserrole', requestOptions);
         if (response.ok) {
-            console.log(response)
             const data = await response.json();
-            console.log("role actualizado:", data); // Aquí imprimes la respuesta recibida
             return data;
         } else {
             console.error('Error en la respuesta. Estado:', response.status);
@@ -253,7 +246,7 @@ export async function updateRoleRepository(token, user_id, user_role) {
         console.error('Error en la solicitud:', error);
         return error;
     }
-    
+
 }
 
 export async function updateRole(token, user_id, user_role) {
@@ -261,7 +254,7 @@ export async function updateRole(token, user_id, user_role) {
     // window.location.href = `${frontUrl}/profile`;
 }
 
-//checkUser
+//Check User
 export async function checkUserRepository(token) {
     const requestOptions = {
         method: 'GET',
@@ -275,7 +268,6 @@ export async function checkUserRepository(token) {
         const response = await fetch(apiUrl + '/checkuser', requestOptions);
         if (response.ok) {
             const data = await response.json();
-            // console.log(data); // Aquí imprimes la respuesta recibida
             return data;
         } else {
             console.error('Error en la respuesta. Estado:', response.status);
@@ -287,7 +279,7 @@ export async function checkUserRepository(token) {
         console.error('Error en la solicitud:', error);
         return error;
     }
-    
+
 }
 
 export async function checkUser(token) {
@@ -295,7 +287,7 @@ export async function checkUser(token) {
     // window.location.href = `${frontUrl}/profile`;
 }
 
-//updatePassword
+//Get Users
 export async function getUsersRepository(token, page, limit) {
     const requestOptions = {
         method: 'GET',
@@ -320,7 +312,7 @@ export async function getUsersRepository(token, page, limit) {
         console.error('Error en la solicitud:', error);
         return error;
     }
-    
+
 }
 
 export async function getUsers(token, page, limit) {
@@ -328,7 +320,7 @@ export async function getUsers(token, page, limit) {
     // window.location.href = `${frontUrl}/profile`;
 }
 
-//get comnunities filter
+//Get Users filter
 export async function getUsersFilterRepository(search, order, role) {
     try {
         const requestOptions = {

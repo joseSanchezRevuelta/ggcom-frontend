@@ -161,16 +161,6 @@ function Filter({ setCommunities, setHasMore }) {
             setGameSearch('');
         }
     };
-    // useEffect(() => {
-    //     fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // Extraer solo los nombres de los videojuegos
-    //             const gameNames = data.results.map(game => game.name);
-    //             console.log(gameNames);
-    //         })
-    //         .catch(error => console.error('Error fetching game names:', error));
-    // })
 
     useEffect(() => {
         if (isOpen) {
@@ -193,13 +183,7 @@ function Filter({ setCommunities, setHasMore }) {
             // const results = data.results.filter(game => game.rating > 5);
             const results = data.results;
             setGameSearch(results)
-
-            // Iterar sobre los resultados para obtener los nombres
-            // results.forEach(game => {
-            //     console.log(game.name); 
-            // });
         });
-        console.log(gameSearch)
     }
 
     const gameSelected = (event) => {
@@ -218,17 +202,8 @@ function Filter({ setCommunities, setHasMore }) {
         if (errorGame === 0) {
             setGameErrorText('')
             setCommunities('')
-            // getCommunitiesFilter(search, idGame, country, language, timezone, order)
-            // console.log(search)
-            // console.log(idGame)
-            // console.log(game)
-            // console.log(order)
-            // console.log(country)
-            // console.log(language)
-            console.log(timezone)
             getCommunitiesFilter(search, idGame, country, language, timezone, order)
                 .then(data => {
-                    console.log(data)
                     setCommunities(data)
                     setHasMore(false)
                     // setCreatedCommunities(data)
@@ -266,7 +241,6 @@ function Filter({ setCommunities, setHasMore }) {
             {/* SEARCH */}
             <div className="flex flex-col justify-between w-full lg:w-4/5 mx-auto px-1 lg:px-3" data-te-input-wrapper-init id="async">
                 <div className="">
-                    {/* <div className="relative mb-4 flex w-full flex-wrap items-stretch"> */}
                     <form className="relative mb-4 flex w-full flex-wrap items-stretch" onSubmit={(e) => {
                         e.preventDefault(); // Evita que el formulario se envíe y la página se recargue
                         handleSubmit(); // Realiza la acción de búsqueda
@@ -373,10 +347,7 @@ function Filter({ setCommunities, setHasMore }) {
                                             <option key="lesspeople" value="lesspeople" className='cursor-pointer bg-neutral-950'>
                                                 Less people
                                             </option>
-                                            {/* <hr className='hr_select'></hr> */}
-                                            {/* {renderTimezoneOptions()} */}
                                         </select>
-                                        {/* <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small> */}
                                     </div>
                                 </div>
                                 {/* Country */}
@@ -403,8 +374,6 @@ function Filter({ setCommunities, setHasMore }) {
                                             </option>
                                             {renderCountryOptions()}
                                         </select>
-                                        {/* <input type="hidden" value={flag} name='flag' /> */}
-                                        {/* <small className="block mt-1 text-red-400">{errors.countryErrorText}</small> */}
                                     </div>
                                 </div>
                                 {/* Language */}
@@ -428,7 +397,6 @@ function Filter({ setCommunities, setHasMore }) {
                                             </option>
                                             {renderLanguageOptions()}
                                         </select>
-                                        {/* <small className="block mt-1 text-red-400">{errors.languageErrorText}</small> */}
                                     </div>
                                 </div>
                                 {/* Timezone */}
@@ -453,7 +421,6 @@ function Filter({ setCommunities, setHasMore }) {
                                             {/* <hr className='hr_select'></hr> */}
                                             {renderTimezoneOptions()}
                                         </select>
-                                        {/* <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small> */}
                                     </div>
                                 </div>
                             </div>

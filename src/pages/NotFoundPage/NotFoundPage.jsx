@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import NotFound from '../../components/NotFound/NotFound.jsx'
 
 function NotFoundPage() {
+
     useEffect(() => {
-        window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
-      }, []);
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <>

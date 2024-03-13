@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { getComments } from '../../features/Comments/commentRepository';
-import CommentDrop from '../../components/CommentDrop/CommentDrop';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import CommentDrop from '../../components/CommentDrop/CommentDrop';
 
 // eslint-disable-next-line react/prop-types
 function ListComments({ token, communityid, userid }) {
-
-    // const { id, username, email } = useParams();
 
     const [comments, setComments] = useState([])
     const [renderComments, setRenderComments] = useState(false)

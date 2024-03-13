@@ -31,10 +31,6 @@ export default function CommentDrop({comment_id, comment_user_id, community_id, 
             <Menu as="div" className="relative inline-block text-left">
                 <div>
                     <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm bg-opacity-0">
-                        {/* <a
-                            className="bg-main hover:bg-main2 text-white font-bold py-2 px-4 rounded">
-                            Edit community
-                        </a> */}
                         <EllipsisVerticalIcon className='h-6 w-6 text-main inline-block' />
                     </Menu.Button>
                 </div>

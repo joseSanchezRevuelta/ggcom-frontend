@@ -36,7 +36,6 @@ function Explore() {
         try {
             const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
-            console.log(data)
             if (data.data.length > 0) {
                 if (page == 0) {
                     setCommunities(data.data);
@@ -59,10 +58,8 @@ function Explore() {
         // setCommunities('')
         getCommunitiesFilter(search, idGame, country, language, timezone, order, pageFilter, limit)
             .then(data => {
-                console.log(data)
                 setPageFilter(prevPage => prevPage + 1);
                 if (data.data.length > 0) {
-                    console.log("HOLA")
                     // setIsFilter(true)
                     if (pageFilter == 0) {
                         setCommunities(data.data);
@@ -72,12 +69,10 @@ function Explore() {
                         setPageFilter(prevPage => prevPage + 1);
                     }
                 } else {
-                    console.log("HOLA2")
                     // setPageFilter(0)
                     // setIsFilter(false)
                     // setHasMore(false);
                 }
-                console.log(pageFilter)
                 // setCommunities(data)
                 // setHasMore(false)
             })

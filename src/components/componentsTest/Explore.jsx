@@ -20,7 +20,6 @@ function Explore() {
         try {
             const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
-            console.log(data)
             if (data.data.length > 0) {
                 if (page == 0) {
                     setCommunities(data.data);

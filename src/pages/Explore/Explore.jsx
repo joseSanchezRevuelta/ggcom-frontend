@@ -5,6 +5,7 @@ import Communities from '../../components/Communities/Communities.jsx'
 import Footer from '../../components/Footer/Footer.jsx';
 
 function Explore() {
+
     const [communities, setCommunities] = useState('');
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(0);
@@ -21,7 +22,6 @@ function Explore() {
         try {
             const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
-            console.log(data)
             if (data.data.length > 0) {
                 if (page == 0) {
                     setCommunities(data.data);
@@ -52,7 +52,6 @@ function Explore() {
                 {!communities ? (
                     <div className="w-full text-center mx-auto text-main overflow-hidden">
                         <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                            {/* <span className="text-white">{communities.communities}</span> */}
                         </div>
                     </div>
                 ) : communities.length === 0 ? (
@@ -65,7 +64,6 @@ function Explore() {
                         {loading ? (
                             <div className="w-full my-6 text-center mx-auto text-main overflow-hidden">
                                 <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                    {/* <span className="text-white">{communities.communities}</span> */}
                                 </div>
                             </div>
                         ) : (
@@ -79,7 +77,6 @@ function Explore() {
                                         No more communities
                                     </button>
                                 )}
-
                             </div>
                         )}
                     </>

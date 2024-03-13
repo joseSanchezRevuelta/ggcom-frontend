@@ -46,16 +46,6 @@ function CreateCommunityForm() {
             setGameSearch('');
         }
     };
-    // useEffect(() => {
-    //     fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // Extraer solo los nombres de los videojuegos
-    //             const gameNames = data.results.map(game => game.name);
-    //             console.log(gameNames);
-    //         })
-    //         .catch(error => console.error('Error fetching game names:', error));
-    // })
 
     useEffect(() => {
         if (isOpen) {
@@ -78,13 +68,7 @@ function CreateCommunityForm() {
             // const results = data.results.filter(game => game.rating > 5);
             const results = data.results;
             setGameSearch(results)
-
-            // Iterar sobre los resultados para obtener los nombres
-            // results.forEach(game => {
-            //     console.log(game.name); 
-            // });
         });
-        console.log(gameSearch)
     }
 
     const gameSelected = (event) => {
@@ -181,7 +165,6 @@ function CreateCommunityForm() {
 
         setCountriesArray2(sortedCountriesArray2);
     }, [countries]);
-    // console.log(countriesArray2)
 
     //Obtenemos los lenguajes de los paises
     useEffect(() => {
@@ -222,7 +205,6 @@ function CreateCommunityForm() {
 
     //select de paises
     const renderCountryOptions = () => {
-        console.log(countriesArray2)
         return countriesArray2 ? countriesArray2.map(country => (
             //     <option key={country} value={country} className='cursor-pointer'>
             //     {country}
@@ -433,7 +415,6 @@ function CreateCommunityForm() {
             //fetch
             createCommunity(requestOptions)
                 .then(data => {
-                    console.log(data)
                     setLoadingCreateCommunityComment(false)
                     redirectToCommunity(data.id);
                 })
@@ -451,7 +432,6 @@ function CreateCommunityForm() {
         <>
             <div className="relative flex justify-center lg:w-4/6 w-full mx-auto border border-main rounded bg-neutral-950 mb-10">
                 <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left lg:py-8">
-                    {/* <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p> */}
                     <div className="relative z-0 w-full my-4 group">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
                             Title Community

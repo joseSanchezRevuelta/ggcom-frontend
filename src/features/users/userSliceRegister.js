@@ -30,15 +30,15 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(userAuthRegister.pending, (state, action) => {
-        state.loading =  true
-      });
+      state.loading = true
+    });
 
-      builder.addCase(userAuthRegister.fulfilled, (state, action) => {
-        state.loading =  false
-        if (action.payload && action.payload.success === true) {
-          state.userData = action.payload
-        }
-      });
+    builder.addCase(userAuthRegister.fulfilled, (state, action) => {
+      state.loading = false
+      if (action.payload && action.payload.success === true) {
+        state.userData = action.payload
+      }
+    });
   }
 })
 

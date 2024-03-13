@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
+import { getUsersFilter } from "../../features/users/usersRepository";
 import {
     Collapse,
     initTE,
 } from "tw-elements";
-import { getCommunitiesFilter } from "../../features/communities/communityRepository";
-import { getUsersFilter } from "../../features/users/usersRepository";
 
 
 // eslint-disable-next-line react/prop-types
@@ -13,23 +12,17 @@ function FilterUsers({ setUsers }) {
     const [order, setOrder] = useState('datedesc')
     const [role, setRole] = useState('all')
     const [country, setCountry] = useState('all')
-    const [countries, setCountries] = useState([]);
-    const [countriesArray, setCountriesArray] = useState('')
     const [language, setLanguage] = useState('all')
-    const [renderState, setRenderState] = useState(false)
-    const [languages, setLanguages] = useState([]);
     const [timezone, setTimezone] = useState('all')
-    const [timezones, setTimezones] = useState([]);
 
     const [game, setGame] = useState('')
     const [gameConfirmed, setGameConfirmed] = useState('')
     const [idGame, setIdGame] = useState('')
-    const [gameObject, setGameObject] = useState('')
     const [gameSearch, setGameSearch] = useState('')
+
+    const [renderState, setRenderState] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
 
-    const [gameError, setgameError] = useState(false);
-    const [gameErrorText, setGameErrorText] = useState(false);
 
     useEffect(() => {
         setRenderState(true)
@@ -38,14 +31,6 @@ function FilterUsers({ setUsers }) {
     useEffect(() => {
         initTE({ Collapse });
     }, [renderState]);
-
-
-    const handleOutsideClick = (event) => {
-        if (!event.target.closest(".autocomplete")) {
-            setIsOpen(false);
-            setGameSearch('');
-        }
-    };
 
     useEffect(() => {
         if (isOpen) {
@@ -62,9 +47,7 @@ function FilterUsers({ setUsers }) {
         setUsers('')
         getUsersFilter(search, order, role)
             .then(data => {
-                console.log(data)
                 setUsers(data)
-                // setCreatedCommunities(data)
             })
             .catch(error => {
                 console.error('Error al obtener los datos:', error);
@@ -75,6 +58,13 @@ function FilterUsers({ setUsers }) {
             });
         event.preventDefault();
     }
+
+    const handleOutsideClick = (event) => {
+        if (!event.target.closest(".autocomplete")) {
+            setIsOpen(false);
+            setGameSearch('');
+        }
+    };
 
     const clearAll = (event) => {
         setSearch('')
@@ -87,11 +77,11 @@ function FilterUsers({ setUsers }) {
         setTimezone('all')
     }
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            handleSubmit();
-        }
-    };
+    // const handleKeyPress = (event) => {
+    //     if (event.key === 'Enter') {
+    //         handleSubmit();
+    //     }
+    // };
 
     return (
         <>
@@ -183,11 +173,10 @@ function FilterUsers({ setUsers }) {
                                             className="w-full rounded-md py-2 px-1 bg-transparent text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
                                             value={order}
                                             onChange={(e) => setOrder(e.target.value)}
-                                            onKeyPress={handleKeyPress}
+                                            // onKeyPress={handleKeyPress}
                                         // value={timezone}
                                         // onChange={(e) => setTimezone(e.target.value)}
                                         >
-                                            {/* <option disabled hidden value="">Select Timezone</option> */}
                                             <option key="datedesc" value="datedesc" className='cursor-pointer bg-neutral-950'>
                                                 Date desc
                                             </option>
@@ -212,10 +201,7 @@ function FilterUsers({ setUsers }) {
                                             <option key="roleasc" value="roleasc" className='cursor-pointer bg-neutral-950'>
                                                 Role asc
                                             </option>
-                                            {/* <hr className='hr_select'></hr> */}
-                                            {/* {renderTimezoneOptions()} */}
                                         </select>
-                                        {/* <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small> */}
                                     </div>
                                 </div>
                                 {/* Role */}
@@ -244,8 +230,6 @@ function FilterUsers({ setUsers }) {
                                                 Admin
                                             </option>
                                         </select>
-                                        {/* <input type="hidden" value={flag} name='flag' /> */}
-                                        {/* <small className="block mt-1 text-red-400">{errors.countryErrorText}</small> */}
                                     </div>
                                 </div>
                             </div>

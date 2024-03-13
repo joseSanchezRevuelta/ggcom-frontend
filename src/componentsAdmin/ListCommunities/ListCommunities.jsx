@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
-
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { geMyCreatedCommunities } from '../../features/communities/communityRepository';
-import Community from '../Community/Community';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Community from '../Community/Community';
 import Filter from '../../components/Filter/Filter';
 
 // eslint-disable-next-line react/prop-types
@@ -77,7 +73,6 @@ function ListCommunities({ id }) {
                             </div>
                         ) : (
                             communities.map(community => (
-                                // <User key={user.id} user={user} />
                                 <Community key={community.id} community={community} />
                             ))
                         )}

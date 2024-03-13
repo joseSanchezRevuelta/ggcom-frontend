@@ -7,7 +7,6 @@ import { updateCountryCommunity, updateDescriptionCommunity, updateLaguageCommun
 // eslint-disable-next-line react/prop-types
 function EditTimezoneCommunityModal({ openEditTimezoneCommunityModal, setOpenEditTimezoneCommunityModal, community_timezone, community_id, setTimezoneState }) {
     const frontUrl = import.meta.env.VITE_URL_FRONT;
-    console.log(community_timezone)
     const userState = useSelector(state => state.user)
 
     const [communityTimezone, setCommunityTimezone] = useState(community_timezone)

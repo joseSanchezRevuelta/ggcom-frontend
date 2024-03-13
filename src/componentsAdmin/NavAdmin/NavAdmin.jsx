@@ -2,29 +2,26 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUserData } from '../../features/users/usersSlice.js';
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 function NavAdmin() {
-    const userState = useSelector(state => state.user)
+
     const frontUrl = import.meta.env.VITE_URL_FRONT;
+
+    const userState = useSelector(state => state.user)
 
     const dispatch = useDispatch();
 
-    const handleLogOut = () => {
-        localStorage.removeItem("data_ggcom");
-        dispatch(clearUserData());
-        window.location.href = `${frontUrl}/`;
-        // window.location.reload();
-    };
-
     const location = useLocation();
+
+    const disclosureButtonRef = useRef(null);
 
     const [navigation, setNavigation] = useState([
         { name: 'Users', href: '/userlist', current: true },
@@ -40,18 +37,21 @@ function NavAdmin() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname]);
 
-    const disclosureButtonRef = useRef(null);
-
     const handleDisclosureButtonClick = () => {
         if (disclosureButtonRef.current) {
             disclosureButtonRef.current.click();
         }
     };
 
+    const handleLogOut = () => {
+        localStorage.removeItem("data_ggcom");
+        dispatch(clearUserData());
+        window.location.href = `${frontUrl}/`;
+    };
+
 
     return (
         <>
-
             <Disclosure as="nav" className="fixed top-0 bg-neutral-900 border-slate-800 border-b border-b-main w-full">
                 {({ open }) => (
                     <>
@@ -150,11 +150,6 @@ function NavAdmin() {
                                             item.current ? 'text-main2 hover:bg-neutral-800 hover:text-main2' : 'text-white hover:bg-main hover:text-white',
                                             'block rounded-md px-3 py-2 text-base font-medium'
                                         )}
-                                        // onClick={close()}
-                                        // onClick={async () => {
-                                        //     close()
-                                        //   }}
-                                        // aria-current={item.current ? 'page' : undefined}
                                         onClick={handleDisclosureButtonClick}
                                     >
                                         {item.name}

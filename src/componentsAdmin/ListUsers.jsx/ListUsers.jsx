@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import User from '../User/User';
-import { getUsers, getUsersFilter } from "../../features/users/usersRepository";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { getUsers, getUsersFilter } from "../../features/users/usersRepository";
+import User from '../User/User';
 import FilterUsers from '../Filter/FilterUsers';
 
 // eslint-disable-next-line react/prop-types
 function ListUsers({ token }) {
 
     const [users, setUsers] = useState('');
+    const [search, setSearch] = useState('')
+    const [order, setOrder] = useState('datedesc')
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const limit = 24;
-
-    const [search, setSearch] = useState('')
-    const [order, setOrder] = useState('datedesc')
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -47,9 +46,7 @@ function ListUsers({ token }) {
     const handleSearch = (event) => {
         getUsersFilter(search, order)
             .then(data => {
-                console.log(data)
                 setUsers(data)
-                // setCreatedCommunities(data)
             })
             .catch(error => {
                 console.error('Error al obtener los datos:', error);

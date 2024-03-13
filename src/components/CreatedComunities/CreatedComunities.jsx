@@ -15,7 +15,6 @@ function CreatedCommunities() {
     useEffect(() => {
         geMyCreatedCommunities(userState.userData.token, userState.userData.id)
             .then(data => {
-                console.log(data)
                 setCreatedCommunities(data)
             })
             .catch(error => {
@@ -26,8 +25,6 @@ function CreatedCommunities() {
                 // setLoadingLeaveCommunity(false);
             });
     }, [userState.userData.token, userState.userData.id])
-
-    console.log(createdCommunities)
 
     return (
         <>

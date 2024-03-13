@@ -28,13 +28,6 @@ function CommunityFull(community_id) {
     const [openSignUp, setOpenSignUp] = useState(false);
     const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
-    console.log(userState)
-
-    useEffect(() => {
-        console.log('El estado de renderComments ha cambiado:', renderComments);
-    }, [renderComments]);
-
-
     // fetch a comunidad
     useEffect(() => {
         getCommunity(community_id.id)

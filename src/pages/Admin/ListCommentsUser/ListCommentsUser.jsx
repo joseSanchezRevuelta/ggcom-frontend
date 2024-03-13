@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { getComments } from '../../features/Comments/commentRepository';
 import CommentDrop from '../../components/CommentDrop/CommentDrop';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 // eslint-disable-next-line react/prop-types
 function ListCommentsUser({ token, communityid, userid }) {
-
-    // const { id, username, email } = useParams();
 
     const [comments, setComments] = useState([])
     const [renderComments, setRenderComments] = useState(false)
@@ -20,7 +18,6 @@ function ListCommentsUser({ token, communityid, userid }) {
         fetchData()
     }, []);
 
-    // fetch a getComments
     const fetchData = async () => {
         try {
             getComments(token, communityid, userid, page, limit)
@@ -53,16 +50,6 @@ function ListCommentsUser({ token, communityid, userid }) {
                     dataLength={comments.length}
                     next={fetchData}
                     hasMore={hasMore}
-                    // loader={
-                    //     <div className="overflow-hidden">
-                    //         <div className="w-full text-center mx-auto text-main">
-                    //             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                    //                 <span className="hidden">Loading...</span>
-                    //             </div>
-                    //         </div>
-                    //     </div>
-                    // }
-                    // endMessage={<p>No hay más comunidades para cargar.</p>}
                 >
                     {comments ? (
                         comments.length > 0 ? (

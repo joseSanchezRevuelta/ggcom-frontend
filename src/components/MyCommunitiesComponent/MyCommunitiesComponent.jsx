@@ -1,4 +1,3 @@
-import Filter from "../Filter/Filter";
 import { useEffect, useState } from "react";
 import JoinedCommunities from "../JoinedCommunities/JoinedCommunities";
 import CreatedCommunities from "../CreatedComunities/CreatedComunities";
@@ -52,14 +51,6 @@ function MyCommunitiesComponent() {
                 </ul>
                 {/* <Filter /> */}
                 <div className="mb-6 lg:mx-3">
-                    {/* <div
-                        className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
-                        id="tabs-home"
-                        role="tabpanel"
-                        aria-labelledby="tabs-home-tab"
-                        data-te-tab-active>
-                        Tab 1 content
-                    </div> */}
                     <div
                         className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
                         id="tabs-home"

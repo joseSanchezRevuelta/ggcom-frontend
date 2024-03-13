@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
-import CarouselHome from '../../components/CarouselHome/CarouselHome.jsx'
 import TitleHome from '../../components/TitleHome/TitleHome.jsx';
+import CarouselHome from '../../components/CarouselHome/CarouselHome.jsx'
 import FooterHome from '../../components/FooterHome/FooterHome.jsx';
-import Footer from '../../components/Footer/Footer.jsx';
 
 function Home() {
 
     const [renderState, setRenderState] = useState(false)
 
     useEffect(() => {
-        console.log("HH")
-        window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
+        window.scrollTo(0, 0);
         setRenderState(prevState => !prevState)
     }, []);
 
@@ -25,7 +23,6 @@ function Home() {
                     <FooterHome />
                 </div>
             </div>
-
         </>
     );
 }

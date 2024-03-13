@@ -51,7 +51,6 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                 if (user_id != data.user_id && user_role != 'admin') {
                     navigateTo('/notfound')
                 }
-                // setStyleBackground({ backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 1), transparent), url("${data.game_image}")` });
             })
             .catch(error => {
                 console.error('Error al obtener los datos:', error);
@@ -109,17 +108,9 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
         const gameSought = fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a&search=${game}&page_size=10&ordering=-rating&ordering=-popularity`)
             .then(res => res.json())
         gameSought.then(data => {
-            // Acceder a los resultados
-            // const results = data.results.filter(game => game.rating > 5);
             const results = data.results;
             setGameSearch(results)
-
-            // Iterar sobre los resultados para obtener los nombres
-            // results.forEach(game => {
-            //     console.log(game.name); 
-            // });
         });
-        // console.log(gameSearch)
     }
 
     const gameSelected = (event) => {
@@ -215,7 +206,6 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
 
         setCountriesArray2(sortedCountriesArray2);
     }, [countries]);
-    // console.log(countriesArray2)
 
     //Obtenemos los lenguajes de los paises
     useEffect(() => {
@@ -227,9 +217,8 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
             for (const langCode in item.languages) {
                 const language = item.languages[langCode];
                 if (!insertedLanguages.includes(language)) { // Verificar si el idioma ya ha sido insertado
-                    languagesArray.push(language); // Agregar el idioma a languagesArray
-                    // languagesArray.push({ language }); // Agregar el idioma a languagesArray
-                    insertedLanguages.push(language); // Agregar el idioma al arreglo de idiomas insertados
+                    languagesArray.push(language);
+                    insertedLanguages.push(language);
                 }
             }
         });
@@ -459,12 +448,10 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                 )
             };
             //fetch
-            console.log(user_role)
             setButtonLoadingEditCommunity(true)
             updateCommunity(requestOptions)
                 .then(response => {
                     setButtonLoadingEditCommunity(false)
-                    console.log(response)
                     if (user_role == 'user') {
                         navigateTo(`/community/${community_id}`);
                     }
@@ -487,7 +474,6 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                     </div>
                 ) : (
                     <form className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
-                        {/* <p id="error_signin" className="error_signin text-main2 text-sm text-center font-semibold mb-6">{error}</p> */}
                         <div className="relative z-0 w-full my-4 group">
                             <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
                                 Title Community

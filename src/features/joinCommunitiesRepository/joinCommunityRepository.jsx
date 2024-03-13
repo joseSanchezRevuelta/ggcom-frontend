@@ -1,6 +1,6 @@
 const apiUrl = import.meta.env.VITE_URL;
 
-//get joincommunity
+//Get Joincommunity
 export async function getJoinCommunityRepository(token, community_id) {
     try {
         const requestOptions = {
@@ -23,9 +23,8 @@ export async function getJoinCommunity(token, community_id) {
     return getJoinCommunityRepository(token, community_id)
 }
 
-// create joincommunity
+//Create Joincommunity
 export async function createJoinCommunityRepository(token, user_id, community_id, user_community_id) {
-    console.log(community_id)
     try {
         const requestOptions = {
             method: 'POST',
@@ -49,7 +48,6 @@ export async function createJoinCommunityRepository(token, user_id, community_id
         const response = await fetch(apiUrl + '/api/joincommunity', requestOptions);
         if (response.status === 201) {
             const data = await response.json();
-            console.log("Join community")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -64,10 +62,9 @@ export async function createJoinCommunityRepository(token, user_id, community_id
 
 export async function createJoinCommunity(token, user_id, community_id, user_community_id) {
     const joincommunity_created = await createJoinCommunityRepository(token, user_id, community_id, user_community_id)
-    console.log(joincommunity_created)
 }
 
-// leave joincommunity
+//Leave Joincommunity
 export async function leaveCommunityRepository(token, user_id, community_id) {
     try {
         const requestOptions = {
@@ -91,7 +88,6 @@ export async function leaveCommunityRepository(token, user_id, community_id) {
         const response = await fetch(apiUrl + '/api/leavecommunity', requestOptions);
         if (response.status === 201) {
             const data = await response.json();
-            console.log("Leave community")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -106,5 +102,4 @@ export async function leaveCommunityRepository(token, user_id, community_id) {
 
 export async function leaveCommunity(token, user_id, community_id) {
     const community_leaved = await leaveCommunityRepository(token, user_id, community_id)
-    console.log(community_leaved)
 }

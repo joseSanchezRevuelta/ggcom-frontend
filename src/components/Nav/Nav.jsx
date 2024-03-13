@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline'
-import './Nav.css';
-import SignIn from '../SignIn/SignIn.jsx';
-import SignUp from '../SignUp/SignUp.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUserData } from '../../features/users/usersSlice.js';
-import ForgotPassword from '../ForgotPassword/ForgotPassword.jsx';
 import { checkUser } from '../../features/users/usersRepository.js';
+import SignIn from '../SignIn/SignIn.jsx';
+import SignUp from '../SignUp/SignUp.jsx';
+import ForgotPassword from '../ForgotPassword/ForgotPassword.jsx';
+import './Nav.css';
 
 // const navigation = [
 //     { name: 'Home', href: '/', current: true }, { name: 'Explore', href: '/explore', current: false }, { name: 'My Communities', href: '/mycommunities', current: false }, { name: 'Games', href: '/games', current: false }, { name: 'Shop', href: '/shop', current: false }, { name: 'About Us', href: '/aboutus', current: false }
@@ -22,28 +22,24 @@ function classNames(...classes) {
 
 function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotPassword, setOpenForgotPassword }) {
     const userState = useSelector(state => state.user)
-    // console.log(userState)
-    const dispatch = useDispatch();
 
-    const [isAdmin, setIsAdmin] = useState(false)
-    const [renderNav, setRenderNav] = useState(false)
+    const dispatch = useDispatch();
 
     const navigateTo = useNavigate();
 
     const location = useLocation();
 
-    const handleLogOut = () => {
-        setIsAdmin(false)
-        if (userState.userData.role == 'admin') {
-            navigateTo('/')
-        } else {
-            if (location.pathname === '/profile' || location.pathname === '/editcommunity/:id') {
-                navigateTo('/explore')
-            }
-        }
-        localStorage.removeItem("data_ggcom");
-        dispatch(clearUserData());
-    };
+    const disclosureButtonRef = useRef(null);
+
+    const [isAdmin, setIsAdmin] = useState(false)
+    const [renderNav, setRenderNav] = useState(false)
+
+    const [navigation, setNavigation] = useState([
+        { name: 'Home', href: '/', current: true },
+        { name: 'Explore', href: '/explore', current: false },
+        { name: 'My Communities', href: '/mycommunities', current: false },
+        { name: 'Create Community', href: '/createcommunity', current: false },
+    ]);
 
     useEffect(() => {
         if (userState.userData.id) {
@@ -58,16 +54,6 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                 });
         }
     }, [userState])
-
-    const [navigation, setNavigation] = useState([
-        { name: 'Home', href: '/', current: true },
-        { name: 'Explore', href: '/explore', current: false },
-        { name: 'My Communities', href: '/mycommunities', current: false },
-        { name: 'Create Community', href: '/createcommunity', current: false },
-        // { name: 'Games', href: '/games', current: false },
-        // { name: 'Shop', href: '/shop', current: false },
-        // { name: 'About Us', href: '/aboutus', current: false }
-    ]);
 
     useEffect(() => {
         const updatedNavigation = navigation.map((item) => ({
@@ -86,16 +72,24 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
         }
     }
 
-    const disclosureButtonRef = useRef(null);
-
     const handleDisclosureButtonClick = () => {
         if (disclosureButtonRef.current) {
             disclosureButtonRef.current.click();
         }
     };
 
-    console.log(isAdmin)
-
+    const handleLogOut = () => {
+        setIsAdmin(false)
+        if (userState.userData.role == 'admin') {
+            navigateTo('/')
+        } else {
+            if (location.pathname === '/profile' || location.pathname === '/editcommunity/:id') {
+                navigateTo('/explore')
+            }
+        }
+        localStorage.removeItem("data_ggcom");
+        dispatch(clearUserData());
+    };
 
     return (
         <>
@@ -133,19 +127,6 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                     </div>
                                     <div className="hidden sm:ml-6 sm:block">
                                         <div className="flex space-x-4">
-                                            {/* {navigation.map((item) => (
-                                                <Link
-                                                    key={item.name}
-                                                    to={item.href}
-                                                    activeclassname="active"
-                                                    className={classNames(
-                                                        item.current ? 'text-main hover:bg-main hover:text-white' : 'text-white hover:bg-main hover:text-white',
-                                                        'rounded-md px-3 py-2 text-sm font-medium'
-                                                    )}
-                                                >
-                                                    {item.name}
-                                                </Link>
-                                            ))} */}
                                             {navigation.map((item) => (
                                                 (item.name === 'Create Community' ? (
                                                     <Link
@@ -176,19 +157,10 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                    <Link key='logout' className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={handleLogOut}>
-                                        Log out
-                                    </Link>
-                                </div> */}
-                                {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"> */}
                                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden lg:block md:block">
                                     <Link key='createcommunity' to='createcommunity' activeclassname="active" className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2.5 px-4 rounded mx-2" onClick={handleCreateCommunity}>
                                         Create Community
                                     </Link>
-                                    {/* <a key='createcommunity' href='createcommunity' className="bg-transparent hover:bg-main border border-main hover:border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2">
-                                        Create Community
-                                    </a> */}
                                 </div>
                                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                     {Object.keys(userState.userData).length ? (

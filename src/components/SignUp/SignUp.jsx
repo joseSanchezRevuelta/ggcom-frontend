@@ -11,9 +11,9 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
   const deviceName = import.meta.env.VITE_DEVICE_NAME;
 
-  // dispatch
+  const loginState = useSelector(state => state.user)
+
   const dispatch = useDispatch();
-  const  loginState  = useSelector(state => state.user)  
 
   const [loadingSignup, setButtonLoadinSignup] = useState(false);
 
@@ -37,7 +37,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
     passwordConfirmErrorText: '',
   });
 
-  //focus en username (hay que esperar 0.3 segundoos para que renderice el componente y después poder hacer foco)
+  //focus en username (hay que esperar 0.3 segundos para que renderice el componente y después poder hacer foco)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (usernameRef.current) {
@@ -47,34 +47,6 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
 
     return () => clearTimeout(timeoutId);
   }, [openSignUp]);
-
-  //Cuando cerramos el modal
-  const handleCloseSignUp = () => {
-    setOpenSignUp(false);
-    setUsername('')
-    setEmail('')
-    setConfirmEmail('')
-    setPassword('')
-    setConfirmPassword('')
-    setErrors({
-      usernameError: false,
-      usernameErrorText: '',
-      emailError: false,
-      emailErrorText: '',
-      emailConfirmError: false,
-      emailConfirmErrorText: '',
-      passwordError: false,
-      passwordErrorText: '',
-      passwordConfirmError: false,
-      passwordConfirmErrorText: '',
-    });
-  }
-
-  //Cuando pulsamos a signin
-  const handleButtonSignIn = () => {
-    handleCloseSignUp()
-    setOpenSignIn(true)
-  };
 
   useEffect(() => {
     checkUsername();
@@ -366,7 +338,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                 emailError: true,
                 emailErrorText: 'Email already used',
               }));
-              
+
             }
             if (response.errors && response.errors['data.attributes.username']) {
               setErrors(prevErrors => ({
@@ -383,7 +355,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                 passwordConfirmError: true,
                 passwordConfirmErrorText: 'Password must be valid',
               }));
-              
+
             }
             if (response.success === true) {
               const requestOptionsLogin = {
@@ -394,14 +366,14 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                   // 'Authorization': 'Bearer token'
                 },
                 body: JSON.stringify(
-                    {
-                      "data": {
-                          "attributes": {
-                              "email": email,
-                              "password": password,
-                              "device_name": deviceName
-                          }
+                  {
+                    "data": {
+                      "attributes": {
+                        "email": email,
+                        "password": password,
+                        "device_name": deviceName
                       }
+                    }
                   }
                 )
               };
@@ -418,13 +390,13 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                     emailErrorText: 'There was a problem, try again',
                   }));
                 }
-            } else {
-              setErrors(prevErrors => ({
-                ...prevErrors,
-                emailError: true,
-                emailErrorText: 'There was a problem, try again later',
-              }));
-            }
+              } else {
+                setErrors(prevErrors => ({
+                  ...prevErrors,
+                  emailError: true,
+                  emailErrorText: 'There was a problem, try again later',
+                }));
+              }
             }
           } else {
             console.log("Ha ocurrido un error")
@@ -439,6 +411,34 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
     }
     event.preventDefault();
   };
+
+  //Cuando pulsamos a signin
+  const handleButtonSignIn = () => {
+    handleCloseSignUp()
+    setOpenSignIn(true)
+  };
+
+  //Cuando cerramos el modal
+  const handleCloseSignUp = () => {
+    setOpenSignUp(false);
+    setUsername('')
+    setEmail('')
+    setConfirmEmail('')
+    setPassword('')
+    setConfirmPassword('')
+    setErrors({
+      usernameError: false,
+      usernameErrorText: '',
+      emailError: false,
+      emailErrorText: '',
+      emailConfirmError: false,
+      emailConfirmErrorText: '',
+      passwordError: false,
+      passwordErrorText: '',
+      passwordConfirmError: false,
+      passwordConfirmErrorText: '',
+    });
+  }
 
   return (
     <Transition.Root show={openSignUp} as={Fragment}>
@@ -480,7 +480,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                       Username:
                     </label>
                     <input className={`shadow appearance-none ${errors.usernameError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="username" type="text" placeholder="Username" value={username} onChange={(e) => { setUsername(e.target.value); checkUsername(e.target.value); }} ref={usernameRef}
-                    autoComplete='off' />
+                      autoComplete='off' />
                     <small className="text-red-400">{errors.usernameErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
@@ -488,7 +488,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                       Email:
                     </label>
                     <input className={`shadow appearance-none ${errors.emailError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="email" type="text" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); checkEmail(e.target.value); }}
-                    autoComplete='off' />
+                      autoComplete='off' />
                     <small className="text-red-400">{errors.emailErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
@@ -496,7 +496,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                       Confirm Email
                     </label>
                     <input className={`shadow appearance-none ${errors.emailConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="confirmEmail" type="text" placeholder="Confirm Email" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)}
-                    autoComplete='off' />
+                      autoComplete='off' />
                     <small className="text-red-400">{errors.emailConfirmErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
@@ -504,15 +504,15 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                       Password
                     </label>
                     <input type='password' className={`shadow appearance-none ${errors.passwordError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900`} id="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); checkPassword(e.target.value); }}
-                    autoComplete='off' />
+                      autoComplete='off' />
                     <small className="text-red-400">{errors.passwordErrorText}</small>
                   </div>
                   <div className="relative z-0 w-5/6 mb-5 group mx-auto">
                     <label className="block text-white text-sm font-bold mb-2" htmlFor="confirmPassword">
                       Confirm Password
                     </label>
-                    <input type='password' className={`shadow appearance-none ${errors.passwordConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900 focus:border-main`} id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} 
-                    autoComplete='off'/>
+                    <input type='password' className={`shadow appearance-none ${errors.passwordConfirmError ? 'border border-red-400' : 'border'} rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-main bg-neutral-900 focus:border-main`} id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                      autoComplete='off' />
                     <small className="text-red-400">{errors.passwordConfirmErrorText}</small>
                   </div>
                   <div className="text-center">
@@ -522,7 +522,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                     <button type="submit" className="text-white bg-main border border-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={handleSubmit}>
                       {loadingSignup ? (
                         <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
-                      ):(
+                      ) : (
                         'Sign up'
                       )}
                     </button>

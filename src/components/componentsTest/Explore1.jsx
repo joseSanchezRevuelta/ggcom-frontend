@@ -1,6 +1,6 @@
-import Title from '../../components/Title/Title.jsx'
-import Filter from '../../components/Filter/Filter.jsx'
-import Communities from '../../components/Communities/Communities.jsx'
+import Title from '../Title/Title.jsx'
+import Filter from '../Filter/Filter.jsx'
+import Communities from '../Communities/Communities.jsx'
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 

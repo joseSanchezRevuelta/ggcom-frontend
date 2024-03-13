@@ -1,17 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useEffect, useRef, useState } from "react"
+import { Fragment, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { updateRole, updateUsername } from "../../features/users/usersRepository";
-import { updateRoleState, updateUsernameState } from "../../features/users/usersSlice";
-import { useNavigate } from "react-router-dom";
+import { updateRole } from "../../features/users/usersRepository";
+import { updateRoleState } from "../../features/users/usersSlice";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 // eslint-disable-next-line react/prop-types
 function EditRoleModal({ openEditRoleModal, setOpenEditRoleModal, user_id, roleState, setRoleState }) {
-    const frontUrl = import.meta.env.VITE_URL_FRONT;
 
     const userState = useSelector(state => state.user)
-
 
     const [userRole, setUserRole] = useState(roleState)
     const [newUserRole, setNewUserRole] = useState(roleState)
@@ -19,9 +16,34 @@ function EditRoleModal({ openEditRoleModal, setOpenEditRoleModal, user_id, roleS
 
     const dispatch = useDispatch();
 
-    const navigateTo = useNavigate();
-
-    const usernameRef = useRef(null);
+    async function fetchData(token, user_id, user_role) {
+        try {
+            const response = await updateRole(token, user_id, user_role)
+            if (response) {
+                if (response.errors && response.errors['data.attributes.username']) {
+                    setError('Username already used')
+                }
+                if (response.success === true) {
+                    // updateUsername(token, user_id, user_role)
+                    setOpenEditRoleModal(false)
+                    setRoleState(user_role)
+                    setUserRole(user_role)
+                    setError('')
+                    if (userState.userData.role != "admin") {
+                        // dispatch(updateUsernameState(user_role))
+                        // window.location.href = `${frontUrl}/profile`;
+                    } else if (userState.userData.role === "admin") {
+                        dispatch(updateRoleState(user_role))
+                        // navigateTo(`/edituser/${user_id}/${userRole}/${email}`)
+                    }
+                }
+            } else {
+                console.log("Ha ocurrido un error")
+            }
+        } catch (error) {
+            console.error('Hubo un error en la solicitud:', error);
+        }
+    }
 
     function handleUpdateRole(token, user_id, user_role) {
         let error = 0;
@@ -48,36 +70,6 @@ function EditRoleModal({ openEditRoleModal, setOpenEditRoleModal, user_id, roleS
         }
         if (error == 0) {
             fetchData(token, user_id, user_role)
-        }
-    }
-
-    async function fetchData(token, user_id, user_role) {
-        try {
-            const response = await updateRole(token, user_id, user_role)
-            if (response) {
-                console.log(response)
-                if (response.errors && response.errors['data.attributes.username']) {
-                    setError('Username already used')
-                }
-                if (response.success === true) {
-                    // updateUsername(token, user_id, user_role)
-                    setOpenEditRoleModal(false)
-                    setRoleState(user_role)
-                    setUserRole(user_role)
-                    setError('')
-                    if (userState.userData.role != "admin") {
-                        // dispatch(updateUsernameState(user_role))
-                        // window.location.href = `${frontUrl}/profile`;
-                    } else if (userState.userData.role === "admin") {
-                        dispatch(updateRoleState(user_role))
-                        // navigateTo(`/edituser/${user_id}/${userRole}/${email}`)
-                    }
-                }
-            } else {
-                console.log("Ha ocurrido un error")
-            }
-        } catch (error) {
-            console.error('Hubo un error en la solicitud:', error);
         }
     }
 

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function User({ user }) {
 
     useEffect(() => {
-        window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
+        window.scrollTo(0, 0);
     }, []);
 
     return (

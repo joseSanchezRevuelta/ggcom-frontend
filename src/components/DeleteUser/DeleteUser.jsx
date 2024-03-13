@@ -25,12 +25,11 @@ function DeleteUser({ openDeleteUser, setOpenDeleteUser, user_id }) {
         setLoadingDeleteUser(true)
         try {
             const response = await deleteUser(token, user_id, password)
-            console.log(response)
             if (response) {
                 setLoadingDeleteUser(false)
                 if (response.error == 'Incorrect password') {
                     setErrorPassword('Incorrect password')
-                } else  if (response.success == true) {
+                } else if (response.success == true) {
                     if (userState.userData.role != "admin") {
                         localStorage.removeItem("data_ggcom");
                         dispatch(clearUserData());

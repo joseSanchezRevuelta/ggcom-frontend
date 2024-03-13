@@ -1,7 +1,7 @@
 const frontUrl = import.meta.env.VITE_URL_FRONT;
 const apiUrl = import.meta.env.VITE_URL;
 
-//get comnunity
+//Get Comnunity
 export async function getCommunityRepository(community_id) {
     try {
         const requestOptions = {
@@ -25,7 +25,7 @@ export async function getCommunity(community_id) {
     return await getCommunityRepository(community_id)
 }
 
-//get editcommunity
+//Get EditCommunity
 export async function getEditCommunityRepository(token, community_id) {
     try {
         const requestOptions = {
@@ -51,16 +51,14 @@ export async function getEditCommunity(token, community_id) {
     return await getEditCommunityRepository(token, community_id)
 }
 
-//get comnunities filter
+//Get Comnunities Filter
 export async function getCommunitiesFilterRepository(search, game_id, country, language, timezone, order) {
-    console.log(timezone)
     let signTimezone = ''
     if (timezone.includes('+')) {
         signTimezone = 'mas'
     } else if (timezone.includes('-')) {
         signTimezone = 'menos'
     }
-    console.log(signTimezone)
     try {
         const requestOptions = {
             method: 'GET',
@@ -70,7 +68,6 @@ export async function getCommunitiesFilterRepository(search, game_id, country, l
         };
         const response = await fetch(`${apiUrl}/searchcommunities?search=${search}&game_id=${game_id}&country=${country}&language=${language}&timezone=${timezone}&signtimezone=${signTimezone}&order=${order}`, requestOptions);
         const data = await response.json();
-        // console.log(data)
         return data;
     } catch (error) {
         window.location.href = `${frontUrl}/notfound`;
@@ -82,30 +79,7 @@ export async function getCommunitiesFilter(search, game_id, country, language, t
     return await getCommunitiesFilterRepository(search, game_id, country, language, timezone, order)
 }
 
-//get comnunities filter
-// export async function getCommunitiesFilterRepository(search, game_id, country, language, timezone, order, pageFilter, limit) {
-//     try {
-//         const requestOptions = {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         };
-//         const response = await fetch(`${apiUrl}/searchcommunities?search=${search}&game_id=${game_id}&country=${country}&language=${language}&timezone=${timezone}&order=${order}&page=${pageFilter}&limit=${limit}`, requestOptions);
-//         const data = await response.json();
-//         // console.log(data)
-//         return data;
-//     } catch (error) {
-//         window.location.href = `${frontUrl}/notfound`;
-//         console.error('Error al obtener datos de la API', error);
-//     }
-// }
-
-// export async function getCommunitiesFilter(search, game_id, country, language, timezone, order, pageFilter, limit) {
-//     return await getCommunitiesFilterRepository(search, game_id, country, language, timezone, order, pageFilter, limit)
-// }
-
-//get myjoincomnunities
+//Get JoinComnunities
 export async function getMyJoinCommunitiesRepository(token) {
     try {
         const requestOptions = {
@@ -131,7 +105,7 @@ export async function geMyJointCommunities(token) {
     return await getMyJoinCommunitiesRepository(token)
 }
 
-//get mycreatedcomnunities
+//Get CreatedComnunities
 export async function getMyCreatedCommunitiesRepository(token, user_id) {
     try {
         const requestOptions = {
@@ -157,13 +131,12 @@ export async function geMyCreatedCommunities(token, user_id) {
     return await getMyCreatedCommunitiesRepository(token, user_id)
 }
 
-// create comnunity
+//Create Comnunity
 export async function createCommunityRepository(requestOptions) {
     try {
         const response = await fetch(apiUrl + '/api/createcommunity', requestOptions);
         if (response.status === 201) {
             const data = await response.json();
-            console.log("comunidad creada")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -181,13 +154,12 @@ export async function createCommunity(requestOptions) {
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
-// update comnunity
+//Update Comnunity
 export async function updateCommunityRepository(requestOptions) {
     try {
         const response = await fetch(apiUrl + '/api/updatecommunity', requestOptions);
         if (response.status === 201) {
             const data = await response.json();
-            console.log("comunidad updated")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -205,7 +177,7 @@ export async function updateCommunity(requestOptions) {
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
-// update title community
+//Update Title
 export async function updateTitleCommunityRepository(token, community_id, community_title) {
     const requestOptions = {
         method: 'PATCH',
@@ -229,7 +201,6 @@ export async function updateTitleCommunityRepository(token, community_id, commun
         const response = await fetch(apiUrl + '/api/updatetitlecommunity', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            console.log("title update")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -247,7 +218,7 @@ export async function updateTitleCommunity(token, community_id, community_title)
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
-// update title community
+//Update Description
 export async function updateDescriptionCommunityRepository(token, community_id, community_description) {
     const requestOptions = {
         method: 'PATCH',
@@ -271,7 +242,6 @@ export async function updateDescriptionCommunityRepository(token, community_id, 
         const response = await fetch(apiUrl + '/api/updatedescriptioncommunity', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            console.log("descriptioon update")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -289,7 +259,7 @@ export async function updateDescriptionCommunity(token, community_id, community_
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
-// update title community
+//Update Country
 export async function updateCountryCommunityRepository(token, community_id, community_country) {
     const requestOptions = {
         method: 'PATCH',
@@ -313,7 +283,6 @@ export async function updateCountryCommunityRepository(token, community_id, comm
         const response = await fetch(apiUrl + '/api/updatecountrycommunity', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            console.log("country update")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -331,7 +300,7 @@ export async function updateCountryCommunity(token, community_id, community_coun
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
-// update title community
+//Update Language
 export async function updateLanguageCommunityRepository(token, community_id, community_language) {
     const requestOptions = {
         method: 'PATCH',
@@ -355,7 +324,6 @@ export async function updateLanguageCommunityRepository(token, community_id, com
         const response = await fetch(apiUrl + '/api/updatelanguagecommunity', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            console.log("language update")
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -372,7 +340,6 @@ export async function updateLaguageCommunity(token, community_id, community_lang
     const community_created = await updateLanguageCommunityRepository(token, community_id, community_language)
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
-
 
 // delete comnunity
 export async function deleteCommunityRepository(token, community_id) {
@@ -397,7 +364,6 @@ export async function deleteCommunityRepository(token, community_id) {
         const response = await fetch(apiUrl + '/api/deletecommunity', requestOptions);
         if (response.status === 201) {
             const data = await response.json();
-            console.log("comunidad borrada")
             return data;
         } else {
             console.error('Response status:', response.status);

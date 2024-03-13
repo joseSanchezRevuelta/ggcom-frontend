@@ -166,16 +166,6 @@ function Filter({ setCommunities, search, setSearch, idGame, setIdGame, country,
             setGameSearch('');
         }
     };
-    // useEffect(() => {
-    //     fetch(`https://api.rawg.io/api/games?key=93fea5c3b3a8428f887fdc7ff376251a`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // Extraer solo los nombres de los videojuegos
-    //             const gameNames = data.results.map(game => game.name);
-    //             console.log(gameNames);
-    //         })
-    //         .catch(error => console.error('Error fetching game names:', error));
-    // })
 
     useEffect(() => {
         if (isOpen) {
@@ -198,13 +188,7 @@ function Filter({ setCommunities, search, setSearch, idGame, setIdGame, country,
             // const results = data.results.filter(game => game.rating > 5);
             const results = data.results;
             setGameSearch(results)
-
-            // Iterar sobre los resultados para obtener los nombres
-            // results.forEach(game => {
-            //     console.log(game.name); 
-            // });
         });
-        console.log(gameSearch)
     }
 
     const gameSelected = (event) => {
@@ -221,27 +205,10 @@ function Filter({ setCommunities, search, setSearch, idGame, setIdGame, country,
             errorGame++
         }
         if (errorGame === 0) {
-            console.log("pageFilter")
-
             setPage(1)
-            console.log(page)
             setGameErrorText('')
             setCommunities('')
             fetchData(search, idGame, country, language, timezone, order, page, limit)
-            // // getCommunitiesFilter(search, idGame, country, language, timezone, order)
-            // getCommunitiesFilter(search, idGame, country, language, timezone, order, page, limit)
-            //     .then(data => {
-            //         console.log(data)
-            //         setCommunities(data.data)
-            //         // setCreatedCommunities(data)
-            //     })
-            //     .catch(error => {
-            //         console.error('Error al obtener los datos:', error);
-            //     })
-            //     .finally(() => {
-            //         // setLoadingJoinCommunity(false);
-            //         // setLoadingLeaveCommunity(false);
-            //     });
         }
         event.preventDefault();
     }

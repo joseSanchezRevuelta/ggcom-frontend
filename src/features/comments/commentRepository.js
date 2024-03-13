@@ -1,5 +1,6 @@
 const apiUrl = import.meta.env.VITE_URL;
 
+//Get Comments
 export async function getCommentsRepository(token, community_id, userid, page, limit) {
     try {
         const requestOptions = {
@@ -26,11 +27,11 @@ export async function getCommentsRepository(token, community_id, userid, page, l
 }
 
 export async function getComments(token, community_id, userid, page, limit) {
-    return await getCommentsRepository(token, community_id,userid, page, limit)
+    return await getCommentsRepository(token, community_id, userid, page, limit)
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
-//create comment
+//Create Comment
 export async function createCommentRepository(token, user_id, community_id, username, comment) {
     try {
         const requestOptions = {
@@ -56,8 +57,6 @@ export async function createCommentRepository(token, user_id, community_id, user
         const response = await fetch(apiUrl + '/api/createcomment', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            console.log("comment creado")
-            console.log(data)
             return data;
         } else {
             console.error('Response status:', response.status);
@@ -75,7 +74,7 @@ export async function createComent(token, user_id, community_id, username, comme
     // window.location.href = `${frontUrl}/community/${community_created.id}`;
 }
 
-//delete comment
+//Delete Comment
 export async function deleteCommentRepository(token, user_id, community_id, comment_id) {
     try {
         const requestOptions = {
@@ -100,8 +99,6 @@ export async function deleteCommentRepository(token, user_id, community_id, comm
         const response = await fetch(apiUrl + '/api/deletecomment', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
-            console.log("comment borrado")
-            console.log(data)
             return data;
         } else {
             console.error('Response status:', response.status);

@@ -8,16 +8,14 @@ function CommunitiesList() {
     const { id, username, email } = useParams();
 
     useEffect(() => {
-        window.scrollTo(0, 0); // Mueve el scroll al inicio de la página
+        window.scrollTo(0, 0);
     }, []);
 
     return (
         <>
             <div className='bg-neutral-950 min-h-screen items-center overflow-auto'>
                 <Title title={'Communities list'} />
-                {/* <div className='text-center lg:w-4/5 mx-auto pt-16 bg-red-400'> */}
                 <ListCommunities id={id} />
-                {/* </div> */}
             </div>
         </>
     );

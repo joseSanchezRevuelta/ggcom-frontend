@@ -2,32 +2,26 @@ import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { checkUser } from './features/users/usersRepository.js';
+//User
 import Home from './pages/Home/Home.jsx';
 import Explore from './pages/Explore/Explore.jsx';
 import MyCommunities from './pages/MyCommunities/MyCommunities.jsx';
-import AboutUs from './pages/AboutUs/AboutUs.jsx';
 import Community from './pages/Community/Community.jsx';
 import CreateCommunity from './pages/CreateCommunity/CreateCommunity.jsx';
 import Profile from './pages/Profile/Profile.jsx';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
+//Admin
 import UserList from './pages/Admin/UserList/UserList.jsx';
 import EditUser from './pages/Admin/EditUser/EditUser.jsx';
 import CommunitiesList from './pages/Admin/CommunitiesList/CommunitiesList.jsx';
 import EditCommunity from './pages/EditCommunity/EditCommunity.jsx';
-import CommentsList from './pages/Admin/CommentsList/CommentsList.jsx';
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
   const { userData } = useSelector(state => state.user)
   if (Object.keys(userData).length) {
     return children;
-  } 
-  // else if (location.pathname === '/profile') {
-  //   return <NotFoundPage />;
-  // } 
-  // else if (location.pathname === '/editcommunity:id') {
-  //   return <NotFoundPage />;
-  // }
+  }
   return <NotFoundPage />
 }
 
@@ -88,12 +82,6 @@ function Router() {
         element={
           <MyCommunities />
         } />
-
-      {/* <Route
-        path="/aboutus"
-        element={
-          <AboutUs />
-        } /> */}
 
       <Route
         path="community/:id"
@@ -166,17 +154,17 @@ function Router() {
           </ProtectedRoute>
         } />
 
-      <Route
+      {/* <Route
         path="/commentslistuser/::userid"
         element={
           <ProtectedRoute>
             <ProtectedRouteAdmin>
-              {/* <CommentsListUser /> */}
+              <CommentsListUser />
             </ProtectedRouteAdmin>
           </ProtectedRoute>
-        } />
+        } /> */}
 
-      <Route
+      {/* <Route
         path="/commentslist/:communityid/:userid"
         element={
           <ProtectedRoute>
@@ -184,7 +172,7 @@ function Router() {
               <CommentsList />
             </ProtectedRouteAdmin>
           </ProtectedRoute>
-        } />
+        } /> */}
 
       {/* NOT FOUND */}
       <Route

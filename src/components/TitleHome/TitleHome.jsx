@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-
-
 function TitleHome({ title, subtitle, subtitle2 }) {
     return (
         <>

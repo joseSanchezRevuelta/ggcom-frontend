@@ -21,7 +21,6 @@ function Comments({ token, community_id, user_id, user_role, renderComments, set
     const fetchData = async () => {
         getComments(token, community_id, user_id, page, limit)
             .then(data => {
-                console.log(data.length)
                 if (data.length > 0) {
                     setCommentsCheck(true)
                     if (page == 0) {

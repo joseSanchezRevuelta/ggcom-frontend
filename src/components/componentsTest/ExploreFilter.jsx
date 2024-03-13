@@ -25,13 +25,10 @@ function Explore() {
     }, []);
 
     function fetchData (search, idGame, country, language, timezone, order, page, limit) {
-        console.log("pageExplore")
-        console.log(page)
         setLoading(true);
         try {
             getCommunitiesFilter(search, idGame, country, language, timezone, order, page, limit)
             .then(data => {
-                console.log(data)
                 // setCommunities(data.data)
                 // setCreatedCommunities(data)
                 if (data.data.length > 0) {
@@ -51,25 +48,6 @@ function Explore() {
                 // setLoadingJoinCommunity(false);
                 // setLoadingLeaveCommunity(false);
             });
-            // const response = await fetch(`http://localhost:8000/communities?page=${page}&limit=${limit}`);
-            // const data = await response.json();
-            // const data = response
-            // console.log(data)
-            // if (data.data.length > 0) {
-            //     if (page == 0) {
-            //         setCommunities(data.data);
-            //         setPage(prevPage => prevPage + 1);
-            //     } else {
-            //         setCommunities(prevCommunities => [...prevCommunities, ...data.data]);
-            //         setPage(prevPage => prevPage + 1);
-            //     }
-            // } 
-            // if (data.data.length < 12) {
-            //     setHasMore(false);
-            // }
-            // else {
-            //     setHasMore(false);
-            // }
         } catch (error) {
             console.error('Error al obtener datos de la API', error);
         } finally {
