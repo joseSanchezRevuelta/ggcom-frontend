@@ -134,7 +134,9 @@ export async function geMyCreatedCommunities(token, user_id) {
 //Create Comnunity
 export async function createCommunityRepository(requestOptions) {
     try {
-        const response = await fetch(apiUrl + '/api/createcommunity', requestOptions);
+        // const response = await fetch(apiUrl + '/api/createcommunity', requestOptions);
+        const response = await fetch('https://ggcom-backend-production.up.railway.app/api/createcommunity', requestOptions);
+
         if (response.status === 201) {
             const data = await response.json();
             return data;
