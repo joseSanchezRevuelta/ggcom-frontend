@@ -10,7 +10,7 @@ function Explore() {
 
     const [communities, setCommunities] = useState('');
     const [loading, setLoading] = useState(false);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const limit = 12;
 
@@ -26,7 +26,7 @@ function Explore() {
             const data = await response.json();
             console.log(data)
             if (data.data.length > 0) {
-                if (page == 0) {
+                if (page == 1) {
                     setCommunities(data.data);
                     setPage(prevPage => prevPage + 1);
                 } else {
