@@ -24,7 +24,7 @@ export default function EditProfile({ user_id, user_name, user_email }) {
             <DeleteUser openDeleteUser={openDeleteUser} setOpenDeleteUser={setOpenDeleteUser} user_id={user_id} />
 
             <div className="relative flex justify-center lg:w-4/6 w-full mx-auto mb-10 border border-main rounded bg-neutral-950">
-                <div className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left lg:py-8">
+                <div className="w-5/6 lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left lg:py-8">
                     <div className="relative z-0 w-full mt-6 mb-4 group mx-auto items-center justify-center">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
                             Username
