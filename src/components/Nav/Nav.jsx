@@ -247,7 +247,7 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                             </Transition>
                                         </Menu>
                                     ) : (
-                                        <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenSignIn(true)}>
+                                        <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded lg:mx-2" onClick={() => setOpenSignIn(true)}>
                                             Login
                                         </button>
                                     )}

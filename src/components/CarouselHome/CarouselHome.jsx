@@ -35,7 +35,7 @@ function CarouselHome({ renderState, setRenderState }) {
     <>
       <div
         id="carouselExampleCaptions"
-        className="lg:relative relative flex justify-center items-center w-full lg:w-7/12 mx-auto lg:mt-6 absolute top-11 lg:top-16 lg:top-0"
+        className="lg:relative relative flex justify-center items-center w-full lg:w-7/12 mx-auto lg:mt-6 absolute top-20 lg:top-16 lg:top-0"
         data-te-carousel-init
         data-te-ride="carousel"
         key={uniqueKey}>
