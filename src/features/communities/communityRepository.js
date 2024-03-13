@@ -136,7 +136,7 @@ export async function createCommunityRepository(requestOptions) {
     console.log(apiUrl)
     try {
         // const response = await fetch(apiUrl + '/api/createcommunity', requestOptions);
-        const response = await fetch('https://ggcom-backend-production.up.railway.app/api/createcommunity', requestOptions);
+        const response = await fetch(apiUrl + '/api/createcommunity', requestOptions);
 
         if (response.status === 201) {
             const data = await response.json();

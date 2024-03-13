@@ -23,7 +23,7 @@ export async function loginRepository(requestOptions) {
 export async function registerRepository(requestOptions) {
     try {
         // const response = await fetch(apiUrl + '/api/register', requestOptions);
-        const response = await fetch('https://ggcom-backend-production.up.railway.app/api/register', requestOptions);
+        const response = await fetch(apiUrl + '/api/register', requestOptions);
         if (response.status === 200) {
             const data = await response.json();
             return data;
