@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { createComent } from "../../features/Comments/commentRepository.js"
+import { createComent } from "../../features/comments/commentRepository"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
