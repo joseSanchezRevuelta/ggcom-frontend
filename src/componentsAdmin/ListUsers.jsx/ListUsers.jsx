@@ -102,7 +102,7 @@ function ListUsers({ token }) {
             <FilterUsers setUsers={setUsers} />
             {/* USERS */}
             <div className='bg-neutral-950 min-h-screen items-center overflow-auto'>
-                <div className='w-4/5 text-surface text-white mx-auto'>
+                <div className='lg:w-4/5 text-surface text-white mx-auto'>
                     <a className='block w-full rounded-lg p-4 transition duration-500 hover:bg-zinc-50 hover:text-black focus:bg-zinc-50 focus:text-black focus:ring-0 active:bg-zinc-100 active:text-surface dark:hover:bg-neutral-700/60 dark:hover:text-white dark:focus:bg-neutral-700/60 dark:focus:text-white dark:active:bg-surface dark:active:text-white border border-main flex flex-row justify-between'>
                         <div className='flex-1 text-center'><span>Username</span></div>
                         <div className='flex-1 text-center'><span>Email</span></div>

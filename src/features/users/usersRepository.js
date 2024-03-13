@@ -55,7 +55,7 @@ export async function deleteUserRepository(token, user_id, password) {
         )
     };
     try {
-        const response = await fetch(apiUrl + '/api/deleteuser', requestOptions);
+        const response = await fetch(apiUrl+'/api/deleteuser', requestOptions);
         if (response.status === 201) {
             const data = await response.json();
             console.log("user borrado")

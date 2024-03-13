@@ -45,7 +45,7 @@ function CommunityFull(community_id) {
             .catch(error => {
                 console.error('Error al obtener los datos:', error);
             });
-    }, [community_id.id, renderData]);
+    }, [community_id.id, renderData,  renderComments]);
 
     // fetch a joincommunity
     useEffect(() => {
@@ -117,7 +117,7 @@ function CommunityFull(community_id) {
                                 <div className='flex flex-col lg:flex-row items-center'>
                                     <img
                                         src={communityData.flag}
-                                        srcSet="https://flagcdn.com/w40/ua.png 2x"
+                                        srcSet={communityData.flag}
                                         width="30"
                                         alt="Ucrania" />
                                     <span className='text-white lg:ml-3'>{communityData.country}</span>

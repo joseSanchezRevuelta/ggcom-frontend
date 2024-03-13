@@ -21,44 +21,32 @@ function DeleteUser({ openDeleteUser, setOpenDeleteUser, user_id }) {
     const [loadingDeleteUser, setLoadingDeleteUser] = useState(false);
 
     async function fetchData(token, user_id, password) {
+        setErrorPassword('')
         setLoadingDeleteUser(true)
         try {
             const response = await deleteUser(token, user_id, password)
+            console.log(response)
             if (response) {
                 setLoadingDeleteUser(false)
                 if (response.error == 'Incorrect password') {
                     setErrorPassword('Incorrect password')
+                } else  if (response.success == true) {
+                    if (userState.userData.role != "admin") {
+                        localStorage.removeItem("data_ggcom");
+                        dispatch(clearUserData());
+                        navigateTo(`/`)
+                    } else if (userState.userData.role === "admin") {
+                        navigateTo(`/userlist`)
+                    }
+                } else {
+                    setErrorPassword('Incorrect password')
                 }
-                // if (response.errors && response.errors['data.attributes.password']) {
-                //     setErrorEmailConfirm('')
-                //     setErrorEmail('Email already used')
-                // }
-                // if (response.success === true) {
-                //     // updateUsername(token, user_id, user_name)
-                //     setOpenEditEmailModal(false)
-                //     setUserEmailState(newEmail)
-                //     setNewEmail('')
-                //     setNewEmailConfirm('')
-                //     if (userState.userData.role != "admin") {
-                //         dispatch(updateEmailState(newEmail))
-                //         // window.location.href = `${frontUrl}/profile`;
-                //     } else if (userState.userData.role === "admin") {
-                //         navigateTo(`/edituser/${user_id}/${username}/${newEmail}`)
-                //     }
-                // }
             } else {
                 console.log("Ha ocurrido un error")
             }
         } catch (error) {
             console.error('Hubo un error en la solicitud:', error);
         }
-        // if (userState.userData.role != "admin") {
-        //     localStorage.removeItem("data_ggcom");
-        //     dispatch(clearUserData());
-        //     navigateTo(`/home`)
-        // } else if (userState.userData.role === "admin") {
-        //     navigateTo(`/userlist`)
-        // }
     }
 
     function handleDelete(token, user_id, password) {

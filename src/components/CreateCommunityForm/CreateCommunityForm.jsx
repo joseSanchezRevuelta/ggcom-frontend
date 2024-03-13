@@ -165,7 +165,21 @@ function CreateCommunityForm() {
             const flag = item.flag;
             countriesArray2.push({ "country": countryName, "flag": flag });
         });
-        setCountriesArray2(countriesArray2.sort())
+
+        const compareByCountry = (a, b) => {
+            if (a.country < b.country) {
+                return -1;
+            }
+            if (a.country > b.country) {
+                return 1;
+            }
+            return 0;
+        };
+
+        // Ordenar el array de países por el nombre del país
+        const sortedCountriesArray2 = countriesArray2.sort(compareByCountry);
+
+        setCountriesArray2(sortedCountriesArray2);
     }, [countries]);
     // console.log(countriesArray2)
 
@@ -208,6 +222,7 @@ function CreateCommunityForm() {
 
     //select de paises
     const renderCountryOptions = () => {
+        console.log(countriesArray2)
         return countriesArray2 ? countriesArray2.map(country => (
             //     <option key={country} value={country} className='cursor-pointer'>
             //     {country}

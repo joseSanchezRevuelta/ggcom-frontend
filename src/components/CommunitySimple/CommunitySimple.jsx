@@ -74,7 +74,7 @@ function CommunitySimple({ community }) {
                                 {/* {language} */}
                                 <img
                                     src={community.flag}
-                                    srcSet="https://flagcdn.com/w40/ua.png 2x"
+                                    srcSet={community.flag}
                                     width="25"
                                     alt="Ucrania" 
                                     // className='border border-neutral-600'

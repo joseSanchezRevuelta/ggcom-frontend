@@ -197,7 +197,11 @@ function Nav({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, openForgotP
                                                 <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                     <span className="absolute -inset-1.5" />
                                                     <span className="sr-only">Open user menu</span>
-                                                    <UserCircleIcon className="block h-8 w-8 text-main" aria-hidden="true" />
+                                                    {userState.userData.role == 'admin' ? (
+                                                        <UserCircleIcon className="block h-8 w-8 text-red-400" aria-hidden="true" />
+                                                    ) : (
+                                                        <UserCircleIcon className="block h-8 w-8 text-main" aria-hidden="true" />
+                                                    )}
                                                     {/* <img
                                                         className="h-8 w-8 rounded-full"
                                                         src="/img/logo.png"

@@ -33,6 +33,10 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
         if (userState.userData.role === 'user' && userPassword === "") {
             errorUserPassword++;
             setErrorUserPassword('Current password is required')
+        } else if (userPassword == userNewPassword) {
+            setErrorNewPassword('')
+            setErrorNewPassword('Password cannot be the current one')
+            errorPasswordConfirm++
         } else {
             setErrorUserPassword('')
             errorUserPassword = 0
@@ -52,10 +56,6 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
         } else if (userNewPassword != userPasswordConfirm) {
             setErrorNewPassword('')
             setErrorPasswordConfirm('Password must match')
-            errorPasswordConfirm++
-        } else if (userPassword == userNewPassword) {
-            setErrorNewPassword('')
-            setErrorNewPassword('Password cannot be the current one')
             errorPasswordConfirm++
         } else {
             setErrorPasswordConfirm('')

@@ -200,7 +200,20 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
             const flag = item.flag;
             countriesArray2.push({ "country": countryName, "flag": flag });
         });
-        setCountriesArray2(countriesArray2)
+        const compareByCountry = (a, b) => {
+            if (a.country < b.country) {
+                return -1;
+            }
+            if (a.country > b.country) {
+                return 1;
+            }
+            return 0;
+        };
+
+        // Ordenar el array de países por el nombre del país
+        const sortedCountriesArray2 = countriesArray2.sort(compareByCountry);
+
+        setCountriesArray2(sortedCountriesArray2);
     }, [countries]);
     // console.log(countriesArray2)
 
@@ -498,7 +511,7 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                             <small className="text-red-400">{errors.descriptionError}</small>
                         </div>
                         {/* autoComplete */}
-                        <div className="autocomplete relative z-0 my-10 group w-1/2">
+                        <div className="autocomplete relative z-0 my-10 group lg:w-1/2">
                             <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                                 Game
                             </label>
@@ -588,13 +601,13 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                             </select>
                             <small className="block mt-1 text-red-400">{errors.timezoneErrorText}</small>
                         </div>
-                        {userState.userData.role === 'admin' && (
+                        {/* {userState.userData.role === 'admin' && (
                             <div className="text-center mt-12">
                                 <Link to={`/commentslist/${idCommunity}/${idUser}`} className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900">
                                     View Comments
                                 </Link>
                             </div>
-                        )}
+                        )} */}
                         <div className="text-center mt-12">
                             <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>
                                 {loadingButtonEditCommunity ? (

@@ -74,7 +74,7 @@ function EditEmailModal({ openEditEmailModal, setOpenEditEmailModal, userEmailSt
                         dispatch(updateEmailState(newEmail))
                         // window.location.href = `${frontUrl}/profile`;
                     } else if (userState.userData.role === "admin") {
-                        navigateTo(`/edituser/${user_id}/${username}/${newEmail}`)
+                        // navigateTo(`/edituser/${user_id}/${username}/${newEmail}/${}`)
                     }
                 }
             } else {

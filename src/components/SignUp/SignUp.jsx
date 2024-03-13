@@ -15,6 +15,8 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
   const dispatch = useDispatch();
   const  loginState  = useSelector(state => state.user)  
 
+  const [loadingSignup, setButtonLoadinSignup] = useState(false);
+
   const usernameRef = useRef(null);
 
   const [username, setUsername] = useState('');
@@ -353,9 +355,11 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
       // fetch
       // eslint-disable-next-line no-inner-declarations
       async function fetchData() {
+        setButtonLoadinSignup(true)
         try {
           const response = await registerRepository(requestOptions);
           if (response) {
+            setButtonLoadinSignup(false)
             if (response.errors && response.errors['data.attributes.email']) {
               setErrors(prevErrors => ({
                 ...prevErrors,
@@ -426,6 +430,7 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
             console.log("Ha ocurrido un error")
           }
         } catch (error) {
+          setButtonLoadinSignup(false)
           console.error('Hubo un error en la solicitud:', error);
         }
       }
@@ -514,7 +519,13 @@ const SignUp = ({ openSignUp, setOpenSignUp, setOpenSignIn }) => {
                     <span className="display: block text-xs p-4 font-bold text-white">By clicking register, you indicate that you have read and accept the<br></br><a href='#' className="text-main hover:text-emerald-400">Terms and Conditions </a>and the <a href='#' className="text-main hover:text-emerald-400">Privacy Policy</a></span>
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="text-white bg-main border border-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={handleSubmit}>Sign up</button>
+                    <button type="submit" className="text-white bg-main border border-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={handleSubmit}>
+                      {loadingSignup ? (
+                        <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                      ):(
+                        'Sign up'
+                      )}
+                    </button>
                   </div>
                 </form>
                 <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>

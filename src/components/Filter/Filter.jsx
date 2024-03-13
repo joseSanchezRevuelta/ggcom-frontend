@@ -266,7 +266,11 @@ function Filter({ setCommunities, setHasMore }) {
             {/* SEARCH */}
             <div className="flex flex-col justify-between w-full lg:w-4/5 mx-auto px-1 lg:px-3" data-te-input-wrapper-init id="async">
                 <div className="">
-                    <div className="relative mb-4 flex w-full flex-wrap items-stretch">
+                    {/* <div className="relative mb-4 flex w-full flex-wrap items-stretch"> */}
+                    <form className="relative mb-4 flex w-full flex-wrap items-stretch" onSubmit={(e) => {
+                        e.preventDefault(); // Evita que el formulario se envíe y la página se recargue
+                        handleSubmit(); // Realiza la acción de búsqueda
+                    }}>
                         <input
                             type="search"
                             className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-neutral-950 bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:border-main focus:text-white focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 focus:border-main dark:focus:border-main"
@@ -295,7 +299,8 @@ function Filter({ setCommunities, setHasMore }) {
                                     clipRule="evenodd" />
                             </svg>
                         </button>
-                    </div>
+                    </form>
+                    {/* </div> */}
                 </div>
             </div>
             {/* FILTER */}
@@ -459,7 +464,7 @@ function Filter({ setCommunities, setHasMore }) {
                                     <label className="block text-white text-sm font-bold mb-2" htmlFor="game">
                                         Game
                                     </label>
-                                    <input className="shadow appearance-none border border-neutral-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} onClick={(e) => changeGame(e.target.value)} autoComplete="off"/>
+                                    <input className="shadow appearance-none border border-neutral-600 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent focus:border-main" id="game" type="text" placeholder="Search game" value={game} onChange={(e) => changeGame(e.target.value)} onFocus={() => setIsOpen(true)} onClick={(e) => changeGame(e.target.value)} autoComplete="off" />
                                     {
                                         isOpen && gameSearch && (
                                             <div className='rounded-lg shadow-lg z-50 w-full bg-neutral-900 h-60 overflow-auto'>

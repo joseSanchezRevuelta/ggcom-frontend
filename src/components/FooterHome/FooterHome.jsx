@@ -8,7 +8,7 @@ function FooterHome() {
                 <div className="mx-auto flex flex-row items-center">
                 <span className="text-white">Colaborating with</span>
                 <a href="#"><img
-                    className="h-8 mx-1 w-auto hover:border border-transparent mx-auto"
+                    className="h-8 mx-3 w-auto hover:border border-transparent mx-auto"
                     src="/img/rawg.jpg"
                     alt="Your Company"
                 /></a>

@@ -14,6 +14,8 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
   const dispatch = useDispatch();
   const loginState = useSelector(state => state.user)
 
+  const [loadingSignin, setButtonLoadinSignin] = useState(false);
+
   const emailRef = useRef(null);
 
   const [email, setEmail] = useState('');
@@ -82,9 +84,11 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
 
       // eslint-disable-next-line no-inner-declarations
       async function fetchData() {
+        setButtonLoadinSignin(true)
         try {
           const data = await dispatch(userdAuth(requestOptions));
           if (data) {
+            setButtonLoadinSignin(false)
             if (data.payload.success === true) {
               localStorage.setItem("data_ggcom", JSON.stringify(data.payload))
               handleCloseSignIn();
@@ -94,10 +98,12 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
             }
           } else {
             //ERROR
+            setButtonLoadinSignin(false)
             setError("Incorrect user or password")
           }
         } catch (error) {
           //ERROR
+          setButtonLoadinSignin(false)
           console.error('Hubo un error en la solicitud:', error);
           setError("Incorrect user or password")
         }
@@ -166,7 +172,13 @@ const SignIn = ({ openSignIn, setOpenSignIn, openSignUp, setOpenSignUp, setOpenF
                       autoComplete='off' />
                   </div>
                   <div className="text-center mt-7">
-                    <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>Login</button>
+                    <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>
+                      {loadingSignin ? (
+                        <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
+                      ) : (
+                        'Login'
+                      )}
+                    </button>
                   </div>
                   <div className="flex items-center justify-center my-6">
                     <a href="#" className="font-bold text-main text-sm hover:text-emerald-400" onClick={() => handleButtonForgotPassword()}>¿Olvidaste tu contraseña?</a>
