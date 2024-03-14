@@ -9,7 +9,7 @@ function ListCommunities({ id }) {
     const apiUrl = import.meta.env.VITE_URL;
 
     const [communities, setCommunities] = useState('');
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const limit = 25;
 
@@ -23,7 +23,7 @@ function ListCommunities({ id }) {
             const response = await fetch(apiUrl + `/communities?page=${page}&limit=${limit}`);
             const data = await response.json();
             if (data.data.length > 0) {
-                if (page == 0) {
+                if (page == 1) {
                     setCommunities(data.data);
                     setPage(prevPage => prevPage + 1);
                 } else {

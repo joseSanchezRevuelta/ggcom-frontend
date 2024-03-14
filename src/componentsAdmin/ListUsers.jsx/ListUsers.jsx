@@ -10,7 +10,7 @@ function ListUsers({ token }) {
     const [users, setUsers] = useState('');
     const [search, setSearch] = useState('')
     const [order, setOrder] = useState('datedesc')
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const limit = 24;
 
@@ -24,7 +24,7 @@ function ListUsers({ token }) {
             getUsers(token, page, limit)
                 .then(response => {
                     if (response.length > 0) {
-                        if (page == 0) {
+                        if (page == 1) {
                             setUsers(response)
                             setPage(prevPage => prevPage + 1);
                         } else {
