@@ -58,14 +58,14 @@ function DeleteComment({ comment_id, comment_user_id, community_id, openDeleteCo
                                     {/* <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)}>
                                         Delete
                                     </button> */}
-                                    <button className="bg-main hover:bg-transparent border border-main text-white font-bold py-2 px-4 w-2/12 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)} disabled={loadingDeleteComment}>
+                                    <button className="bg-main hover:bg-transparent border border-main text-white font-bold py-2 px-4 w-3/12 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)} disabled={loadingDeleteComment}>
                                         {loadingDeleteComment ? (
                                             <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
                                         ) : (
                                             'Delete'
                                         )}
                                     </button>
-                                    <button className="bg-transparent hover:bg-main border border-main  text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDeleteComment(false)}>
+                                    <button className="bg-transparent hover:bg-main border border-main  text-white font-bold py-2 px-4 w-3/12 rounded mx-2" onClick={() => setOpenDeleteComment(false)}>
                                         Cancel
                                     </button>
                                 </div>

@@ -29,13 +29,6 @@ function EditRoleModal({ openEditRoleModal, setOpenEditRoleModal, user_id, roleS
                     setRoleState(user_role)
                     setUserRole(user_role)
                     setError('')
-                    if (userState.userData.role != "admin") {
-                        // dispatch(updateUsernameState(user_role))
-                        // window.location.href = `${frontUrl}/profile`;
-                    } else if (userState.userData.role === "admin") {
-                        dispatch(updateRoleState(user_role))
-                        // navigateTo(`/edituser/${user_id}/${userRole}/${email}`)
-                    }
                 }
             } else {
                 console.log("Ha ocurrido un error")

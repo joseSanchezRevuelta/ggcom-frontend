@@ -44,13 +44,13 @@ function CommunitySimple({ community }) {
                         <div className='flex flex-row justify-between w-full px-2 py-4'>
                             {/* People */}
                             <div className='flex items-center'>
-                                <UserGroupIcon className="h-5 w-5 mb-1 text-main inline-block" />
+                                <UserGroupIcon className="h-5 w-5 lg:mb-1 text-main inline-block" />
                                 <span className='ml-1'>{community.num_persons}</span>
                             </div>
                             {/* Comments */}
                             <div className='flex items-center'>
                                 <span className='mr-1'>{community.num_comments}</span>
-                                <ChatBubbleOvalLeftEllipsisIcon className="h-5 w-5 mb-1 text-main inline-block" />
+                                <ChatBubbleOvalLeftEllipsisIcon className="h-5 w-5 lg:mb-1 text-main inline-block" />
                             </div>
                         </div>
 
@@ -65,7 +65,7 @@ function CommunitySimple({ community }) {
                                     src="/img/languages.png"
                                     alt="language"
                                 /> */}
-                                <LanguageIcon className="h-5 w-5 ml-1 text-main inline-block" />
+                                <LanguageIcon className="h-5 w-5 text-main inline-block" />
                                 <span className='text-white ml-1'>{community.language}</span>
                             </div>
                             {/* Country */}

@@ -32,8 +32,8 @@ export default function EditUser() {
             <DeleteUser openDeleteUser={openDeleteUser} setOpenDeleteUser={setOpenDeleteUser} user_id={id} />
 
             <Title title={'Edit user'} subtitle='' />
-            <div className="relative flex justify-center lg:w-4/6 w-full mx-auto border border-main rounded">
-                <div className="lg:w-4/6 sm:w-full mx-auto my-10 font-bold-600 text-left py-8">
+            <div className="relative flex justify-center w:5/6 lg:w-4/6 w-full mx-auto border border-main rounded">
+                <div className="lg:w-4/6 w-full mx-auto my-10 font-bold-600 text-left py-8">
                     <div className="relative z-0 w-5/6 my-4 group mx-auto items-center justify-center">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="title">
                             Username
