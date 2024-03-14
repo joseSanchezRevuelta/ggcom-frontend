@@ -103,7 +103,7 @@ function CommunityFull(community_id) {
                                     src="/img/languages.png"
                                     alt="language"
                                 /> */}
-                                <LanguageIcon className="h-5 w-5 text-main inline-block" />
+                                <LanguageIcon className="h-5 w-5 lg:mb-1 text-main inline-block" />
                                 <span className='text-white ml-1'>{communityData.language}</span>
                             </div>
                             <div className='absolute left-1/2 transform -translate-x-1/2 flex flex-row flex items-center'>
@@ -125,7 +125,7 @@ function CommunityFull(community_id) {
                                         <span className="mr-1">{communityData.timezone}</span>
                                     )
                                 }
-                                <ClockIcon className="h-5 w-5 text-main inline-block" />
+                                <ClockIcon className="h-5 w-5 text-main lg:mb-1 inline-block" />
                                 {/* <img
                                     className="h-6 ml-1 w-auto hover:border border-transparent"
                                     src="/img/timezone.png"
@@ -137,7 +137,7 @@ function CommunityFull(community_id) {
                         <div className='relative flex flex-row justify-between w-full px-2 lg:px-5 pt-4'>
                             {/* Persons */}
                             <div href='#' className='flex items-center'>
-                                <UserGroupIcon className="h-5 w-5 lg:mb-1 text-main inline-block" /><span className='ml-1'>{communityData.num_persons}</span>
+                                <UserGroupIcon className="h-5 w-5 mb-1 text-main inline-block" /><span className='ml-1'>{communityData.num_persons}</span>
                             </div>
                             <div className='absolute inset-x-0 flex justify-center'>
                                 {
@@ -190,7 +190,7 @@ function CommunityFull(community_id) {
                             </div>
                             {/* Comments */}
                             <div href='#' className='flex items-center'>
-                                <span className='mr-1'>{communityData.num_comments}</span><ChatBubbleOvalLeftEllipsisIcon className="h-5 w-5 lg:mb-1 text-main inline-block" />
+                                <span className='mr-1'>{communityData.num_comments}</span><ChatBubbleOvalLeftEllipsisIcon className="h-5 w-5 mb-1 text-main inline-block" />
                             </div>
                         </div>
                         {/* Title & Description */}
