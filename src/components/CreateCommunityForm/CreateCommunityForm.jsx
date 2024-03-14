@@ -272,7 +272,14 @@ function CreateCommunityForm() {
             errorTitle = 0
         }
         //Description
-        if (description.length <5) {
+        if (description === "")  {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                descriptionError: true,
+                descriptionErrorText: 'Description is required',
+            }));
+            errorDescription++
+        } else if (description.length <5) {
             setErrors(prevErrors => ({
                 ...prevErrors,
                 descriptionError: true,
@@ -284,13 +291,6 @@ function CreateCommunityForm() {
                 ...prevErrors,
                 descriptionError: true,
                 descriptionErrorText: 'Description is too long (max 200)',
-            }));
-            errorDescription++
-        } else if (description == '' || description == null)  {
-            setErrors(prevErrors => ({
-                ...prevErrors,
-                descriptionError: true,
-                descriptionErrorText: 'Description is required',
             }));
             errorDescription++
         } else {
