@@ -466,7 +466,7 @@ function CreateCommunityForm() {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
-                        <small className="text-red-400">{errors.descriptionError}</small>
+                        <small className="text-red-400">{errors.descriptionErrorText}</small>
                     </div>
                     {/* autoComplete */}
                     <div className="autocomplete relative z-0 my-10 group lg:w-1/2">
