@@ -2,7 +2,7 @@
 function FooterHome() {
     return (
         <>
-            <div className='text-center mx-auto mt-48 lg:mt-38 flex flex-row w-full'>
+            <div className='text-center mx-auto mt-40 lg:mt-38 flex flex-row w-full'>
                 <div className="mx-auto flex flex-row items-center">
                 <span className="text-white">Colaborating with</span>
                 <a href="#"><img
