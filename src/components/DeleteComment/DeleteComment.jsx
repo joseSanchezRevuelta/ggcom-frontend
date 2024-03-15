@@ -57,6 +57,7 @@ function DeleteComment({ comment_id, comment_user_id, community_id, openDeleteCo
                             <div className="p-4 flex items-center justify-center">
                                     <span className="text-red-600 font-bold">Delete comment</span>
                                 </div>
+                                <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
                                 <div className="text-center py-8">
                                     {/* <button className="bg-main hover:bg-transparent border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, comment_user_id, community_id, comment_id)}>
                                         Delete

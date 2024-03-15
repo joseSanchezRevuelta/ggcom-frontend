@@ -28,7 +28,7 @@ export default function CommentDrop({comment_id, comment_user_id, community_id, 
         <>
             <DeleteComment comment_id={comment_id} comment_user_id={comment_user_id} community_id={community_id} openDeleteComment={openDeleteComment} setOpenDeleteComment={setOpenDeleteComment} setRenderComments={setRenderComments} setPage={setPage}/>
 
-            <Menu as="div" className="relative inline-block">
+            <Menu as="div" className="relative inline-block text-left">
                 <div>
                     <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white pl-3 py-2 text-sm font-semibold text-gray-900 shadow-sm bg-opacity-0">
                         <EllipsisVerticalIcon className='h-6 w-6 text-main inline-block' />
