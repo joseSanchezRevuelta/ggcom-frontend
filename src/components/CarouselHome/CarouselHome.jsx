@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './CarouselHome.css';
 import { Carousel, initTE } from "tw-elements";
+import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 function CarouselHome({ renderState, setRenderState }) {
@@ -77,10 +78,12 @@ function CarouselHome({ renderState, setRenderState }) {
             data-te-carousel-item
           // style="backface-visibility: hidden"
           >
-            <img
-              src="/img/carousel1.jpg"
-              className="block w-full lg:rounded-lg md:rounded-lg"
-              alt="..." />
+            <Link key="title_home" to="explore">
+              <img
+                src="/img/carousel1.jpg"
+                className="block w-full lg:rounded-lg md:rounded-lg transition duration-300 ease-in-out hover:scale-110"
+                alt="..." />
+            </Link>
             <div
               className="absolute bottom-5 lg:py-5 text-center text-white md:block mb-3 lg:mb-10 w-full mx-auto">
               <p className="lg:text-4xl text-base mb-1 lg:mb-3 mx-auto">Join to GGCOM</p>
@@ -95,10 +98,12 @@ function CarouselHome({ renderState, setRenderState }) {
             data-te-carousel-item
           // style="backface-visibility: hidden"
           >
-            <img
-              src="/img/carousel2.jpg"
-              className="block w-full lg:rounded-lg md:rounded-lg"
-              alt="..." />
+            <Link key="title_home" to="explore">
+              <img
+                src="/img/carousel2.jpg"
+                className="block w-full lg:rounded-lg md:rounded-lg transition duration-300 ease-in-out hover:scale-110"
+                alt="..." />
+            </Link>
             <div
               className="absolute bottom-5 lg:py-5 text-center text-white md:block mb-3 lg:mb-10 w-full mx-auto">
               <p className="lg:text-4xl text-base mb-1 lg:mb-3">Thousands of games available</p>
@@ -113,10 +118,12 @@ function CarouselHome({ renderState, setRenderState }) {
             data-te-carousel-item
           // style="backface-visibility: hidden"
           >
-            <img
-              src="/img/carousel3.jpg"
-              className="block w-full lg:rounded-lg md:rounded-lg"
-              alt="..." />
+            <Link key="title_home" to="explore">
+              <img
+                src="/img/carousel3.jpg"
+                className="block w-full lg:rounded-lg md:rounded-lg transition duration-300 ease-in-out hover:scale-110"
+                alt="..." />
+            </Link>
             {/* <div
               className="absolute inset-x-[15%] bottom-5 lg:py-5 text-center text-white md:block mb-3 lg:mb-10"> */}
             <div

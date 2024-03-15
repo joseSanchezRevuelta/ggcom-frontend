@@ -70,7 +70,7 @@ function Comments({ token, community_id, user_id, user_role, renderComments, set
                                             <UserCircleIcon className="block h-8 w-8 text-main" aria-hidden="true" />
                                             <span className="ml-1">{comment.username}</span>
                                         </div>
-                                        <div className="flex flex-row items-center">
+                                        <div className="flex flex-row">
                                             {/* <span className="">{comment.created_at.slice(0, 10) + " " + comment.created_at.slice(11, 16)}</span> */}
                                             <span className="">{comment.created_at.slice(0, 10)}</span>
                                             {
