@@ -12,7 +12,7 @@ function Community() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed flex flex-col'>
+            <div className='bg-neutral-950 min-h-screen bg-[url("/img/background_phone.jpg")] lg:bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed flex flex-col'>
                 <Communityfull id={id} />
             </div>
         </>

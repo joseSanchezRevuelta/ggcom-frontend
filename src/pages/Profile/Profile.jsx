@@ -14,7 +14,7 @@ function Profile() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
+            <div className='bg-neutral-950 min-h-screen bg-[url("/img/background_phone.jpg")] lg:bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
                 <Title title={'My Profile'} subtitle='' />
                 <EditProfile user_id={userState.userData.id} user_name={userState.userData.username} user_email={userState.userData.email} />
                 <Footer width={'w-full'} />
