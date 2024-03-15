@@ -91,7 +91,7 @@ function FilterUsers({ setUsers }) {
                     <div className="relative mb-4 flex w-full flex-wrap items-stretch">
                         <input
                             type="search"
-                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:border-main focus:text-white focus:outline-none border-neutral-600 text-neutral-200 placeholder:text-neutral-200 focus:border-main focus:border-main"
+                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-neutral-950 bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:border-main focus:text-white focus:outline-none border-neutral-600 text-neutral-200 placeholder:text-neutral-200 focus:border-main focus:border-main"
                             placeholder="Search Users"
                             aria-label="Search"
                             aria-describedby="button-addon1"
@@ -124,10 +124,10 @@ function FilterUsers({ setUsers }) {
             <div className="mb-8 flex flex-row justify-between w-4/5 mx-auto" data-te-input-wrapper-init id="async">
                 <div id="accordionExample" className="w-full">
                     <div
-                        className="border-b border-neutral-200 bg-white border-neutral-600 bg-transparent">
+                        className="border border-neutral-200 bg-neutral-950 border-neutral-600 bg-neutral-950 rounded-l">
                         <h2 className="mb-0" id="headingTwo">
                             <button
-                                className="group relative flex w-full items-center rounded-none border-0 bg-white px-5 py-4 text-left text-base text-main transition [overflow-anchor:none]  focus:outline-none bg-transparent text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] [&:not([data-te-collapse-collapsed])]:bg-transparent [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                                className="group relative flex w-full items-center rounded-l border-0 bg-neutral-950 px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] focus:outline-none bg-neutral-950 text-white [&:not([data-te-collapse-collapsed])]:bg-neutral-950 [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] [&:not([data-te-collapse-collapsed])]:bg-transparent [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
                                 type="button"
                                 data-te-collapse-init
                                 data-te-collapse-collapsed
@@ -170,7 +170,7 @@ function FilterUsers({ setUsers }) {
                                             name="order"
                                             autoComplete="order-name"
                                             placeholder="Timezone"
-                                            className="w-full rounded-md py-2 px-1 bg-transparent text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
+                                            className="select w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
                                             value={order}
                                             onChange={(e) => setOrder(e.target.value)}
                                             // onKeyPress={handleKeyPress}
