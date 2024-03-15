@@ -27,7 +27,7 @@ function MyCommunitiesComponent() {
                     <li role="presentation">
                         <a
                             href="#tabs-home"
-                            className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary text-neutral-400 hover:bg-transparent data-[te-nav-active]:border-main data-[te-nav-active]:text-main"
+                            className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-main data-[te-nav-active]:text-main dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-main dark:data-[te-nav-active]:text-main"
                             data-te-toggle="pill"
                             data-te-target="#tabs-home"
                             data-te-nav-active
@@ -39,7 +39,7 @@ function MyCommunitiesComponent() {
                     <li role="presentation">
                         <a
                             href="#tabs-profile"
-                            className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-primary data-[te-nav-active]:text-primary text-neutral-400 hover:bg-transparent data-[te-nav-active]:border-main data-[te-nav-active]:text-main"
+                            className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[te-nav-active]:border-main data-[te-nav-active]:text-main dark:text-neutral-400 dark:hover:bg-transparent dark:data-[te-nav-active]:border-main dark:data-[te-nav-active]:text-main"
                             data-te-toggle="pill"
                             data-te-target="#tabs-profile"
                             role="tab"

@@ -3,6 +3,7 @@ import { Fragment } from "react"
 import { useSelector } from "react-redux";
 import { deleteCommunity } from "../../features/communities/communityRepository";
 import { useNavigate } from "react-router-dom";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 // eslint-disable-next-line react/prop-types
 function Delete({ community_id, openDelete, setOpenDelete }) {
@@ -47,24 +48,26 @@ function Delete({ community_id, openDelete, setOpenDelete }) {
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[linear-gradient(to_top,rgba(0,0,0),transparent),url('/img/background_modal.jpg')] bg-cover bg-no-repeat bg-center bg-neutral-900 text-left shadow-xl transition-all sm:my-8 w-full sm:w-full max-md:max-w-lg max-lg:max-w-lg lg:max-w-lg xl:max-w-lg 2xl:max-w-lg">
-                                <div className="text-center py-8">
-                                    <div className="p-4 flex items-center justify-center">
-                                        <span className="text-red-600 font-bold">Delete community</span>
-                                    </div>
-                                    <div className="p-2- flex items-center justify-center">
-                                        <span className="text-white">You will lose all the comments and people</span>
-                                    </div>
-                                    <div className="p-2 flex items-center justify-center">
-                                        <span className="text-white">This option is irreversible</span>
-                                    </div>
-                                    <div className="text-center mt-4 pb-8">
-                                        <button className="bg-red-600 hover:bg-red-700 border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, community_id)}>
-                                            Delete
-                                        </button>
-                                        <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDelete(false)}>
-                                            Cancel
-                                        </button>
-                                    </div>
+                                <div className="p-4 flex items-center justify-center relative">
+                                    <span className="text-red-600 font-bold">Delete community</span>
+                                    <a onClick={() => setOpenDelete(false)} className="absolute top-0 right-0 mt-2 mr-2 focus:outline-none rounded cursor-pointer">
+                                        <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
+                                    </a>
+                                </div>
+                                <hr className="h-px bg-gray-200 border-0 bg-gray-700"></hr>
+                                <div className="p-2- flex items-center justify-center">
+                                    <span className="text-white">You will lose all the comments and people</span>
+                                </div>
+                                <div className="p-2 flex items-center justify-center">
+                                    <span className="text-white">This option is irreversible</span>
+                                </div>
+                                <div className="text-center mt-4 pb-8">
+                                    <button className="bg-red-600 hover:bg-red-700 border border-transparent hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => handleDelete(userState.userData.token, community_id)}>
+                                        Delete
+                                    </button>
+                                    <button className="bg-transparent hover:bg-main border border-main hover:border-main text-white font-bold py-2 px-4 rounded mx-2" onClick={() => setOpenDelete(false)}>
+                                        Cancel
+                                    </button>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
