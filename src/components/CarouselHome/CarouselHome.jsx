@@ -88,7 +88,7 @@ function CarouselHome({ renderState, setRenderState }) {
               className="absolute bottom-5 lg:py-5 text-center text-white md:block mb-3 lg:mb-10 w-full mx-auto">
               <p className="lg:text-4xl text-base mb-1 lg:mb-3 mx-auto">Join to GGCOM</p>
               <p className='text-sm lg:text-lg'>
-                Join infinite video videogame communities
+                Join infinite videogame communities
               </p>
             </div>
           </div>

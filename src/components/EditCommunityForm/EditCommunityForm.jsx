@@ -312,7 +312,21 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
             errorTitle = 0
         }
         //Description
-        if (description.length > 200) {
+        if (description === "")  {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                descriptionError: true,
+                descriptionErrorText: 'Description is required',
+            }));
+            errorDescription++
+        } else if (description.length < 5) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                descriptionError: true,
+                descriptionErrorText: 'Description is too sort (min 5)',
+            }));
+            errorDescription++
+        } else if (description.length > 200) {
             setErrors(prevErrors => ({
                 ...prevErrors,
                 descriptionError: true,

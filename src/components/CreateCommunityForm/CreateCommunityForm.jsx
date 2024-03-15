@@ -279,7 +279,7 @@ function CreateCommunityForm() {
                 descriptionErrorText: 'Description is required',
             }));
             errorDescription++
-        } else if (description.length <5) {
+        } else if (description.length < 5) {
             setErrors(prevErrors => ({
                 ...prevErrors,
                 descriptionError: true,

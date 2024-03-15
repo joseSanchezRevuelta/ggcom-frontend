@@ -1,11 +1,14 @@
 .communitySimple {
     /* align-content: space-between; */
-    min-height: 420px;
-    max-height: 420px;
+    min-height: 370px;
+    max-height: 370px;
+    /* min-height: 420px;
+    max-height: 420px; */
 }
 
-.name_community {
-    height: 100px;
+.name_community {    
+    height: 85px;
+    /* height: 100px; */
 }
 
 /* @media (max-width: 1290px) {

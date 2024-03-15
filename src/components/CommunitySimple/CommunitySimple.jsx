@@ -17,7 +17,8 @@ function CommunitySimple({ community }) {
                         maxWidth={maxWidth}
                         alt="game_image"
                         ke={community.id}
-                        className="img_game_simple w-full h-56"
+                        className="img_game_simple w-full h-48"
+                        // className="img_game_simple w-full h-56"
                     />
                     {/* <div className='px-6 pt-4'>
                     <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Videojuego</span>
