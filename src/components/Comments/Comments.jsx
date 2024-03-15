@@ -64,7 +64,7 @@ function Comments({ token, community_id, user_id, user_role, renderComments, set
                     comments.length > 0 ? (
                         <>
                             {comments.map(comment => (
-                                <div key={comment.id} className="p-4 text-center text-white w:11/12 lg:w-5/6 mx-auto border border-main rounded my-2 lg:my-4 bg-neutral-950">
+                                <div key={comment.id} className="p-4 text-center text-white w-11/12 lg:w-5/6 mx-auto border border-main rounded my-2 lg:my-4 bg-neutral-950">
                                     <div className="flex flex-row items-center mb-3 justify-between">
                                         <div className="flex flex-row items-center">
                                             <UserCircleIcon className="block h-8 w-8 text-main" aria-hidden="true" />

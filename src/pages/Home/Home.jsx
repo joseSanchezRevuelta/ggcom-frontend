@@ -14,7 +14,7 @@ function Home() {
 
     return (
         <>
-            <div className='bg-neutral-950 min-h-screen flex justify-center lg:items-center bg-[url("/img/background_phone.jpg")] lg:bg-[url("/img/background_phone.jpg")] lg:bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
+            <div className='bg-neutral-950 min-h-screen flex justify-center lg:items-center bg-[url("/img/background_phone.jpg")] lg:bg-[url("/img/w1.jpg")] lg:bg-[url("/img/w1.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
                 <div className="sm:flex sm:flex-col items-center">
                     <div className='lg:hidden md:hidden block'>
                         <TitleHome title={'GGCOM'} subtitle='Videogames Communities' />
