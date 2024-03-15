@@ -215,7 +215,7 @@ function FilterUsers({ setUsers }) {
                                             name="country"
                                             autoComplete="country-name"
                                             placeholder="Country"
-                                            className="w-full rounded-md py-2 px-1 bg-neutral-900 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
+                                            className="w-full rounded-md py-2 px-1 bg-neutral-950 text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-main lg:max-w-xs w-full text-md sm:leading-6 rounded-md cursor-pointer overflow-scroll"
                                             value={role}
                                             onChange={(e) => setRole(e.target.value)}
                                         >
