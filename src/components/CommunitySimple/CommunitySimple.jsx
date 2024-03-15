@@ -17,7 +17,7 @@ function CommunitySimple({ community }) {
                         maxWidth={maxWidth}
                         alt="game_image"
                         ke={community.id}
-                        className="img_game_simple w-full h-48"
+                        className="img_game_simple w-full h-56"
                         // className="img_game_simple w-full h-56"
                     />
                     {/* <div className='px-6 pt-4'>
