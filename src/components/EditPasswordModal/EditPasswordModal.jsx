@@ -130,7 +130,7 @@ function EditPasswordlModal({ openEditPasswordModal, setOpenEditPasswordModal, u
                                         <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
                                     </a>
                                 </div>
-                                <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                                <hr className="h-px bg-gray-200 border-0 bg-gray-700"></hr>
                                 <p id="error_signin" className="error_signin text-green-500 text-sm text-center font-semibold my-6">{success}</p>
                                 {userState.userData.role === 'user' && (
                                     <div className="relative z-0 w-5/6 my-6 group mx-auto">

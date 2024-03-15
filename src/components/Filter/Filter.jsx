@@ -247,7 +247,7 @@ function Filter({ setCommunities, setHasMore }) {
                     }}>
                         <input
                             type="search"
-                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-neutral-950 bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:border-main focus:text-white focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 focus:border-main dark:focus:border-main"
+                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-neutral-950 bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:border-main focus:text-white focus:outline-none border-neutral-600 text-neutral-200 placeholder:text-neutral-200 focus:border-main focus:border-main"
                             placeholder="Search Communities"
                             aria-label="Search"
                             aria-describedby="button-addon1"
@@ -281,10 +281,10 @@ function Filter({ setCommunities, setHasMore }) {
             <div className="mb-8 flex flex-row justify-between w-full lg:w-4/5 mx-auto rounded-l px-1 lg:px-3" data-te-input-wrapper-init id="async">
                 <div id="accordionExample" className="w-full">
                     <div
-                        className="border border-neutral-200 bg-neutral-950 dark:border-neutral-600 dark:bg-neutral-950 rounded-l">
+                        className="border border-neutral-200 bg-neutral-950 border-neutral-600 bg-neutral-950 rounded-l">
                         <h2 className="mb-0" id="headingTwo">
                             <button
-                                className="group relative flex w-full items-center rounded-l border-0 bg-neutral-950 px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] focus:outline-none dark:bg-neutral-950 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-transparent dark:[&:not([data-te-collapse-collapsed])]:text-main dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                                className="group relative flex w-full items-center rounded-l border-0 bg-neutral-950 px-5 py-4 text-left text-base text-main transition [overflow-anchor:none] focus:outline-none bg-neutral-950 text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] [&:not([data-te-collapse-collapsed])]:bg-transparent [&:not([data-te-collapse-collapsed])]:text-main [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
                                 type="button"
                                 data-te-collapse-init
                                 data-te-collapse-collapsed
@@ -293,7 +293,7 @@ function Filter({ setCommunities, setHasMore }) {
                                 aria-controls="collapseTwo">
                                 Filters
                                 <span
-                                    className="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
+                                    className="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none fill-blue-300 group-[[data-te-collapse-collapsed]]:fill-white">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -451,8 +451,8 @@ function Filter({ setCommunities, setHasMore }) {
                             </div>
                             {/* BUTON */}
                             <div className="text-center mb-4">
-                                <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:w-1/4 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900 mr-2 border border-main" onClick={handleSubmit}>Apply filters</button>
-                                <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:w-1/4 px-5 py-2.5 text-center dark:bg-transparent dark:hover:bg-main dark:focus:ring-violet-900 border border-main ml-2" onClick={clearAll}>Clear all</button>
+                                <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:w-1/4 px-5 py-2.5 text-center bg-main hover:bg-transparent focus:ring-violet-900 mr-2 border border-main" onClick={handleSubmit}>Apply filters</button>
+                                <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg lg:w-1/4 px-5 py-2.5 text-center bg-transparent hover:bg-main focus:ring-violet-900 border border-main ml-2" onClick={clearAll}>Clear all</button>
                             </div>
                         </div>
                     </div>

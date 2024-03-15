@@ -40,7 +40,7 @@ export default function EditUser() {
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">{userNameState}</span>
-                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditUsernameModal(true)}>Edit</button>
+                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditUsernameModal(true)}>Edit</button>
                         </div>
                     </div>
                     <hr></hr>
@@ -50,7 +50,7 @@ export default function EditUser() {
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">{userEmailState}</span>
-                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditEmailModal(true)}>Edit</button>
+                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditEmailModal(true)}>Edit</button>
                         </div>
                     </div>
                     <hr></hr>
@@ -60,7 +60,7 @@ export default function EditUser() {
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">pa********rd</span>
-                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-transparent border border-main focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={() => setOpenEditPasswordModal(true)}>Edit</button>
+                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-transparent border border-main focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-transparent focus:ring-violet-900" onClick={() => setOpenEditPasswordModal(true)}>Edit</button>
                         </div>
                     </div>
                     <hr></hr>
@@ -70,11 +70,11 @@ export default function EditUser() {
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">{roleState}</span>
-                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-transparent border border-main focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent dark:focus:ring-violet-900" onClick={() => setOpenEditRoleModal(true)}>Edit</button>
+                            <button className="w-24 text-white bg-indigo-600 font-bold hover:bg-transparent border border-main focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-transparent focus:ring-violet-900" onClick={() => setOpenEditRoleModal(true)}>Edit</button>
                         </div>
                     </div>
                     <div className="text-center mt-12">
-                        <button className="text-white bg-red-500 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:focus:ring-violet-900" onClick={() => setOpenDeleteUser(true)}>Delete user</button>
+                        <button className="text-white bg-red-500 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center focus:ring-violet-900" onClick={() => setOpenDeleteUser(true)}>Delete user</button>
                     </div>
                 </div>
             </div>

@@ -72,7 +72,7 @@ function CreateComment({ community_id, joinCommunityData, setRenderComments, set
                         <small className="text-red-400">{errorComent}</small>
                     </div>
                     <div className="text-center mt-12">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900"
+                        <button className="text-white bg-indigo-600 font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center bg-main hover:bg-transparent border border-main focus:ring-violet-900"
                             onClick={handleComment}
                             disabled={loadingCreateComment}>
                             {loadingCreateComment ? (

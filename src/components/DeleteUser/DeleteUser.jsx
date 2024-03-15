@@ -97,7 +97,7 @@ function DeleteUser({ openDeleteUser, setOpenDeleteUser, user_id }) {
                                 <div className="p-4 flex items-center justify-center">
                                     <span className="text-red-600 font-bold">Delete user</span>
                                 </div>
-                                <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                                <hr className="h-px bg-gray-200 border-0 bg-gray-700"></hr>
                                 {userState.userData.role === 'user' && (
                                     <>
                                         <div className="pt-5 flex items-center justify-center">

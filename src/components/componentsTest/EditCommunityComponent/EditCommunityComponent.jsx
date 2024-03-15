@@ -59,7 +59,7 @@ export default function EditCommunityComponent({ community_id, title, descriptio
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">{titleState}</span>
-                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditTitleCommunityModal(true)}>Edit</button>
+                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditTitleCommunityModal(true)}>Edit</button>
                         </div>
                         {/* <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="Title Community" value={userNameState} onChange={(e) => setUserNameState(e.target.value)} />
                         <small className="text-red-400">{errors.titleErrorText}</small> */}
@@ -76,7 +76,7 @@ export default function EditCommunityComponent({ community_id, title, descriptio
                                 <span className="text-white">{descriptionState}</span>
                             )}
 
-                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditDescriptionCommunityModal(true)}>Edit</button>
+                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditDescriptionCommunityModal(true)}>Edit</button>
                         </div>
                         {/* <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="Title Community" value={userNameState} onChange={(e) => setUserNameState(e.target.value)} />
                         <small className="text-red-400">{errors.titleErrorText}</small> */}
@@ -89,7 +89,7 @@ export default function EditCommunityComponent({ community_id, title, descriptio
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">{countryState}</span>
-                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditCountryCommunityModal(true)}>Edit</button>
+                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditCountryCommunityModal(true)}>Edit</button>
                         </div>
                         {/* <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="Title Community" value={userNameState} onChange={(e) => setUserNameState(e.target.value)} />
                         <small className="text-red-400">{errors.titleErrorText}</small> */}
@@ -102,7 +102,7 @@ export default function EditCommunityComponent({ community_id, title, descriptio
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">{languageState}</span>
-                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditLanguageCommunityModal(true)}>Edit</button>
+                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditLanguageCommunityModal(true)}>Edit</button>
                         </div>
                         {/* <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="Title Community" value={userNameState} onChange={(e) => setUserNameState(e.target.value)} />
                         <small className="text-red-400">{errors.titleErrorText}</small> */}
@@ -115,16 +115,16 @@ export default function EditCommunityComponent({ community_id, title, descriptio
                         </label>
                         <div className="w-full text-center flex items-center justify-between">
                             <span className="text-white">{timezoneState}</span>
-                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditTimezoneCommunityModal(true)}>Edit</button>
+                            <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditTimezoneCommunityModal(true)}>Edit</button>
                         </div>
                         {/* <input className="shadow border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-900 focus:border-main" id="title" type="text" placeholder="Title Community" value={userNameState} onChange={(e) => setUserNameState(e.target.value)} />
                         <small className="text-red-400">{errors.titleErrorText}</small> */}
                     </div>
                     {/* <div className="text-center mt-12">
-                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900" onClick={() => setOpenEditPasswordModal(true)}>Change password</button>
+                        <button className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900" onClick={() => setOpenEditPasswordModal(true)}>Change password</button>
                     </div>
                     <div className="text-center mt-12">
-                        <button className="text-white bg-red-500 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:focus:ring-violet-900" onClick={() => setOpenDeleteUser(true)}>Delete user</button>
+                        <button className="text-white bg-red-500 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center focus:ring-violet-900" onClick={() => setOpenDeleteUser(true)}>Delete user</button>
                     </div> */}
                 </div>
                 {/* </form> */}

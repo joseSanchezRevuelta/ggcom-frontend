@@ -67,7 +67,7 @@ function ListUsers({ token }) {
                     <div className="relative mb-4 flex w-full flex-wrap items-stretch">
                         <input
                             type="search"
-                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-main focus:text-white focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 focus:border-main dark:focus:border-main"
+                            className="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-main focus:text-white focus:outline-none border-neutral-600 text-neutral-200 placeholder:text-neutral-200 focus:border-main focus:border-main"
                             placeholder="Search Users"
                             aria-label="Search"
                             aria-describedby="button-addon1"
@@ -100,7 +100,7 @@ function ListUsers({ token }) {
             {/* USERS */}
             <div className='bg-neutral-950 min-h-screen items-center overflow-auto'>
                 <div className='lg:w-4/5 text-surface text-white mx-auto'>
-                    <a className='block w-full rounded-lg p-4 transition duration-500 hover:bg-zinc-50 hover:text-black focus:bg-zinc-50 focus:text-black focus:ring-0 active:bg-zinc-100 active:text-surface dark:hover:bg-neutral-700/60 dark:hover:text-white dark:focus:bg-neutral-700/60 dark:focus:text-white dark:active:bg-surface dark:active:text-white border border-main flex flex-row justify-between'>
+                    <a className='block w-full rounded-lg p-4 transition duration-500 hover:bg-zinc-50 hover:text-black focus:bg-zinc-50 focus:text-black focus:ring-0 active:bg-zinc-100 active:text-surface hover:bg-neutral-700/60 hover:text-white focus:bg-neutral-700/60 focus:text-white active:bg-surface active:text-white border border-main flex flex-row justify-between'>
                         <div className='flex-1 text-center'><span>Username</span></div>
                         <div className='flex-1 text-center'><span>Email</span></div>
                         <div className='flex-1 text-center'><span>Role</span></div>

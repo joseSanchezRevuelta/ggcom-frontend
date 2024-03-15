@@ -126,7 +126,7 @@ function EditUsernameModal({ openEditUsernameModal, setOpenEditUsernameModal, us
                                         <XMarkIcon className="h-6 w-6 text-neutral-950 hover:text-main" />
                                     </a>
                                 </div>
-                                <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                                <hr className="h-px bg-gray-200 border-0 bg-gray-700"></hr>
                                 <div className="relative z-0 w-5/6 my-6 group mx-auto">
                                     <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                                         New username:

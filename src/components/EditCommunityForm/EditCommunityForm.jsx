@@ -589,13 +589,13 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                         </div>
                         {/* {userState.userData.role === 'admin' && (
                             <div className="text-center mt-12">
-                                <Link to={`/commentslist/${idCommunity}/${idUser}`} className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-violet-700 dark:focus:ring-violet-900">
+                                <Link to={`/commentslist/${idCommunity}/${idUser}`} className="text-white bg-indigo-600 font-bold hover:bg-indigo-900 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-5/6 px-5 py-2.5 text-center bg-main hover:bg-violet-700 focus:ring-violet-900">
                                     View Comments
                                 </Link>
                             </div>
                         )} */}
                         <div className="text-center mt-12">
-                            <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:bg-main dark:hover:bg-transparent border border-main dark:focus:ring-violet-900" onClick={handleSubmit}>
+                            <button className="text-white bg-main font-bold hover:bg-transparent focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center bg-main hover:bg-transparent border border-main focus:ring-violet-900" onClick={handleSubmit}>
                                 {loadingButtonEditCommunity ? (
                                     <div className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status"></div>
                                 ) : (
@@ -604,7 +604,7 @@ function EditCommunityForm({ community_id, user_id, user_role }) {
                             </button>
                         </div>
                         <div className="text-center mt-12">
-                            <button className="text-white bg-transparent border border-main font-bold hover:bg-red-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center dark:focus:ring-violet-900" onClick={(e) => { e.preventDefault(); setOpenDelete(true); }}
+                            <button className="text-white bg-transparent border border-main font-bold hover:bg-red-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg w-4/6 px-5 py-2.5 text-center focus:ring-violet-900" onClick={(e) => { e.preventDefault(); setOpenDelete(true); }}
 
                             >Delete community</button>
                         </div>
